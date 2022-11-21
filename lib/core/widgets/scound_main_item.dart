@@ -219,7 +219,7 @@ class _SecondMainItemWidgetState extends State<SecondMainItemWidget> {
                                                 DialogButton(
                                                   onPressed: () =>
                                                       Navigator.of(context)
-                                                          .push(
+                                                          .pushReplacement(
                                                     MaterialPageRoute(
                                                       builder: (context) {
                                                         return const LoginScreen();

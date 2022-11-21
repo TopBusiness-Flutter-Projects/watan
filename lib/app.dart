@@ -22,6 +22,7 @@ import 'package:elwatn/injector.dart' as injector;
 import 'features/login/presentation/cubit/login_cubit.dart';
 import 'features/map/presentation/cubit/map_cubit.dart';
 import 'features/my_ads/presentation/cubit/my_ads_cubit.dart';
+import 'features/notification/presentation/cubit/notification_cubit.dart';
 import 'features/packages/presentation/cubit/package_cubit.dart';
 import 'features/profile/presentation/cubit/profile_cubit.dart';
 import 'features/project_details/presentation/cubit/project_details_cubit.dart';
@@ -100,6 +101,9 @@ class Watan extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => injector.serviceLocator<FavouritesCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<NotificationCubit>(),
         ),
       ],
       child: BlocBuilder<LocaleCubit, LocaleState>(

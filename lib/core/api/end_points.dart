@@ -46,4 +46,5 @@ class EndPoints {
   static const String changePostFavouriteStatusUrl = '${baseUrl}ads/add-or-remove-post-to-favourite';
   static const String changeProjectFavouriteStatusUrl = '${baseUrl}company/add-or-remove-project-to-favourite';
   static const String getAllLocationsUrl = '${baseUrl}home/get-all-locations';
+  static const String notificationsUrl = '${baseUrl}notifications';
 }

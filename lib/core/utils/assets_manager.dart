@@ -39,6 +39,7 @@ class ImageAssets {
   static const String socialFacebookImage = '$imagePath/social_facebook.png';
   static const String socialGoogleImage = '$imagePath/social_google.png';
   static const String socialTwitterImage = '$imagePath/social_twitter.png';
+  static const String watanLogoImage = '$imagePath/watan_logo.png';
 
   // icons
   static const String areaIcon = '$iconsPath/area_icon.svg';

@@ -93,6 +93,11 @@ import 'features/my_ads/domain/use_cases/change_status_use_case.dart';
 import 'features/my_ads/domain/use_cases/delete_ads_use_case.dart';
 import 'features/my_ads/domain/use_cases/my_ads_use_case.dart';
 import 'features/my_ads/presentation/cubit/my_ads_cubit.dart';
+import 'features/notification/data/data_sources/notifcation_data_source.dart';
+import 'features/notification/data/repositories/notifications_repositories.dart';
+import 'features/notification/domain/repositories/base_notifications_repositories.dart';
+import 'features/notification/domain/use_cases/get_all_notification_use_case.dart';
+import 'features/notification/presentation/cubit/notification_cubit.dart';
 import 'features/packages/data/data_sources/package_data_source.dart';
 import 'features/packages/data/repositories/package_repositories.dart';
 import 'features/packages/domain/repositories/base_package_repositories.dart';
@@ -260,6 +265,11 @@ Future<void> setup() async {
   serviceLocator.registerFactory(
     () => FavouritesCubit(
       serviceLocator(),
+      serviceLocator(),
+    ),
+  );
+ serviceLocator.registerFactory(
+    () => NotificationCubit(
       serviceLocator(),
     ),
   );
@@ -456,6 +466,11 @@ Future<void> setup() async {
       baseMapRepositories: serviceLocator(),
     ),
   );
+ serviceLocator.registerLazySingleton(
+    () => GetAllNotificationUseCase(
+      baseNotificationsRepositories: serviceLocator(),
+    ),
+  );
 
   //////////////////////// Repositories ////////////////////////
 
@@ -563,6 +578,11 @@ Future<void> setup() async {
       serviceLocator(),
     ),
   );
+ serviceLocator.registerLazySingleton<BaseNotificationsRepositories>(
+    () => NotificationRepositories(
+      serviceLocator(),
+    ),
+  );
 
   //////////////////////// Data Sources ////////////////////////
 
@@ -606,6 +626,8 @@ Future<void> setup() async {
       () => FavouritesDataSource(apiConsumer: serviceLocator()));
  serviceLocator.registerLazySingleton<BaseMapDataSource>(
       () => MapDataSource( serviceLocator()));
+ serviceLocator.registerLazySingleton<BaseNotificationsDataSource>(
+      () => NotificationsDataSource( serviceLocator()));
 
   //! Core
   //Network
