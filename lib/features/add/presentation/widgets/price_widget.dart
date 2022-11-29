@@ -23,6 +23,7 @@ class PriceAddWidget extends StatelessWidget {
                 ? ImageAssets.priceIcon
                 : ImageAssets.areaGoldIcon,
             text: title,
+            isAddScreen: true,
             iconColor: AppColors.primary),
         const SizedBox(height: 6),
         title == translateText(AppStrings.priceText, context)

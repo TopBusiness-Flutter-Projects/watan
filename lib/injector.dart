@@ -69,6 +69,7 @@ import 'features/home_page/data/repositories/home_data_repositories.dart';
 import 'features/home_page/domain/repositories/base_home_repositories.dart';
 import 'features/home_page/domain/use_cases/get_categories_use_case.dart';
 import 'features/home_page/domain/use_cases/get_slider_use_case.dart';
+import 'features/home_page/domain/use_cases/send_device_token_use_case.dart';
 import 'features/home_page/presentation/cubit/home_page_cubit.dart';
 import 'features/language/data/data_sources/language_locale_data_source.dart';
 import 'features/language/data/repositories/language_repository.dart';
@@ -80,6 +81,7 @@ import 'features/login/data/data_sources/login_data_source.dart';
 import 'features/login/data/repositories/login_repositories.dart';
 import 'features/login/domain/repositories/base_login_repositories.dart';
 import 'features/login/domain/use_cases/login_use_case.dart';
+import 'features/login/domain/use_cases/logout_use_case.dart';
 import 'features/login/presentation/cubit/login_cubit.dart';
 import 'features/map/data/data_sources/map_data_source.dart';
 import 'features/map/data/repositories/map_repositories.dart';
@@ -98,6 +100,7 @@ import 'features/notification/data/repositories/notifications_repositories.dart'
 import 'features/notification/domain/repositories/base_notifications_repositories.dart';
 import 'features/notification/domain/use_cases/get_all_notification_use_case.dart';
 import 'features/notification/presentation/cubit/notification_cubit.dart';
+import 'features/notification/presentation/widgets/navigation.dart';
 import 'features/packages/data/data_sources/package_data_source.dart';
 import 'features/packages/data/repositories/package_repositories.dart';
 import 'features/packages/domain/repositories/base_package_repositories.dart';
@@ -158,13 +161,16 @@ Future<void> setup() async {
     () => LocaleCubit(
       getSavedLanguageUseCase: serviceLocator(),
       changeLanguageUseCase: serviceLocator(),
+      logoutUseCase: serviceLocator(),
     ),
   );
   serviceLocator.registerFactory(
     () => HomePageCubit(
-        getSliderUseCase: serviceLocator(),
-        getCategoriesUseCase: serviceLocator(),
-        getNewAndPopularItemsUseCase: serviceLocator()),
+      getSliderUseCase: serviceLocator(),
+      getCategoriesUseCase: serviceLocator(),
+      getNewAndPopularItemsUseCase: serviceLocator(),
+      serviceLocator(),
+    ),
   );
   serviceLocator.registerFactory(
     () => ShowMoreCubit(
@@ -174,6 +180,7 @@ Future<void> setup() async {
   serviceLocator.registerFactory(
     () => LoginCubit(
       postLoginUseCase: serviceLocator(),
+      sendDeviceTokenUseCase:  serviceLocator(),
       updateStoreProfileUseCase: serviceLocator(),
     ),
   );
@@ -268,7 +275,7 @@ Future<void> setup() async {
       serviceLocator(),
     ),
   );
- serviceLocator.registerFactory(
+  serviceLocator.registerFactory(
     () => NotificationCubit(
       serviceLocator(),
     ),
@@ -466,9 +473,19 @@ Future<void> setup() async {
       baseMapRepositories: serviceLocator(),
     ),
   );
- serviceLocator.registerLazySingleton(
+  serviceLocator.registerLazySingleton(
     () => GetAllNotificationUseCase(
       baseNotificationsRepositories: serviceLocator(),
+    ),
+  );
+  serviceLocator.registerLazySingleton(
+    () => SendDeviceTokenUseCase(
+      baseHomeRepositories: serviceLocator(),
+    ),
+  );
+  serviceLocator.registerLazySingleton(
+    () => LogoutUseCase(
+      baseLoginRepositories: serviceLocator(),
     ),
   );
 
@@ -578,7 +595,7 @@ Future<void> setup() async {
       serviceLocator(),
     ),
   );
- serviceLocator.registerLazySingleton<BaseNotificationsRepositories>(
+  serviceLocator.registerLazySingleton<BaseNotificationsRepositories>(
     () => NotificationRepositories(
       serviceLocator(),
     ),
@@ -624,13 +641,14 @@ Future<void> setup() async {
       () => AddAdsDataSource(serviceLocator()));
   serviceLocator.registerLazySingleton<BaseFavouritesDataSource>(
       () => FavouritesDataSource(apiConsumer: serviceLocator()));
- serviceLocator.registerLazySingleton<BaseMapDataSource>(
-      () => MapDataSource( serviceLocator()));
- serviceLocator.registerLazySingleton<BaseNotificationsDataSource>(
-      () => NotificationsDataSource( serviceLocator()));
+  serviceLocator.registerLazySingleton<BaseMapDataSource>(
+      () => MapDataSource(serviceLocator()));
+  serviceLocator.registerLazySingleton<BaseNotificationsDataSource>(
+      () => NotificationsDataSource(serviceLocator()));
 
   //! Core
   //Network
+  serviceLocator.registerLazySingleton(() => NavigationService());
   serviceLocator.registerLazySingleton<BaseNetworkInfo>(
       () => NetworkInfo(connectionChecker: serviceLocator()));
 

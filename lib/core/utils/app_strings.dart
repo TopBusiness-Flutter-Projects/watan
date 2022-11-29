@@ -201,5 +201,23 @@ class AppStrings {
   static const String optionalText = 'optional_text';
   static const String reasonValidator = 'reason_validator';
   static const String detailsValidator = 'details_validator';
+  static const String noConversationsText = 'no_conversations_text';
+  static const String startingFromText = 'starting_from_text';
+  static const String mText = 'm_text';
+  static const String newText = 'new_text';
+  static const String ongoingText = 'ongoing_text';
+  static const String finishedText = 'finished_text';
+  static const String paymentPlanText = 'payment_plan_text';
+  static const String floorPlanText = 'floor_plan_text';
+  static const String schemaText = 'schema_text';
+  static const String planTitleHint = 'plan_title_hint';
+  static const String percentHint = 'percent_hint';
+  static const String planTitleValidator = 'plan_title_validator';
+  static const String percentValidator = 'percent_validator';
+  static const String unitDetailsFloorPlanTitle = 'unit_details_floor_plan_title';
+  static const String bedroomValidator = 'bedroom_validator';
+  static const String bathroomValidator = 'bathroom_validator';
+
+
 
 }

@@ -1,3 +1,5 @@
+import 'package:elwatn/core/utils/convert_numbers_method.dart';
+import 'package:elwatn/core/utils/is_language_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,7 +39,9 @@ class _UnitDetailsFloorPlanesWidgetState
                 Expanded(
                   child: ListTileAllDetailsWidget(
                     image: ImageAssets.homeAddIcon,
-                    text: "unit Details & Floor Planes",
+                    text: translateText(
+                        AppStrings.unitDetailsFloorPlanTitle, context),
+                    isAddScreen: true,
                     iconColor: AppColors.primary,
                   ),
                 ),
@@ -69,7 +73,8 @@ class _UnitDetailsFloorPlanesWidgetState
                               child: Row(
                                 children: [
                                   IconWithTextWidget(
-                                    text: "Floor Plan",
+                                    text: translateText(
+                                        AppStrings.floorPlanText, context),
                                     icon: ImageAssets.packagesIcon,
                                     iconColor: AppColors.black,
                                   ),
@@ -80,28 +85,48 @@ class _UnitDetailsFloorPlanesWidgetState
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         IconWithTextWidget(
-                                          text:
-                                              "${context.read<AddProjectCubit>().unitPlanArea[index]}",
+                                          text: !IsLanguage.isEnLanguage(
+                                                  context)
+                                              ? replaceToArabicNumber(context
+                                                  .read<AddProjectCubit>()
+                                                  .unitPlanArea[index]
+                                                  .toString())
+                                              : "${context.read<AddProjectCubit>().unitPlanArea[index]}",
                                           icon: ImageAssets.areaGoldIcon,
                                           iconColor: AppColors.black,
                                         ),
                                         IconWithTextWidget(
-                                          text: context
-                                              .read<AddProjectCubit>()
-                                              .unitPlanBedroom[index],
+                                          text: !IsLanguage.isEnLanguage(
+                                                  context)
+                                              ? replaceToArabicNumber(context
+                                                  .read<AddProjectCubit>()
+                                                  .unitPlanBedroom[index])
+                                              : context
+                                                  .read<AddProjectCubit>()
+                                                  .unitPlanBedroom[index],
                                           icon: ImageAssets.roomsIcon,
                                           iconColor: AppColors.black,
                                         ),
                                         IconWithTextWidget(
-                                          text: context
-                                              .read<AddProjectCubit>()
-                                              .unitPlanBathroom[index],
+                                          text: !IsLanguage.isEnLanguage(
+                                                  context)
+                                              ? replaceToArabicNumber(context
+                                                  .read<AddProjectCubit>()
+                                                  .unitPlanBathroom[index])
+                                              : context
+                                                  .read<AddProjectCubit>()
+                                                  .unitPlanBathroom[index],
                                           icon: ImageAssets.bathGoldIcon,
                                           iconColor: AppColors.black,
                                         ),
                                         IconWithTextWidget(
-                                          text:
-                                              "${context.read<AddProjectCubit>().unitPlanPrice[index]}",
+                                          text: !IsLanguage.isEnLanguage(
+                                                  context)
+                                              ? replaceToArabicNumber(context
+                                                  .read<AddProjectCubit>()
+                                                  .unitPlanPrice[index]
+                                                  .toString())
+                                              : "${context.read<AddProjectCubit>().unitPlanPrice[index]}",
                                           icon: ImageAssets.priceIcon,
                                           iconColor: AppColors.black,
                                         ),
@@ -144,56 +169,63 @@ class _UnitDetailsFloorPlanesWidgetState
         content: SizedBox(
           height: 550,
           width: MediaQuery.of(context).size.width - 50,
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomTextField(
-                  imageColor: AppColors.primary,
-                  controller: context.read<AddProjectCubit>().priceController,
-                  image: ImageAssets.priceIcon,
-                  title: translateText(AppStrings.priceText, context),
-                  validatorMessage: "Please Inter The Price",
-                  textInputType: TextInputType.number,
-                ),
-                CustomTextField(
-                  imageColor: AppColors.primary,
-                  controller: context.read<AddProjectCubit>().areaController,
-                  image: ImageAssets.areaIcon,
-                  title: translateText(AppStrings.areaText, context),
-                  validatorMessage: "Please Inter The Area",
-                  textInputType: TextInputType.number,
-                ),
-                CustomTextField(
-                  imageColor: AppColors.primary,
-                  controller: context.read<AddProjectCubit>().bedroomController,
-                  image: ImageAssets.furnitureIcon,
-                  title: translateText(AppStrings.bedroomText, context),
-                  validatorMessage: "Please Inter The Bedroom",
-                  textInputType: TextInputType.number,
-                ),
-                CustomTextField(
-                  imageColor: AppColors.primary,
-                  controller:
-                      context.read<AddProjectCubit>().bathroomController,
-                  image: ImageAssets.bathIcon,
-                  title: translateText(AppStrings.bathroomText, context),
-                  validatorMessage: "Please Inter The Bathroom",
-                  textInputType: TextInputType.number,
-                ),
-                CustomButton(
-                  text: "Add",
-                  color: AppColors.primary,
-                  paddingHorizontal: 60,
-                  onClick: () {
-                    if (formKey.currentState!.validate()) {
-                      context.read<AddProjectCubit>().addUnitPlan();
-                      Navigator.of(context).pop();
-                    }
-                  },
-                ),
-              ],
+          child: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomTextField(
+                    imageColor: AppColors.primary,
+                    controller: context.read<AddProjectCubit>().priceController,
+                    image: ImageAssets.priceIcon,
+                    title: translateText(AppStrings.priceText, context),
+                    validatorMessage:
+                        translateText(AppStrings.priceValidator, context),
+                    textInputType: TextInputType.number,
+                  ),
+                  CustomTextField(
+                    imageColor: AppColors.primary,
+                    controller: context.read<AddProjectCubit>().areaController,
+                    image: ImageAssets.areaIcon,
+                    title: translateText(AppStrings.areaText, context),
+                    validatorMessage:
+                        translateText(AppStrings.areaValidator, context),
+                    textInputType: TextInputType.number,
+                  ),
+                  CustomTextField(
+                    imageColor: AppColors.primary,
+                    controller:
+                        context.read<AddProjectCubit>().bedroomController,
+                    image: ImageAssets.furnitureIcon,
+                    title: translateText(AppStrings.bedroomText, context),
+                    validatorMessage:
+                        translateText(AppStrings.bedroomValidator, context),
+                    textInputType: TextInputType.number,
+                  ),
+                  CustomTextField(
+                    imageColor: AppColors.primary,
+                    controller:
+                        context.read<AddProjectCubit>().bathroomController,
+                    image: ImageAssets.bathIcon,
+                    title: translateText(AppStrings.bathroomText, context),
+                    validatorMessage:
+                        translateText(AppStrings.bathroomValidator, context),
+                    textInputType: TextInputType.number,
+                  ),
+                  CustomButton(
+                    text: translateText(AppStrings.addBtn, context),
+                    color: AppColors.primary,
+                    paddingHorizontal: 60,
+                    onClick: () {
+                      if (formKey.currentState!.validate()) {
+                        context.read<AddProjectCubit>().addUnitPlan();
+                        Navigator.of(context).pop();
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

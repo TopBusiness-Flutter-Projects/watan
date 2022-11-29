@@ -14,26 +14,28 @@ class NotLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "${translateText(AppStrings.shouldLoginText, context)} ....",
-            style: TextStyle(
-                color: AppColors.primary, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 40),
-          Lottie.asset(ImageAssets.noLogin),
-          const SizedBox(height: 80),
-          CustomButton(
-            text: translateText(AppStrings.loginText, context),
-            paddingHorizontal: 80,
-            color: AppColors.primary,
-            onClick: () {
-              Navigator.of(context).pushNamed(Routes.loginScreenRoute);
-            },
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "${translateText(AppStrings.shouldLoginText, context)} ....",
+              style: TextStyle(
+                  color: AppColors.primary, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 40),
+            Lottie.asset(ImageAssets.noLogin),
+            const SizedBox(height: 80),
+            CustomButton(
+              text: translateText(AppStrings.loginText, context),
+              paddingHorizontal: 80,
+              color: AppColors.primary,
+              onClick: () {
+                Navigator.of(context).pushNamed(Routes.loginScreenRoute);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

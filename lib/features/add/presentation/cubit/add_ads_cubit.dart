@@ -107,7 +107,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
       loginDataModel = LoginDataModel.fromJson(userMap);
       this.loginDataModel = loginDataModel;
     }
-    if(btnText!='update'){
+    if (btnText != 'update') {
       getAllFilterCities();
       getAllFilterAmenities();
     }
@@ -130,6 +130,8 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     cityId = mainItem.areaId!;
     locationId = mainItem.subAreaId!;
     currency = mainItem.currency!;
+    longitude = mainItem.longitude!;
+    latitude = mainItem.latitude!;
     titleController.text = mainItem.titleEn!;
     descController.text = mainItem.descriptionEn!;
     priceController.text = mainItem.price.toString();
@@ -406,8 +408,8 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     propertySelected = -1;
     status = 'sale';
     currency = '';
-    latitude=0;
-    longitude=0;
+    latitude = 0;
+    longitude = 0;
     emit(changeState());
   }
 
@@ -437,7 +439,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     status = 'sale';
     currency = '';
     videoLink = '';
-    latitude=0;
-    longitude=0;
+    latitude = 0;
+    longitude = 0;
   }
 }

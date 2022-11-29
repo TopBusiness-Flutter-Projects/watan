@@ -184,7 +184,24 @@
   "report_reason_text": "ڕاپۆرت هۆکار",
   "optional_text": "ئارەزوومەندانە",
   "reason_validator": "پێویستە بچیتە ناو هۆکارەکەوە",
-  "details_validator": "پێویستە وردەکارییەکان دابنێیت"
+  "details_validator": "پێویستە وردەکارییەکان دابنێیت",
+  "no_conversations_text": "هیچ گفتوگۆیەک نییە",
+  "starting_from_text": "سەرەتا لە... ",
+  "m_text": "م",
+  "new_text": "نوێ",
+  "ongoing_text": "پرۆسێسکردن",
+  "finished_text": "تەواو کرد",
+  "payment_plan_text": "پلانی پارەدان",
+  "floor_plan_text": "پلانی نهۆم",
+  "schema_text": "شێما",
+  "plan_title_hint": "ناونیشانی پلان",
+  "percent_hint": "لە سەدا",
+  "plan_title_validator": "تکایە ناونیشانی پلانەکە دابنێ",
+  "percent_validator": "تکایە لەسەدا دابنێ",
+  "unit_details_floor_plan_title": "وردەکاری یەکە و پلانی نهۆم",
+  "bedroom_validator": "تکایە بەهای ژووری نوستن بنووسە",
+  "bathroom_validator": "تکایە بەهای حەمام دابنێ"
+
 
 
 

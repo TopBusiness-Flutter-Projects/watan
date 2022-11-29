@@ -1,7 +1,9 @@
   import 'package:dartz/dartz.dart';
 
 import 'package:elwatn/core/error/failures.dart';
+import 'package:elwatn/core/models/response_message.dart';
 import 'package:elwatn/features/home_page/domain/entities/categories_domain_model.dart';
+import 'package:elwatn/features/home_page/domain/entities/device_token_model.dart';
 import 'package:elwatn/features/home_page/domain/entities/new_popular_domain_model.dart';
 
 import '../../../../core/error/exceptions.dart';
@@ -43,6 +45,16 @@ class HomePageRepositories implements BaseHomeRepositories {
       final newPopularData = await homePageDataSource.getNewPopularItems(userId);
       print(newPopularData);
       return Right(newPopularData);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, StatusResponse>> sendDeviceToken(DeviceTokenModel deviceTokenModel) async {
+    try {
+      final response = await homePageDataSource.sendDeviceToken(deviceTokenModel);
+      return Right(response);
     } on ServerException {
       return Left(ServerFailure());
     }

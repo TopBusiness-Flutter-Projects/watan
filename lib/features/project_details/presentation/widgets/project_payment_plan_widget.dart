@@ -22,15 +22,16 @@ class ProjectPaymentPlan extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Payment Plan",
+              Text(
+                translateText(AppStrings.paymentPlanText, context),
               ),
               const SizedBox(height: 16),
               RichText(
                 text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                      text: "Starting From : ",
+                      text:
+                          "${translateText(AppStrings.startingFromText, context)} : ",
                       style: TextStyle(fontSize: 16, color: AppColors.black),
                     ),
                     TextSpan(
@@ -76,9 +77,9 @@ class ProjectPaymentPlan extends StatelessWidget {
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                          '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.minPriceOfMeter ?? 0 : replaceToArabicNumber(mainProjectItemModel.minPriceOfMeter.toString())} M²'
+                          '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.minPriceOfMeter ?? 0 : replaceToArabicNumber(mainProjectItemModel.minPriceOfMeter.toString())}   ${translateText(AppStrings.mText, context)}²'
                           ' - '
-                          '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.maxPriceOfMeter ?? 0 : replaceToArabicNumber(mainProjectItemModel.maxPriceOfMeter.toString())} M²',
+                          '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.maxPriceOfMeter ?? 0 : replaceToArabicNumber(mainProjectItemModel.maxPriceOfMeter.toString())}   ${translateText(AppStrings.mText, context)}²',
                       style: TextStyle(fontSize: 16, color: AppColors.black),
                     ),
                   ],
@@ -95,8 +96,9 @@ class ProjectPaymentPlan extends StatelessWidget {
                         const SizedBox(
                           width: 30,
                         ),
-                        Text(
-                            "${mainProjectItemModel.paymentPlans[index].percent} %"),
+                        Text(IsLanguage.isEnLanguage(context)
+                            ? "${mainProjectItemModel.paymentPlans[index].percent} %"
+                            : "${replaceToArabicNumber(mainProjectItemModel.paymentPlans[index].percent)} %"),
                         const SizedBox(
                           width: 80,
                         ),

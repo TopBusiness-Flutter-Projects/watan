@@ -19,7 +19,8 @@ import '../../../data/models/MyRooms.dart';
 import 'cubit/conversation_page_cubit.dart';
 
 class ConversationPage extends StatefulWidget {
-  const ConversationPage({Key? key, required this.loginDataModel}) : super(key: key);
+  const ConversationPage({Key? key, required this.loginDataModel})
+      : super(key: key);
   final LoginDataModel loginDataModel;
 
   @override
@@ -42,15 +43,15 @@ class _ConversationPageState extends State<ConversationPage> {
     Size size = MediaQuery.of(context).size;
     hei = size.height;
     wid = size.width;
-      return Scaffold(
-        backgroundColor: AppColors.grey2,
-        body: RefreshIndicator(
-          onRefresh: ()async{
-            context.read<ConversationPageCubit>().getAllRoomsData();
-          },
-          child: buildBodySection(),
-        ),
-      );
+    return Scaffold(
+      backgroundColor: AppColors.grey2,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<ConversationPageCubit>().getAllRoomsData();
+        },
+        child: buildBodySection(),
+      ),
+    );
   }
 
   buildBodySection() {
@@ -65,7 +66,8 @@ class _ConversationPageState extends State<ConversationPage> {
         } else if (state is OnError) {
           return Center(
               child: InkWell(
-            onTap: () => context.read<ConversationPageCubit>().getAllRoomsData(),
+            onTap: () =>
+                context.read<ConversationPageCubit>().getAllRoomsData(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -83,10 +85,17 @@ class _ConversationPageState extends State<ConversationPage> {
             ),
           ));
         } else {
-          if (context.read<ConversationPageCubit>().allMyRooms.data!.isNotEmpty) {
+          if (context
+              .read<ConversationPageCubit>()
+              .allMyRooms
+              .data!
+              .isNotEmpty) {
             return ListView.builder(
-                itemCount:
-                    context.read<ConversationPageCubit>().allMyRooms.data!.length,
+                itemCount: context
+                    .read<ConversationPageCubit>()
+                    .allMyRooms
+                    .data!
+                    .length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: ((context, index) {
                   MyRoomsDatum model = context
@@ -96,21 +105,31 @@ class _ConversationPageState extends State<ConversationPage> {
                   return InkWell(
                     onTap: () => _onTaped(myRoomsDatum: model, index: index),
                     child: AccountingChatWidgets().buildListItem(
-                        context: context,
-                        model: model,
-                        user_id: user_id,
-                        index: index),
+                      context: context,
+                      model: model,
+                      user_id: user_id,
+                      index: index,
+                    ),
                   );
                 }));
           } else {
             return RefreshIndicator(
               onRefresh: () async =>
                   context.read<ConversationPageCubit>().getAllRoomsData(),
-              child: Center(
-                  child: Text(
-                'no_consultants',
-                style: TextStyle(color: AppColors.black, fontSize: 15.0),
-              )),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      height:MediaQuery.of(context).size.longestSide,
+                      child: Center(
+                          child: Text(
+                        translateText(AppStrings.noConversationsText, context),
+                        style: TextStyle(color: AppColors.black, fontSize: 15.0),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
             );
           }
         }
@@ -119,9 +138,14 @@ class _ConversationPageState extends State<ConversationPage> {
   }
 
   void _onTaped({required MyRoomsDatum myRoomsDatum, required int index}) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return ChatPage(myRoomDatum: myRoomsDatum);
-    }));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return ChatPage(myRoomDatum: myRoomsDatum);
+        },
+      ),
+    );
   }
 
   Future<void> _onRefresh() async {

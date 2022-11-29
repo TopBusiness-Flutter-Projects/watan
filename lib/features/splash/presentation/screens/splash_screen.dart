@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:elwatn/config/routes/app_routes.dart';
+import 'package:elwatn/features/chat/presentation/screens/chat_page.dart';
 import 'package:elwatn/features/navigation_bar/presentation/screens/navigator_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -21,7 +23,30 @@ class _SplashScreenState extends State<SplashScreen> {
   late Timer _timer;
   LoginDataModel loginDataModel = const LoginDataModel();
 
-  _goNext() => Navigator.pushReplacement(
+  _goNext() {
+    if(Routes.chatModel!=null){
+      Navigator.push(
+        context,
+        PageTransition(
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 1300),
+          child: ChatPage(myRoomDatum: Routes.chatModel!,),
+        ),
+      ).then((value) => Navigator.pushReplacement(
+        context,
+        PageTransition(
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 1300),
+          child: NavigatorBar(
+            loginDataModel: loginDataModel,
+          ),
+        ),
+      ));
+
+    }else{
+      Navigator.pushReplacement(
         context,
         PageTransition(
           type: PageTransitionType.fade,
@@ -32,6 +57,8 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         ),
       );
+    }
+  }
 
   _startDelay() async {
     if (await Permission.location.request().isDenied) {

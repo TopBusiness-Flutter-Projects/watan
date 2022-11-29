@@ -12,7 +12,7 @@ class NotificationsBloc {
 
   static final NotificationsBloc instance = NotificationsBloc._internal();
 
-  final BehaviorSubject<LocalNotification> _notificationsStreamController = BehaviorSubject<LocalNotification>();
+  BehaviorSubject<LocalNotification> _notificationsStreamController = BehaviorSubject<LocalNotification>();
 
   Stream<LocalNotification> get notificationsStream {
     return _notificationsStreamController;

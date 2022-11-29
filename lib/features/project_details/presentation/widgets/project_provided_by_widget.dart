@@ -51,10 +51,6 @@ class ProjectProvidedByWidget extends StatelessWidget {
             style: const TextStyle(fontSize: 14),
           ),
           const SizedBox(height: 16),
-          const Text(
-            "For sale : 8 | For rent : 3",
-            style: TextStyle(fontSize: 14),
-          ),
         ],
       ),
     );

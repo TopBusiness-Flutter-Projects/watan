@@ -43,7 +43,7 @@ class AllDetails extends StatelessWidget {
             text:
                 "${AppLocalizations.of(context)!.translate(AppStrings.postedOnText)}"
                 "  :  "
-                "${IsLanguage.isEnLanguage(context) ? mainItemModel!.createdAt : replaceToArabicDate(mainItemModel!.createdAt.toString())}",
+                "${IsLanguage.isEnLanguage(context) ? mainItemModel!.createdAt.toString().substring(0,10) : replaceToArabicDate(mainItemModel!.createdAt.toString().substring(0,10))}",
           ),
           ListTileAllDetailsWidget(
             image: ImageAssets.propertyIcon,
@@ -54,7 +54,6 @@ class AllDetails extends StatelessWidget {
           ListTileAllDetailsWidget(
             image: ImageAssets.typeIcon,
             text:
-                //ToDo Type Language
                 "${translateText(AppStrings.typeText, context)}"
                         "  :  " +
                     type,

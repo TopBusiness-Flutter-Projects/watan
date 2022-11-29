@@ -1,6 +1,10 @@
+import 'package:elwatn/core/utils/app_strings.dart';
+import 'package:elwatn/core/utils/is_language_methods.dart';
+import 'package:elwatn/core/utils/translate_text_method.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/convert_numbers_method.dart';
 import '../../../home_page/domain/entities/main_project_item_domain_model.dart';
 import 'floor_plans_widget.dart';
 
@@ -57,7 +61,7 @@ class _UnitDetailsFloorPlansWidgetState
                           ),
                           child: Center(
                             child: Text(
-                              "$num BedRoom",
+                              IsLanguage.isEnLanguage(context)?"$num ${translateText(AppStrings.bedroomText, context)}":'${replaceToArabicNumber(num)} ${translateText(AppStrings.bedroomText, context)}',
                               style: TextStyle(
                                   color: page == index
                                       ? AppColors.primary

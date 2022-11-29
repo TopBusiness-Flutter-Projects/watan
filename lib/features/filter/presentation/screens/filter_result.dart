@@ -1,3 +1,4 @@
+import 'package:elwatn/core/utils/app_strings.dart';
 import 'package:elwatn/core/widgets/scound_main_project_item.dart';
 import 'package:elwatn/features/filter/presentation/cubit/filter_cubit.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:scroll_navigation/navigation/title_scroll_navigation.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
+import '../../../../core/utils/translate_text_method.dart';
 import '../../../../core/widgets/scound_main_item.dart';
 
 class FilterResult extends StatelessWidget {
@@ -18,7 +20,7 @@ class FilterResult extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.white,
         title: Text(
-          "Filter Result",
+          translateText(AppStrings.filterText, context),
           style: TextStyle(color: AppColors.black),
         ),
         iconTheme: IconThemeData(
@@ -27,7 +29,7 @@ class FilterResult extends StatelessWidget {
         actions: [Image.asset(ImageAssets.logoIcon)],
       ),
       body: TitleScrollNavigation(
-        showIdentifier: true,
+        showIdentifier: false,
         barStyle: TitleNavigationBarStyle(
           style: const TextStyle(fontWeight: FontWeight.bold),
           padding: EdgeInsets.symmetric(
@@ -38,9 +40,9 @@ class FilterResult extends StatelessWidget {
           activeColor: AppColors.primary,
           // background: AppColors.buttonBackground,
         ),
-        titles: const [
-          "Ads",
-          "Projects",
+        titles:  [
+          translateText(AppStrings.adsText,context),
+          translateText(AppStrings.projectText,context),
         ],
         pages: [
           SingleChildScrollView(

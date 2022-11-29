@@ -38,7 +38,7 @@ class AccountingChatWidgets {
             leading: model.fromUser!.id == user_id
                 ? model.toUser!.image.isNotEmpty
                     ? CachedNetworkImage(
-                        imageUrl: model.fromUser!.image,
+                        imageUrl: model.toUser!.image,
                         placeholder: (context, url) =>
                             _buildAvatar(width: 48.0, height: 48.0),
                         errorWidget: (context, url, error) =>
@@ -109,7 +109,7 @@ class AccountingChatWidgets {
                     Text(
                       model.lastMessage!=null
                           ? model.lastMessage!.time!
-                          : "g ",
+                          : "",
                       style: const TextStyle(
                           fontSize: 12.0, color: AppColors.color1),
                     ),

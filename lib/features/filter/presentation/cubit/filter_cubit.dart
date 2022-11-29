@@ -214,7 +214,7 @@ class FilterCubit extends Cubit<FilterState> {
       sizeTo: areaToController.text.isEmpty
           ? null
           : int.parse(areaToController.text),
-      userId: loginDataModel!.data!.user!.id!,
+      userId: loginDataModel == null ? null : loginDataModel!.data!.user!.id!,
     ));
     emit(
       response.fold(
@@ -230,18 +230,19 @@ class FilterCubit extends Cubit<FilterState> {
   pageChange() {
     emit(PageChanged());
   }
-  clearData(){
-    status='sale';
-    cityId=0;
-    locationId=0;
-    type=-1;
+
+  clearData() {
+    status = 'sale';
+    cityId = 0;
+    locationId = 0;
+    type = -1;
     priceFromController.clear();
     priceToController.clear();
-    currency='';
-    bedroom=-1;
-    bathroom=0;
+    currency = '';
+    bedroom = -1;
+    bathroom = 0;
     areaFromController.clear();
     areaToController.clear();
-    agentId=0;
+    agentId = 0;
   }
 }

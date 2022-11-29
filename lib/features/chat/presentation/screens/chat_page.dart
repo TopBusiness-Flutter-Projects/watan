@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:bubble/bubble.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elwatn/config/routes/app_routes.dart';
 import 'package:elwatn/features/chat/presentation/screens/conversation_screen/cubit/conversation_page_cubit.dart';
 
 import 'package:flutter/material.dart';
@@ -14,8 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../login/data/models/login_data_model.dart';
+import '../../../notification/presentation/widgets/notificationlisten.dart';
 import '../../data/models/MyRooms.dart';
-import '../cubit/chat_cubit.dart';
 
 class ChatPage extends StatefulWidget {
   final MyRoomsDatum myRoomDatum;
@@ -29,23 +30,49 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   String message = "";
   int user_id = 0;
+
+  // bool isCubit = false;
   bool needscroll = true;
   double current = 0;
+  late Stream<LocalNotification> _notificationsStream;
   final TextEditingController _controller = TextEditingController();
   final ItemScrollController _scrollController = ItemScrollController();
+
   var hei, wid;
+  late ConversationPageCubit cubit;
 
   bool isend = false;
 
   int position = 0;
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     _onRefresh();
+    AppRoutes.route = 'chat';
     context
         .read<ConversationPageCubit>()
         .getOneRoomData(widget.myRoomDatum.id.toString());
+    _notificationsStream = NotificationsBloc.instance.notificationsStream;
+    _notificationsStream.listen((event) {
+      print('Er0000r : stream1111');
+      if (mounted) {
+        if (!context.read<ConversationPageCubit>().isCubit) {
+          print('Er0000r : stream2222');
+          context.read<ConversationPageCubit>().emitTheSuccess(
+                context.read<ConversationPageCubit>().allMessages,
+                MyMessage.fromJson(event.data),
+              );
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    AppRoutes.route = '';
+    Routes.chatModel = null;
+    super.dispose();
   }
 
   @override
@@ -64,23 +91,41 @@ class _ChatPageState extends State<ChatPage> {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            widget.myRoomDatum.fromUser!.image.isNotEmpty
-                ? CachedNetworkImage(
-                    imageUrl: widget.myRoomDatum.fromUser!.image,
-                    placeholder: (context, url) =>
-                        _buildAvatar(width: 48.0, height: 48.0),
-                    errorWidget: (context, url, error) =>
-                        _buildAvatar(width: 48.0, height: 48.0),
-                    width: 48,
-                    height: 48,
-                    imageBuilder: (context, imageProvider) {
-                      return CircleAvatar(
-                        backgroundImage: imageProvider,
-                        radius: 48.0,
-                      );
-                    },
-                  )
-                : _buildAvatar(width: 48.0, height: 48.0),
+            widget.myRoomDatum.fromUserId != user_id
+                ? widget.myRoomDatum.fromUser!.image.isNotEmpty
+                    ? CachedNetworkImage(
+                        imageUrl: widget.myRoomDatum.fromUser!.image,
+                        placeholder: (context, url) =>
+                            _buildAvatar(width: 48.0, height: 48.0),
+                        errorWidget: (context, url, error) =>
+                            _buildAvatar(width: 48.0, height: 48.0),
+                        width: 48,
+                        height: 48,
+                        imageBuilder: (context, imageProvider) {
+                          return CircleAvatar(
+                            backgroundImage: imageProvider,
+                            radius: 48.0,
+                          );
+                        },
+                      )
+                    : _buildAvatar(width: 48.0, height: 48.0)
+                : widget.myRoomDatum.toUser!.image.isNotEmpty
+                    ? CachedNetworkImage(
+                        imageUrl: widget.myRoomDatum.toUser!.image,
+                        placeholder: (context, url) =>
+                            _buildAvatar(width: 48.0, height: 48.0),
+                        errorWidget: (context, url, error) =>
+                            _buildAvatar(width: 48.0, height: 48.0),
+                        width: 48,
+                        height: 48,
+                        imageBuilder: (context, imageProvider) {
+                          return CircleAvatar(
+                            backgroundImage: imageProvider,
+                            radius: 48.0,
+                          );
+                        },
+                      )
+                    : _buildAvatar(width: 48.0, height: 48.0),
             const SizedBox(width: 12),
             Text(
               widget.myRoomDatum.fromUserId == user_id
@@ -103,6 +148,7 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   buildBodySection() {
+    cubit = BlocProvider.of<ConversationPageCubit>(context);
     return Column(
       children: [
         Expanded(
@@ -141,11 +187,15 @@ class _ChatPageState extends State<ChatPage> {
                                 const SizedBox(
                                   height: 8.0,
                                 ),
-                                Text(
-                                  'reload',
-                                  style: TextStyle(
-                                    color: AppColors.primary,
-                                    fontSize: 15.0,
+                                RotationTransition(
+                                  turns:
+                                      const AlwaysStoppedAnimation(180 / 360),
+                                  child: Text(
+                                    'reload',
+                                    style: TextStyle(
+                                      color: AppColors.primary,
+                                      fontSize: 15.0,
+                                    ),
                                   ),
                                 )
                               ],
@@ -199,28 +249,29 @@ class _ChatPageState extends State<ChatPage> {
                                       elevation:
                                           model.type!.contains("file") ? 0 : 2,
                                       child: Padding(
-                                          padding: const EdgeInsets.all(0),
-                                          child: (model.type!.contains("file")
-                                              ? CachedNetworkImage(
-                                                  height: 290,
-                                                  imageUrl: model.file!,
-                                                  placeholder: (context, url) =>
-                                                      Container(
-                                                        color: AppColors.gray,
-                                                      ),
-                                                  errorWidget: (context, url,
-                                                          error) =>
-                                                      Container(
-                                                        color: AppColors.gray,
-                                                      ))
-                                              : Text(
-                                                  model.message!,
-                                                  softWrap: true,
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20.0,
-                                                  ),
-                                                ))),
+                                        padding: const EdgeInsets.all(0),
+                                        child: (model.type!.contains("file")
+                                            ? CachedNetworkImage(
+                                                height: 290,
+                                                imageUrl: model.file!,
+                                                placeholder: (context, url) =>
+                                                    Container(
+                                                      color: AppColors.gray,
+                                                    ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Container(
+                                                          color: AppColors.gray,
+                                                        ))
+                                            : Text(
+                                                model.message!,
+                                                softWrap: true,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20.0,
+                                                ),
+                                              )),
+                                      ),
                                     )),
                               );
                             } else {
@@ -364,11 +415,17 @@ class _ChatPageState extends State<ChatPage> {
           color: Theme.of(context).primaryColor,
           iconSize: 25.0,
           onPressed: () {
+            context.read<ConversationPageCubit>().isCubit = true;
             needscroll = true;
             context.read<ConversationPageCubit>().imageType = 'text';
             context
                 .read<ConversationPageCubit>()
-                .sendMessage(message, widget.myRoomDatum);
+                .sendMessage(message, widget.myRoomDatum)
+                .whenComplete(() {
+              Future.delayed(Duration(milliseconds: 500), () {
+                context.read<ConversationPageCubit>().isCubit = false;
+              });
+            });
             message = "";
             _controller.clear();
           },
@@ -403,14 +460,5 @@ class _ChatPageState extends State<ChatPage> {
         ),
       ),
     );
-  }
-
-  void scrollToBottom(int index) {
-    Future.delayed(const Duration(milliseconds: 1), () {
-      print('object${index}');
-      _scrollController.jumpTo(index: 0);
-      position = index;
-      needscroll = false;
-    });
   }
 }

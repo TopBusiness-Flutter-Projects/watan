@@ -41,7 +41,7 @@ class _PickImagesContainerWidgetState extends State<PickImagesContainerWidget> {
   void initState() {
     super.initState();
     if (widget.kind == 'addProject') {
-      if (widget.title == 'Image') {
+      if (widget.title == 'imageProject') {
         if (!widget.isUpdate) {
           context.read<AddProjectCubit>().image = [];
         }else{
@@ -69,8 +69,9 @@ class _PickImagesContainerWidgetState extends State<PickImagesContainerWidget> {
       children: [
         ListTileAllDetailsWidget(
           image: ImageAssets.cameraIcon,
-          text: widget.title,
+          text: translateText(AppStrings.imagesText, context),
           iconColor: AppColors.primary,
+          isAddScreen: true,
         ),
         GestureDetector(
           onTap: () async {

@@ -15,6 +15,7 @@ class FurnishedWidget extends StatelessWidget {
       children: [
         ListTileAllDetailsWidget(
           image: ImageAssets.areaIcon,
+          isAddScreen: true,
           text: translateText(
             AppStrings.furnishedText,
             context,

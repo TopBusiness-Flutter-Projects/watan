@@ -16,6 +16,35 @@ class ProjectAllDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String type = '';
+    String projectStatus = '';
+
+    if (mainProjectItemModel.projectStatus == 'new') {
+      projectStatus = translateText(AppStrings.newText, context);
+    } else if (mainProjectItemModel.projectStatus == 'ongoing') {
+      projectStatus = translateText(AppStrings.ongoingText, context);
+    } else if (mainProjectItemModel.projectStatus == 'finished') {
+      projectStatus = translateText(AppStrings.finishedText, context);
+    } else {
+      projectStatus = mainProjectItemModel.projectStatus!;
+    }
+
+    if (mainProjectItemModel.type == '1') {
+      type = translateText(AppStrings.apartmentText, context);
+    } else if (mainProjectItemModel.type == '2') {
+      type = translateText(AppStrings.villaText, context);
+    } else if (mainProjectItemModel.type == '3') {
+      type = translateText(AppStrings.industrialLandText, context);
+    } else if (mainProjectItemModel.type == '4') {
+      type = translateText(AppStrings.commercialPlotText, context);
+    } else if (mainProjectItemModel.type == '5') {
+      type = translateText(AppStrings.shopText, context);
+    } else if (mainProjectItemModel.type == '6') {
+      type = translateText(AppStrings.officeText, context);
+    } else {
+      type = mainProjectItemModel.type!;
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Column(
@@ -38,17 +67,15 @@ class ProjectAllDetailsWidget extends StatelessWidget {
           ),
           ListTileAllDetailsWidget(
             image: ImageAssets.typeIcon,
-            text:
-                //ToDo Type Language
-                "${translateText(AppStrings.typeText, context)}"
+            text: "${translateText(AppStrings.typeText, context)}"
                 "  :  "
-                "${mainProjectItemModel.type}",
+                "${type}",
           ),
           ListTileAllDetailsWidget(
             image: ImageAssets.purposeIcon,
             text: "${translateText(AppStrings.purposeText, context)}"
                 "  :  "
-                "${mainProjectItemModel.projectStatus}",
+                "${projectStatus}",
           ),
           ListTileAllDetailsWidget(
             image: ImageAssets.cardIcon,
@@ -63,7 +90,7 @@ class ProjectAllDetailsWidget extends StatelessWidget {
             image: ImageAssets.areaIcon,
             text: "${translateText(AppStrings.areaText, context)}"
                 "  :  "
-                '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.areaRange ?? 0 : replaceToArabicNumber(mainProjectItemModel.areaRange.toString())} M²',
+                '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.areaRange ?? 0 : replaceToArabicNumber(mainProjectItemModel.areaRange.toString())}   ${translateText(AppStrings.mText, context)}²',
           ),
         ],
       ),

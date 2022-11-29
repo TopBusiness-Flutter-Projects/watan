@@ -20,6 +20,7 @@ class SelectYourLocation extends StatelessWidget {
           image: ImageAssets.locationGoldIcon,
           text: translateText(AppStrings.locationText,context),
           iconColor: AppColors.primary,
+          isAddScreen: true,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

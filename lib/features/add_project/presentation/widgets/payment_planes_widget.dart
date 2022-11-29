@@ -3,7 +3,10 @@ import 'package:elwatn/core/utils/is_language_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/utils/assets_manager.dart';
+import '../../../../core/utils/convert_numbers_method.dart';
+import '../../../../core/utils/translate_text_method.dart';
 import '../../../../core/widgets/custom_textfield.dart';
 import '../../../details/presentation/widgets/list_tile_all_details.dart';
 import '../cubit/add_project_cubit.dart';
@@ -26,8 +29,9 @@ class _PaymentPlanesWidgetState extends State<PaymentPlanesWidget> {
         children: [
           ListTileAllDetailsWidget(
             image: ImageAssets.priceIcon,
-            text: "Payment Planes",
+            text: translateText(AppStrings.paymentPlanText, context),
             iconColor: AppColors.primary,
+            isAddScreen: true,
           ),
           const SizedBox(height: 6),
           Row(
@@ -36,22 +40,24 @@ class _PaymentPlanesWidgetState extends State<PaymentPlanesWidget> {
                 flex: 6,
                 child: CustomTextField(
                   image: "null",
-                  title: "Plan Title",
+                  title: translateText(AppStrings.planTitleHint, context),
                   controller:
                       context.read<AddProjectCubit>().paymentTitleController,
                   textInputType: TextInputType.text,
-                  validatorMessage: "Please Inter Plan Title",
+                  validatorMessage:
+                      translateText(AppStrings.planTitleValidator, context),
                 ),
               ),
               Expanded(
                 flex: 3,
                 child: CustomTextField(
                   image: "null",
-                  title: "Percent",
+                  title: translateText(AppStrings.percentHint, context),
                   textInputType: TextInputType.number,
                   controller:
                       context.read<AddProjectCubit>().paymentPresentController,
-                  validatorMessage: "Please Inter The Percent Number",
+                  validatorMessage:
+                      translateText(AppStrings.percentValidator, context),
                 ),
               ),
               const SizedBox(
@@ -91,8 +97,11 @@ class _PaymentPlanesWidgetState extends State<PaymentPlanesWidget> {
                               const SizedBox(
                                 width: 30,
                               ),
-                              Text(
-                                  "${context.read<AddProjectCubit>().paymentPlanPresent[index]} %"),
+                              Text(!IsLanguage.isEnLanguage(context)
+                                  ? replaceToArabicNumber(context
+                                      .read<AddProjectCubit>()
+                                      .paymentPlanPresent[index])+' %'
+                                  : "${context.read<AddProjectCubit>().paymentPlanPresent[index]} %"),
                               const SizedBox(
                                 width: 80,
                               ),

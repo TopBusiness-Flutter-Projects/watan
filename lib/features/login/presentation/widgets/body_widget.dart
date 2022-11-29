@@ -20,8 +20,6 @@ class LoginBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    emailController.text = "ahmad75yehia@gmail.com";
-    passwordController.text = "000000";
     return SingleChildScrollView(
       child: SizedBox(
         height: MediaQuery.of(context).size.longestSide,
@@ -55,7 +53,9 @@ class LoginBodyWidget extends StatelessWidget {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return translateText(
-                                AppStrings.emailValidatorMessage, context);
+                              AppStrings.emailValidatorMessage,
+                              context,
+                            );
                           }
                           return null;
                         },
@@ -97,8 +97,8 @@ class LoginBodyWidget extends StatelessWidget {
                       },
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -118,7 +118,8 @@ class LoginBodyWidget extends StatelessWidget {
                                   context, Routes.forgetPasswordRoute);
                             },
                             child: Text(
-                              translateText(AppStrings.forgetPasswordText, context),
+                              translateText(
+                                  AppStrings.forgetPasswordText, context),
                               style: TextStyle(color: AppColors.black),
                             ),
                           ),
@@ -169,9 +170,9 @@ class LoginBodyWidget extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return   SocialMediaWebView(
+                                return SocialMediaWebView(
                                   url:
-                                  'https://watan.motaweron.com/api/auth/social/login/google',
+                                      'https://watan.motaweron.com/api/auth/social/login/google',
                                 );
                               },
                             ),
@@ -190,7 +191,7 @@ class LoginBodyWidget extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return   SocialMediaWebView(
+                                return SocialMediaWebView(
                                   url:
                                       'https://watan.motaweron.com/api/auth/social/login/facebook',
                                 );

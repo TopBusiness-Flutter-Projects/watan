@@ -10,6 +10,7 @@ import 'package:elwatn/features/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/utils/app_strings.dart';
+import '../../features/chat/data/models/MyRooms.dart';
 import '../../features/contact_us/presentation/screens/contact_us.dart';
 import '../../features/filter/presentation/screens/filter_result.dart';
 import '../../features/login/presentation/screens/login.dart';
@@ -18,8 +19,9 @@ import '../../features/notification/presentation/screens/notification.dart';
 import '../../features/profile/presentation/screens/agency_screen.dart';
 import '../../features/profile/presentation/screens/new_edit_agency.dart';
 
-
 class Routes {
+  static  MyRoomsDatum? chatModel;
+
   static const String initialRoute = '/';
   static const String notificationRoute = '/notification';
   static const String bloggsRoute = '/bloggs';
@@ -41,6 +43,7 @@ class Routes {
 }
 
 class AppRoutes {
+  static String route = '';
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.initialRoute:
@@ -49,69 +52,68 @@ class AppRoutes {
         );
       case Routes.notificationRoute:
         return MaterialPageRoute(
-          builder: (context) =>  const NotificationScreen(),
+          builder: (context) => const NotificationScreen(),
         );
-        case Routes.bloggsRoute:
+      case Routes.bloggsRoute:
         return MaterialPageRoute(
-          builder: (context) =>  const BloggsScreen(),
+          builder: (context) => const BloggsScreen(),
         );
       case Routes.filterRoute:
         return MaterialPageRoute(
-          builder: (context) =>   const FilterScreen(),
+          builder: (context) => const FilterScreen(),
         );
-        case Routes.detailsRoute:
+      case Routes.detailsRoute:
         return MaterialPageRoute(
-          builder: (context) =>   const DetailsScreen(),
+          builder: (context) => const DetailsScreen(),
         );
-        case Routes.languageRoute:
+      case Routes.languageRoute:
         return MaterialPageRoute(
-          builder: (context) =>   const LanguageScreen(),
+          builder: (context) => const LanguageScreen(),
         );
-        case Routes.filterResultRoute:
+      case Routes.filterResultRoute:
         return MaterialPageRoute(
-          builder: (context) =>   const FilterResult(),
+          builder: (context) => const FilterResult(),
         );
-        case Routes.loginScreenRoute:
+      case Routes.loginScreenRoute:
         return MaterialPageRoute(
-          builder: (context) =>    const LoginScreen(),
+          builder: (context) => const LoginScreen(),
         );
-        case Routes.welcomeRegisterRoute:
+      case Routes.welcomeRegisterRoute:
         return MaterialPageRoute(
-          builder: (context) =>   const WelcomeRegister(),
+          builder: (context) => const WelcomeRegister(),
         );
 
-
-        case Routes.agencyScreenRoute:
+      case Routes.agencyScreenRoute:
         return MaterialPageRoute(
-          builder: (context) =>   const AgencyScreen(),
+          builder: (context) => const AgencyScreen(),
         );
-        case Routes.contactUsScreenRoute:
+      case Routes.contactUsScreenRoute:
         return MaterialPageRoute(
-          builder: (context) =>    ContactUsScreen(),
+          builder: (context) => ContactUsScreen(),
         );
-        case Routes.forgetPasswordRoute:
+      case Routes.forgetPasswordRoute:
         return MaterialPageRoute(
-          builder: (context) =>    ForgetPasswordScreen(),
+          builder: (context) => ForgetPasswordScreen(),
         );
-        case Routes.resetPasswordRoute:
+      case Routes.resetPasswordRoute:
         return MaterialPageRoute(
-          builder: (context) =>   const ResetPassword(),
+          builder: (context) => const ResetPassword(),
         );
-        case Routes.newPasswordRoute:
+      case Routes.newPasswordRoute:
         return MaterialPageRoute(
-          builder: (context) =>    NewPassword(),
+          builder: (context) => NewPassword(),
         );
-        case Routes.newAndEditAgencyScreenRoute:
+      case Routes.newAndEditAgencyScreenRoute:
         return MaterialPageRoute(
-          builder: (context) =>   const NewAndEditAgencyScreen(),
+          builder: (context) => const NewAndEditAgencyScreen(),
         );
-        // case Routes.agencyProfileScreenRoute:
-        // return MaterialPageRoute(
-        //   builder: (context) =>   const AgencyProfileScreen(),
-        // );
-        case Routes.mapScreenRoute:
+      // case Routes.agencyProfileScreenRoute:
+      // return MaterialPageRoute(
+      //   builder: (context) =>   const AgencyProfileScreen(),
+      // );
+      case Routes.mapScreenRoute:
         return MaterialPageRoute(
-          builder: (context) =>   const MapScreen(),
+          builder: (context) => const MapScreen(),
         );
       default:
         return undefinedRoute();

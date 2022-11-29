@@ -29,25 +29,14 @@ class RegistrationDataSource implements BaseRegistrationDataSource {
 
   RegistrationDataSource(this.apiConsumer);
 
-  Dio dio = Dio(
-    BaseOptions(
-      baseUrl: EndPoints.baseUrl,
-      connectTimeout: 1000 * 60 * 2,
-      receiveTimeout: 1000 * 60 * 2,
-      receiveDataWhenStatusError: true,
-      contentType: "application/json",
-      headers: {'Content-Type': 'application/json'},
-    ),
-  );
-
   @override
   Future<RegistrationDataModel> postRegisterData(
       RegistrationUserModel user) async {
     final response = await apiConsumer.newPost(
       EndPoints.registerUrl,
       body: user.userType == '1'
-          ? user.toJsonRegisterUser()
-          : user.toJsonRegisterProject(),
+          ? await user.toJsonRegisterUser()
+          : await user.toJsonRegisterProject(),
       formDataIsEnabled: true,
     );
     return RegistrationDataModel.fromJson(jsonDecode(response.data));
@@ -56,9 +45,7 @@ class RegistrationDataSource implements BaseRegistrationDataSource {
   @override
   Future<LoginModel> updateProfileData(RegistrationUserModel user) async {
     Response response = await apiConsumer.newPost(EndPoints.updateProfileUrl,
-        body: user.image!.isNotEmpty
-            ? await user.updateUserProfileToJson()
-            : user.updateUserProfileWithoutPhotoToJson(),
+        body: await user.updateUserProfileToJson(),
         formDataIsEnabled: true,
         options: Options(headers: {"Authorization": user.token}));
     return LoginDataModel.fromJson(jsonDecode(response.data));

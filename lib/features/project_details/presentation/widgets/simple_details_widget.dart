@@ -1,3 +1,4 @@
+import 'package:elwatn/core/utils/translate_text_method.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/locale/app_localizations.dart';
@@ -27,7 +28,7 @@ class ProjectSimpleDetailsWidget extends StatelessWidget {
                   text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                        text: "Starting From : ",
+                        text: "${translateText(AppStrings.startingFromText, context)} : ",
                         style: TextStyle(fontSize: 16, color: AppColors.black),
                       ),
                       TextSpan(
@@ -73,9 +74,9 @@ class ProjectSimpleDetailsWidget extends StatelessWidget {
                     children: <TextSpan>[
                       TextSpan(
                         text:
-                            '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.minPriceOfMeter??0 : replaceToArabicNumber(mainProjectItemModel.minPriceOfMeter.toString())} M²'
+                            '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.minPriceOfMeter??0 : replaceToArabicNumber(mainProjectItemModel.minPriceOfMeter.toString())} ${translateText(AppStrings.mText, context)}²'
                             ' - '
-                            '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.maxPriceOfMeter??0  : replaceToArabicNumber(mainProjectItemModel.maxPriceOfMeter.toString())} M²',
+                            '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.maxPriceOfMeter??0  : replaceToArabicNumber(mainProjectItemModel.maxPriceOfMeter.toString())} ${translateText(AppStrings.mText, context)}²',
                         style: TextStyle(fontSize: 16, color: AppColors.black),
                       ),
                     ],

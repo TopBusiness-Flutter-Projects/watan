@@ -14,7 +14,7 @@ import 'package:elwatn/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const Watan());
+    await tester.pumpWidget( Watan());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

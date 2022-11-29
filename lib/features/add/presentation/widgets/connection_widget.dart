@@ -22,7 +22,8 @@ class ContactWidget extends StatelessWidget {
         ListTileAllDetailsWidget(
             image: ImageAssets.callIcon,
             text: translateText(AppStrings.contactDetailsText, context),
-            iconColor: AppColors.primary),
+            isAddScreen: true,
+            iconColor: AppColors.primary,),
         CustomTextField(
           imageColor:  AppColors.primary,
           controller: kind == 'addProject'

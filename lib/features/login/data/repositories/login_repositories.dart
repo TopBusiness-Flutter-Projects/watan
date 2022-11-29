@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:elwatn/core/error/failures.dart';
+import 'package:elwatn/core/models/response_message.dart';
 
 import 'package:elwatn/features/login/domain/entities/login_domain_model.dart';
 
@@ -17,13 +18,25 @@ class LoginRepositories implements BaseLoginRepositories {
   LoginRepositories(this.networkInfo, this.baseLoginDataSource);
 
   @override
-  Future<Either<Failure, LoginDataModel>> postLogin(String email, String password) async {
+  Future<Either<Failure, LoginDataModel>> postLogin(
+      String email, String password) async {
     try {
-      final loginData = await baseLoginDataSource.postLoginData(email, password);
+      final loginData =
+          await baseLoginDataSource.postLoginData(email, password);
       return Right(loginData);
     } on ServerException {
       return Left(ServerFailure());
     }
   }
 
+  @override
+  Future<Either<Failure, StatusResponse>> logout(
+      String userToken, String deviceToken) async {
+    try {
+      final response = await baseLoginDataSource.logout(userToken, deviceToken);
+      return Right(response);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

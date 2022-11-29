@@ -47,4 +47,6 @@ class EndPoints {
   static const String changeProjectFavouriteStatusUrl = '${baseUrl}company/add-or-remove-project-to-favourite';
   static const String getAllLocationsUrl = '${baseUrl}home/get-all-locations';
   static const String notificationsUrl = '${baseUrl}notifications';
+  static const String insertDeviceTokenUrl = '${baseUrl}auth/insert-token';
+  static const String logoutUrl = '${baseUrl}auth/logout';
 }

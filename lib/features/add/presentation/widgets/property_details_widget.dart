@@ -22,6 +22,7 @@ class PropertyDetailsWidget extends StatelessWidget {
           image: ImageAssets.areaIcon,
           text: translateText(AppStrings.propertyDetailsText,context),
           iconColor: AppColors.primary,
+          isAddScreen: true,
         ),
         const SizedBox(height: 6),
         CustomTextField(

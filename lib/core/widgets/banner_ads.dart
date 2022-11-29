@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:elwatn/core/utils/assets_manager.dart';
 import 'package:elwatn/core/widgets/network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../features/home_page/domain/entities/slider_domain_model.dart';
 import '../../features/home_page/presentation/widgets/dotes.dart';
@@ -43,10 +44,16 @@ class _BannerWidgetState extends State<BannerWidget> {
             items: widget.sliderData.map((i) {
               return Builder(
                 builder: (BuildContext context) {
-                  return ManageNetworkImage(
-                    imageUrl: i.image!,
-                    borderRadius: 0,
-                    width: double.infinity,
+                  return InkWell(
+                    onTap: () async {
+                      String url = i.link.toString();
+                      await launchUrl(Uri.parse(url));
+                    },
+                    child: ManageNetworkImage(
+                      imageUrl: i.image!,
+                      borderRadius: 0,
+                      width: double.infinity,
+                    ),
                   );
                 },
               );

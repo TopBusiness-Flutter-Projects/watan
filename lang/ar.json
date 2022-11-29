@@ -184,7 +184,24 @@
   "report_reason_text": "سبب التقرير",
   "optional_text": "اختياري",
   "reason_validator": "يجب عليك إدخال السبب",
-  "details_validator": "يجب عليك إدخال التفاصيل"
+  "details_validator": "يجب عليك إدخال التفاصيل",
+  "no_conversations_text": "لا يوجد محادثات",
+  "starting_from_text": "بدءا من",
+  "m_text": "م",
+  "new_text": "جديد",
+  "ongoing_text": "جاري التنفيذ",
+  "finished_text": "تم الانتهاء منه",
+  "payment_plan_text": "خطة الدفع",
+  "floor_plan_text": "مخطط الطابق",
+  "schema_text": "مخطط",
+  "plan_title_hint": "عنوان الخطة",
+  "percent_hint": "نسبه",
+  "plan_title_validator": "الرجاء إدخال عنوان الخطة",
+  "percent_validator": "الرجاء إدخال النسبة المئوية",
+  "unit_details_floor_plan_title": "تفاصيل الوحدة ومخطط الطابق",
+  "bedroom_validator": "الرجاء إدخال قيمة غرفة النوم",
+  "bathroom_validator": "الرجاء إدخال قيمة الحمام"
+
 
 
 

@@ -77,6 +77,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (BuildContext context, state) {
           registerCubit = context.read<RegisterCubit>();
+          if (state is RegisterFailure) {
+            Future.delayed(const Duration(seconds: 1), () {
+              snackBar(translateText(AppStrings.someErrorMessage, context), context,color: AppColors.error);
+            });
+          }
           if (state is UpdateProfileLoading||state is RegisterLoading) {
             return const ShowLoadingIndicator();
           }

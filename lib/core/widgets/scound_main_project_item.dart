@@ -19,6 +19,7 @@ import '../utils/app_strings.dart';
 import '../utils/convert_numbers_method.dart';
 import '../utils/is_language_methods.dart';
 import '../utils/toast_message_method.dart';
+import '../utils/translate_text_method.dart';
 import 'network_image.dart';
 
 class SecondMainProjectItemWidget extends StatefulWidget {
@@ -32,11 +33,12 @@ class SecondMainProjectItemWidget extends StatefulWidget {
   final bool isMyAdds;
 
   @override
-  State<SecondMainProjectItemWidget> createState() => _SecondMainProjectItemWidgetState();
+  State<SecondMainProjectItemWidget> createState() =>
+      _SecondMainProjectItemWidgetState();
 }
 
-class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidget> {
-
+class _SecondMainProjectItemWidgetState
+    extends State<SecondMainProjectItemWidget> {
   bool isFavourite = false;
   bool isLoading = false;
 
@@ -48,6 +50,36 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
 
   @override
   Widget build(BuildContext context) {
+    String type = '';
+    String projectStatus = '';
+
+    if (widget.mainProjectItemModel!.projectStatus == 'new') {
+      projectStatus = translateText(AppStrings.newText, context);
+    } else if (widget.mainProjectItemModel!.projectStatus == 'ongoing') {
+      projectStatus = translateText(AppStrings.ongoingText, context);
+    } else if (widget.mainProjectItemModel!.projectStatus == 'finished') {
+      projectStatus = translateText(AppStrings.finishedText, context);
+    } else {
+      projectStatus = widget.mainProjectItemModel!.projectStatus!;
+    }
+
+    if (widget.mainProjectItemModel!.type == '1') {
+      type = translateText(AppStrings.apartmentText, context);
+    } else if (widget.mainProjectItemModel!.type == '2') {
+      type = translateText(AppStrings.villaText, context);
+    } else if (widget.mainProjectItemModel!.type == '3') {
+      type = translateText(AppStrings.industrialLandText, context);
+    } else if (widget.mainProjectItemModel!.type == '4') {
+      type = translateText(AppStrings.commercialPlotText, context);
+    } else if (widget.mainProjectItemModel!.type == '5') {
+      type = translateText(AppStrings.shopText, context);
+    } else if (widget.mainProjectItemModel!.type == '6') {
+      type = translateText(AppStrings.officeText, context);
+    } else {
+      type = widget.mainProjectItemModel!.type??"";
+    }
+
+
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -78,8 +110,8 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
                       ),
                       child: widget.mainProjectItemModel!.images!.isNotEmpty
                           ? ManageNetworkImage(
-                              imageUrl: widget.mainProjectItemModel!
-                                  .images!.first.attachment!,
+                              imageUrl: widget.mainProjectItemModel!.images!
+                                  .first.attachment!,
                               width: 120,
                               height: 160,
                               borderRadius: 12,
@@ -103,7 +135,8 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
                           children: [
                             Text(
                               AppLocalizations.of(context)!.isEnLocale
-                                  ? widget.mainProjectItemModel!.titleEn ?? "No Title"
+                                  ? widget.mainProjectItemModel!.titleEn ??
+                                      "No Title"
                                   : (AppLocalizations.of(context)!.isArLocale
                                       ? widget.mainProjectItemModel!.titleAr ??
                                           "لا عنوان"
@@ -120,7 +153,8 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
                                       context
                                           .read<MyAdsCubit>()
                                           .deleteMyProfileAds(
-                                            widget.mainProjectItemModel!.id.toString(),
+                                            widget.mainProjectItemModel!.id
+                                                .toString(),
                                             'myAds',
                                             '3',
                                           );
@@ -133,121 +167,125 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
                                     ),
                                   )
                                 : isLoading
-                                ? SizedBox(
-                              width: 16,
-                              height: 16,
-                              child: CircularProgressIndicator(
-                                color: AppColors.primary,
-                              ),
-                            )
-                                : GestureDetector(
-                              onTap: () {
-
-                                if (context
-                                    .read<LocaleCubit>()
-                                    .loginDataModel ==
-                                    null) {
-                                  Alert(
-                                    context: context,
-                                    type: AlertType.warning,
-                                    title:
-                                    "\n You Should Login First ",
-                                    buttons: [
-                                      DialogButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context),
-                                        color: AppColors
-                                            .buttonBackground,
-                                        child: const Text(
-                                          "Cancel",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                      DialogButton(
-                                        onPressed: () =>
-                                            Navigator.of(context)
-                                                .push(
-                                              MaterialPageRoute(
-                                                builder: (context) {
-                                                  return const LoginScreen();
-                                                },
-                                              ),
-                                            ),
-                                        color: AppColors.error,
-                                        child: const Text(
-                                          "Login",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
+                                    ? SizedBox(
+                                        width: 16,
+                                        height: 16,
+                                        child: CircularProgressIndicator(
+                                          color: AppColors.primary,
                                         ),
                                       )
-                                    ],
-                                  ).show();
-                                }else{
-                                  context
-                                      .read<FavouritesCubit>()
-                                      .cubitKind = 'null';
-                                  context
-                                      .read<FavouritesCubit>()
-                                      .getFavourite = 'change';
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-                                  context
-                                      .read<FavouritesCubit>()
-                                      .changeFavouritesStatus(
-                                    widget.mainProjectItemModel!.id
-                                        .toString(),
-                                    'project',
-                                  )
-                                      .whenComplete(
-                                        () => Future.delayed(
-                                      Duration(
-                                        milliseconds: 500,
-                                      ),
-                                          () {
-                                        setState(() {
-                                          isLoading = false;
+                                    : GestureDetector(
+                                        onTap: () {
                                           if (context
-                                              .read<
-                                              FavouritesCubit>()
-                                              .message !=
-                                              'There are some Errors') {
-                                            isFavourite = context
-                                                .read<
-                                                FavouritesCubit>()
-                                                .favourite;
+                                                  .read<LocaleCubit>()
+                                                  .loginDataModel ==
+                                              null) {
+                                            Alert(
+                                              context: context,
+                                              type: AlertType.warning,
+                                              title:
+                                                  "\n ${translateText(AppStrings.shouldLoginText, context)} ",
+                                              buttons: [
+                                                DialogButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                  color: AppColors
+                                                      .buttonBackground,
+                                                  child: Text(
+                                                    translateText(
+                                                        AppStrings.cancelBtn,
+                                                        context),
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 20),
+                                                  ),
+                                                ),
+                                                DialogButton(
+                                                  onPressed: () =>
+                                                      Navigator.of(context)
+                                                          .push(
+                                                    MaterialPageRoute(
+                                                      builder: (context) {
+                                                        return const LoginScreen();
+                                                      },
+                                                    ),
+                                                  ),
+                                                  color: AppColors.error,
+                                                  child: Text(
+                                                    translateText(
+                                                        AppStrings.loginText,
+                                                        context),
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 20),
+                                                  ),
+                                                )
+                                              ],
+                                            ).show();
+                                          } else {
+                                            context
+                                                .read<FavouritesCubit>()
+                                                .cubitKind = 'null';
+                                            context
+                                                .read<FavouritesCubit>()
+                                                .getFavourite = 'change';
+                                            setState(() {
+                                              isLoading = true;
+                                            });
+                                            context
+                                                .read<FavouritesCubit>()
+                                                .changeFavouritesStatus(
+                                                  widget
+                                                      .mainProjectItemModel!.id
+                                                      .toString(),
+                                                  'project',
+                                                )
+                                                .whenComplete(
+                                                  () => Future.delayed(
+                                                    Duration(
+                                                      milliseconds: 500,
+                                                    ),
+                                                    () {
+                                                      setState(() {
+                                                        isLoading = false;
+                                                        if (context
+                                                                .read<
+                                                                    FavouritesCubit>()
+                                                                .message !=
+                                                            'There are some Errors') {
+                                                          isFavourite = context
+                                                              .read<
+                                                                  FavouritesCubit>()
+                                                              .favourite;
+                                                        }
+                                                      });
+                                                      toastMessage(
+                                                        context
+                                                            .read<
+                                                                FavouritesCubit>()
+                                                            .message,
+                                                        context,
+                                                        color:
+                                                            AppColors.primary,
+                                                      );
+                                                    },
+                                                  ),
+                                                );
                                           }
-                                        });
-                                        toastMessage(
-                                          context
-                                              .read<
-                                              FavouritesCubit>()
-                                              .message,
-                                          context,
-                                          color: AppColors.primary,
-                                        );
-                                      },
-                                    ),
-                                  );
-                                }
-                              },
-                              child: Icon(
-                                isFavourite
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: isFavourite
-                                    ? AppColors.primary
-                                    : AppColors.black,
-                              ),
-                            ),
+                                        },
+                                        child: Icon(
+                                          isFavourite
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: isFavourite
+                                              ? AppColors.primary
+                                              : AppColors.black,
+                                        ),
+                                      ),
                           ],
                         ),
-                        //ToDo Categories Languages
                         Text(
-                          widget.mainProjectItemModel!.type ?? "no title",
+                          type,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -262,11 +300,16 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
                             ),
                             Text(
                               IsLanguage.isEnLanguage(context)
-                                  ? widget.mainProjectItemModel!.locationNameEn ??
+                                  ? widget.mainProjectItemModel!
+                                          .locationNameEn ??
                                       "NO Location"
                                   : (IsLanguage.isArLanguage(context)
-                                      ? widget.mainProjectItemModel!.locationNameAr!
-                                      : widget.mainProjectItemModel!.locationNameKu!),
+                                      ? widget.mainProjectItemModel!
+                                              .locationNameAr ??
+                                          "NO Location"
+                                      : widget.mainProjectItemModel!
+                                              .locationNameKu ??
+                                          "NO Location"),
                               style: const TextStyle(fontSize: 12),
                             )
                           ],
@@ -286,9 +329,9 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
                               Expanded(
                                   flex: 8,
                                   child: Text(
-                                    "${AppLocalizations.of(context)!.translate(AppStrings.postedOnText)}"
+                                    "${translateText(AppStrings.purposeText, context)}"
                                     "  :  "
-                                    "${widget.mainProjectItemModel!.projectStatus}",
+                                    "${projectStatus}",
                                     textAlign: TextAlign.justify,
                                     style: TextStyle(fontSize: 14),
                                   ))
@@ -337,9 +380,8 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
                                       style: TextStyle(
                                           fontSize: 16, color: AppColors.black),
                                     ),
-                                    //ToDo Currancy of price
                                     TextSpan(
-                                      text: " USD",
+                                      text: " ${AppLocalizations.of(context)!.isEnLocale ? widget.mainProjectItemModel!.currency : widget.mainProjectItemModel!.currency == "USD" ? "دولار" : "دينار"}",
                                       // "  ${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel!.id! : "دولار"}",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -350,8 +392,8 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
                                 ),
                               ),
                               ViewsWidget(
-                                  views:
-                                      widget.mainProjectItemModel!.views.toString()),
+                                  views: widget.mainProjectItemModel!.views
+                                      .toString()),
                               widget.isMyAdds == true
                                   ? Row(
                                       mainAxisAlignment:
@@ -362,8 +404,8 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
                                           onPressed: () {
                                             context
                                                 .read<AddProjectCubit>()
-                                                .putDataToUpdate(
-                                                    widget.mainProjectItemModel!);
+                                                .putDataToUpdate(widget
+                                                    .mainProjectItemModel!);
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -371,8 +413,8 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
                                                   body: SafeArea(
                                                     child: AddProjectScreen(
                                                       isUpdate: true,
-                                                      mainProjectItem:
-                                                          widget.mainProjectItemModel,
+                                                      mainProjectItem: widget
+                                                          .mainProjectItemModel,
                                                     ),
                                                   ),
                                                 ),
@@ -380,7 +422,7 @@ class _SecondMainProjectItemWidgetState extends State<SecondMainProjectItemWidge
                                             );
                                           },
                                           child: Text(
-                                            "Edit",
+                                            translateText(AppStrings.editBtn, context),
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: AppColors.black,

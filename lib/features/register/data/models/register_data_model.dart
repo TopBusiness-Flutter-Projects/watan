@@ -40,7 +40,7 @@ class RegistrationDataData extends RegistrationDomainData {
 }
 
 class RegistrationUserModel extends RegistrationUser {
-   RegistrationUserModel({
+  RegistrationUserModel({
     super.id,
     super.name,
     super.phone,
@@ -99,35 +99,17 @@ class RegistrationUserModel extends RegistrationUser {
         "longitude": longitude,
       };
 
-  Map<String, dynamic> toJsonRegisterUser() => {
+  Future<Map<String, dynamic>> toJsonRegisterUser() async => {
         "name": name,
         "phone": phone,
         "email": email,
         "password": password,
         "whatsapp": whatsapp,
-        "image": image,
-        "imagePath": imagePath,
+        "image": await MultipartFile.fromFile(image!),
         "user_type": userType,
       };
 
-  Map<String, dynamic> toJsonRegisterProject() => {
-        "name": name,
-        "phone": phone,
-        "email": email,
-        "password": password,
-        "whatsapp": whatsapp,
-        "image": image,
-        "imagePath": imagePath,
-        "user_type": userType,
-        "facebook": facebook,
-        "instagram": instagram,
-        "twitter": twitter,
-        "snapchat": snapchat,
-        "latitude": latitude,
-        "longitude": longitude,
-      };
-
-  Future<Map<String, dynamic>> updateUserProfileToJson() async => {
+  Future<Map<String, dynamic>> toJsonRegisterProject() async => {
         "name": name,
         "phone": phone,
         "email": email,
@@ -143,12 +125,17 @@ class RegistrationUserModel extends RegistrationUser {
         "longitude": longitude,
       };
 
-  Map<String, dynamic> updateUserProfileWithoutPhotoToJson() => {
+  Future<Map<String, dynamic>> updateUserProfileToJson() async => {
         "name": name,
         "phone": phone,
         "email": email,
-        "password": password,
+        if (password != null) ...{
+          "password": password,
+        },
         "whatsapp": whatsapp,
+        if (image != null) ...{
+          "image": await MultipartFile.fromFile(image!),
+        },
         "user_type": userType,
         "facebook": facebook,
         "instagram": instagram,

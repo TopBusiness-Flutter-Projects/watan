@@ -1,4 +1,8 @@
 import 'package:elwatn/core/utils/app_colors.dart';
+import 'package:elwatn/core/utils/app_strings.dart';
+import 'package:elwatn/core/utils/convert_numbers_method.dart';
+import 'package:elwatn/core/utils/is_language_methods.dart';
+import 'package:elwatn/core/utils/translate_text_method.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/assets_manager.dart';
@@ -15,7 +19,7 @@ class FloorPlansWidget extends StatelessWidget {
     return Row(
       children: [
         IconWithTextWidget(
-          text: "Floor Plan",
+          text: translateText(AppStrings.floorPlanText, context),
           icon: ImageAssets.packagesIcon,
           iconColor: AppColors.black,
         ),
@@ -25,22 +29,30 @@ class FloorPlansWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconWithTextWidget(
-                text: unitDetail.area!,
+                text: !IsLanguage.isEnLanguage(context)
+                    ? replaceToArabicNumber(unitDetail.area!)
+                    : unitDetail.area!,
                 icon: ImageAssets.areaGoldIcon,
                 iconColor: AppColors.black,
               ),
               IconWithTextWidget(
-                text: unitDetail.bedrooms!,
+                text: !IsLanguage.isEnLanguage(context)
+                    ? replaceToArabicNumber(unitDetail.bedrooms!)
+                    : unitDetail.bedrooms!,
                 icon: ImageAssets.roomsIcon,
                 iconColor: AppColors.black,
               ),
               IconWithTextWidget(
-                text: unitDetail.bathrooms!,
+                text: !IsLanguage.isEnLanguage(context)
+                    ? replaceToArabicNumber(unitDetail.bathrooms!)
+                    : unitDetail.bathrooms!,
                 icon: ImageAssets.bathGoldIcon,
                 iconColor: AppColors.black,
               ),
               IconWithTextWidget(
-                text: "${unitDetail.price}",
+                text: !IsLanguage.isEnLanguage(context)
+                    ? replaceToArabicNumber(unitDetail.price.toString())
+                    : "${unitDetail.price}",
                 icon: ImageAssets.priceIcon,
                 iconColor: AppColors.black,
               ),

@@ -27,6 +27,8 @@ class ConversationPageCubit extends Cubit<ConversationPageState> {
   late String imagePath;
   XFile? imageFile;
   String imageType = '';
+  int i = 0;
+  bool isCubit = false;
 
   ConversationPageCubit(this.getMyRoomsUseCase, this.getOneRoomUseCase,
       this.sendMessageUseCase, this.openRoomUseCase)
@@ -63,21 +65,34 @@ class ConversationPageCubit extends Cubit<ConversationPageState> {
     );
   }
 
+  emitTheSuccess(List<MyMessage> myRooms,MyMessage message) {
+    if(!isCubit){
+      tempMessages = allMessages.reversed.toList();
+      tempMessages.add(message);
+      allMessages = tempMessages.reversed.toList();
+    }
+    emit(OneRoomLoaded(myRooms));
+  }
+
   void getOneRoomData(String roomId) async {
     emit(OneRoomLoading());
-    final response =
-        await getOneRoomUseCase([roomId, loginDataModel!.data!.accessToken!]);
-    emit(
-      response.fold(
-        (failure) =>
-            OneRoomError(MapFailureMessage.mapFailureToMessage(failure)),
-        (myRooms) {
-          oneRoom = myRooms;
-          allMessages = myRooms.oneRoomData!.allMessages!.reversed.toList();
-          return OneRoomLoaded(myRooms);
-        },
-      ),
-    );
+    if (loginDataModel != null) {
+      final response =
+          await getOneRoomUseCase([roomId, loginDataModel!.data!.accessToken!]);
+      emit(
+        response.fold(
+          (failure) =>
+              OneRoomError(MapFailureMessage.mapFailureToMessage(failure)),
+          (myRooms) {
+            oneRoom = myRooms;
+            allMessages = myRooms.oneRoomData!.allMessages!.reversed.toList();
+            return OneRoomLoaded(allMessages);
+          },
+        ),
+      );
+    } else {
+      _getStoreUser().whenComplete(() => getOneRoomData(roomId));
+    }
   }
 
   pickImage({
@@ -91,7 +106,7 @@ class ConversationPageCubit extends Cubit<ConversationPageState> {
     sendMessage(imageFile!.path, myRoomsDatum);
   }
 
-  sendMessage(String message, MyRoomsDatum myRoomsDatum) async {
+  Future <void> sendMessage(String message, MyRoomsDatum myRoomsDatum) async {
     emit(SendLoading());
     final response = await sendMessageUseCase(
       imageType == 'file'
@@ -114,11 +129,11 @@ class ConversationPageCubit extends Cubit<ConversationPageState> {
       response.fold(
         (failure) => SendError(MapFailureMessage.mapFailureToMessage(failure)),
         (message) {
-          tempMessages = allMessages.reversed.toList();
-          tempMessages.add(message.data!);
-          allMessages = tempMessages.reversed.toList();
-          // allMessages.reversed.toList().add(message.data!);
-          // allMessages = allMessages.reversed.toList();
+          print('Er0000r : cubit');
+            tempMessages = allMessages.reversed.toList();
+            tempMessages.add(message.data!);
+            allMessages = tempMessages.reversed.toList();
+            // isCubit = true;
           return SendLoaded(message);
         },
       ),

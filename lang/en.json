@@ -184,7 +184,23 @@
   "report_reason_text": "Report Reason",
   "optional_text": "Optional",
   "reason_validator": "You Should Enter The Reason",
-  "details_validator": "You Should Enter The Details"
+  "details_validator": "You Should Enter The Details",
+  "no_conversations_text": "There are no conversations",
+  "starting_from_text": "Starting From",
+  "m_text": "M",
+  "new_text": "New",
+  "ongoing_text": "On Going",
+  "finished_text": "Finished",
+  "payment_plan_text": "Payment Plan",
+  "floor_plan_text": "Floor Plan",
+  "schema_text": "Schema",
+  "plan_title_hint": "Plan Title",
+  "percent_hint": "Percent",
+  "plan_title_validator": "Please Inter Plan Title",
+  "percent_validator": "Please Inter Percent",
+  "unit_details_floor_plan_title": "Unit Details & Floor Plan",
+  "bedroom_validator": "Please Enter Bedroom Value",
+  "bathroom_validator": "Please Enter Bathroom Value"
 
 
 

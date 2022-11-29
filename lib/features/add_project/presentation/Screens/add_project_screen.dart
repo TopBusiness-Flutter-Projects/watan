@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/app_strings.dart';
+import '../../../../core/utils/translate_text_method.dart';
 import '../../../../core/widgets/gray_line.dart';
 import '../../../../core/widgets/select_city_location_widget.dart';
 import '../../../../core/widgets/select_city_widget.dart';
@@ -112,15 +114,15 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                         color: AppColors.white,
                         child: TabBar(
                           indicatorColor: AppColors.primary,
-                          tabs: const [
+                          tabs:  [
                             Tab(
-                              text: 'New',
+                              text: translateText(AppStrings.newText, context),
                             ),
                             Tab(
-                              text: 'On Going',
+                              text: translateText(AppStrings.ongoingText, context),
                             ),
                             Tab(
-                              text: 'Finished',
+                              text: translateText(AppStrings.finishedText, context),
                             ),
                           ],
                           labelColor: AppColors.white,
@@ -167,23 +169,25 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                   const SelectYourLocation(kindOfSelected: 'addProject'),
                   const GrayLine(),
                   PickImagesContainerWidget(
-                    title: "Image",
+                    title: 'imageProject',
                     kind: 'addProject',
                     isUpdate: widget.isUpdate,
                   ),
                   const GrayLine(),
                   PickImagesContainerWidget(
-                    title: "Floor Planes",
+                    title: translateText(AppStrings.schemaText, context),
                     kind: 'addProject',
                     isUpdate: widget.isUpdate,
                   ),
                   const GrayLine(),
-                  const PickVideosContainerWidget(
-                      title: "Video", kind: 'addProject'),
+                  PickVideosContainerWidget(
+                    title: translateText(AppStrings.videoText, context),
+                    kind: 'addProject',
+                  ),
                   const GrayLine(),
                   const ContactWidget(kind: 'addProject'),
                   CustomButton(
-                    text: widget.isUpdate ? 'Update' : "Add Property",
+                    text: widget.isUpdate ? translateText(AppStrings.updateBtnText, context) : translateText(AppStrings.addBtn, context),
                     color: AppColors.primary,
                     paddingHorizontal: 60,
                     onClick: () {

@@ -4,6 +4,8 @@ import 'package:scroll_navigation/navigation/title_scroll_navigation.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/app_strings.dart';
+import '../../../../core/utils/translate_text_method.dart';
 import '../../../../core/widgets/network_image.dart';
 import '../../../details/presentation/widgets/veiw_map_widget.dart';
 import '../../../home_page/domain/entities/main_project_item_domain_model.dart';
@@ -51,7 +53,7 @@ class _DetailsPhotoProjectScreenState extends State<DetailsPhotoProjectScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.white,
         title: Text(
-          "Details",
+          translateText(AppStrings.detailsText, context),
           style: TextStyle(color: AppColors.black),
         ),
         iconTheme: IconThemeData(
@@ -75,21 +77,16 @@ class _DetailsPhotoProjectScreenState extends State<DetailsPhotoProjectScreen> {
             spaceBetween: MediaQuery.of(context).size.width / 8,
             activeColor: AppColors.primary,
             background: AppColors.buttonBackground),
-        titles: const [
-          "Image",
-          "Videos",
-          "Schema",
-          "Map",
+        titles: [
+          translateText(AppStrings.imagesText,context),
+          translateText(AppStrings.videoText,context),
+          translateText(AppStrings.schemaText,context),
+          translateText(AppStrings.mapText,context),
         ],
         pages: [
           SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text(
-                      "Found Images ${widget.mainProjectItemModel.images!.length}"),
-                ),
                 ...List.generate(
                   widget.mainProjectItemModel.images!.length,
                   (index) => Padding(
@@ -108,11 +105,6 @@ class _DetailsPhotoProjectScreenState extends State<DetailsPhotoProjectScreen> {
           SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child:
-                  Text("Found Video (${widget.mainProjectItemModel.videos.length})"),
-                ),
                 if(widget.mainProjectItemModel.videos.isNotEmpty)...{
                   FutureBuilder(
                     future: _initializeVideoPlayerFuture,
@@ -159,10 +151,6 @@ class _DetailsPhotoProjectScreenState extends State<DetailsPhotoProjectScreen> {
           SingleChildScrollView(
             child: Column(
               children: [
-                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text("Found Schema (${widget.mainProjectItemModel.floorPlans!.length})"),
-                ),
                 ...List.generate(
                   widget.mainProjectItemModel.floorPlans!.length,
                       (index) => Padding(

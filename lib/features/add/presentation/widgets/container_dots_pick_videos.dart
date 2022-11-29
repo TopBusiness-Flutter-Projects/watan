@@ -73,6 +73,7 @@ class _PickVideosContainerWidgetState extends State<PickVideosContainerWidget> {
           image: ImageAssets.cameraIcon,
           text: widget.title,
           iconColor: AppColors.primary,
+          isAddScreen: true,
         ),
         if (widget.kind == 'addAds') ...{
           if (context.read<AddAdsCubit>().videoLink.isNotEmpty) ...{

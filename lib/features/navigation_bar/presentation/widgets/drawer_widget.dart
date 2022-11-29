@@ -5,9 +5,8 @@ import 'package:elwatn/core/widgets/list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:share_plus/share_plus.dart';
 import '../../../../config/routes/app_routes.dart';
-import '../../../../core/helper/location_helper.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/separator.dart';
 import '../../../app_settings/presentation/screens/app_settings.dart';
@@ -15,7 +14,9 @@ import '../../../language/presentation/cubit/locale_cubit.dart';
 import '../../../login/data/models/login_data_model.dart';
 
 class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({Key? key, required this.closeDrawer, required this.loginDataModel}) : super(key: key);
+  DrawerWidget(
+      {Key? key, required this.closeDrawer, required this.loginDataModel})
+      : super(key: key);
   final VoidCallback closeDrawer;
   final LoginDataModel loginDataModel;
 
@@ -46,28 +47,28 @@ class DrawerWidget extends StatelessWidget {
               ),
               MyListTile(
                 image: ImageAssets.languageIcon,
-                text: translateText(AppStrings.languageTitle,context),
+                text: translateText(AppStrings.languageTitle, context),
                 onClick: () =>
                     Navigator.of(context).pushNamed(Routes.languageRoute),
               ),
               MySeparator(height: 1, color: AppColors.gray),
               MyListTile(
                 image: ImageAssets.notificationIcon,
-                text: translateText(AppStrings.notificationText,context),
+                text: translateText(AppStrings.notificationText, context),
                 onClick: () =>
                     Navigator.of(context).pushNamed(Routes.notificationRoute),
               ),
               MySeparator(height: 1, color: AppColors.gray),
               MyListTile(
                 image: ImageAssets.bloggsIcon,
-                text: translateText(AppStrings.bloggsText,context),
+                text: translateText(AppStrings.bloggsText, context),
                 onClick: () =>
                     Navigator.of(context).pushNamed(Routes.bloggsRoute),
               ),
               MySeparator(height: 1, color: AppColors.gray),
               MyListTile(
                 image: ImageAssets.aboutUsIcon,
-                text: translateText(AppStrings.aboutUsText,context),
+                text: translateText(AppStrings.aboutUsText, context),
                 onClick: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -81,7 +82,7 @@ class DrawerWidget extends StatelessWidget {
               MySeparator(height: 1, color: AppColors.gray),
               MyListTile(
                 image: ImageAssets.contactUsIcon,
-                text: translateText(AppStrings.contactUsText,context),
+                text: translateText(AppStrings.contactUsText, context),
                 onClick: () {
                   Navigator.of(context).pushNamed(Routes.contactUsScreenRoute);
                 },
@@ -89,7 +90,7 @@ class DrawerWidget extends StatelessWidget {
               MySeparator(height: 1, color: AppColors.gray),
               MyListTile(
                 image: ImageAssets.rateIcon,
-                text: translateText(AppStrings.rateAppText,context),
+                text: translateText(AppStrings.rateAppText, context),
                 onClick: () {
                   // Navigator.of(context).pushNamed(Routes.bloggsRoute);
                 },
@@ -97,7 +98,7 @@ class DrawerWidget extends StatelessWidget {
               MySeparator(height: 1, color: AppColors.gray),
               MyListTile(
                 image: ImageAssets.privacyIcon,
-                text: translateText(AppStrings.privacyText,context),
+                text: translateText(AppStrings.privacyText, context),
                 onClick: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -111,7 +112,7 @@ class DrawerWidget extends StatelessWidget {
               MySeparator(height: 1, color: AppColors.gray),
               MyListTile(
                 image: ImageAssets.termsIcon,
-                text: translateText(AppStrings.termsAndConditionsText,context),
+                text: translateText(AppStrings.termsAndConditionsText, context),
                 onClick: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -125,32 +126,44 @@ class DrawerWidget extends StatelessWidget {
               MySeparator(height: 1, color: AppColors.gray),
               MyListTile(
                 image: ImageAssets.shareIcon,
-                text: translateText(AppStrings.shareAppText,context),
-                onClick: () {
-                  LocationHelper.getCurrantLocation().then((value) {
-                  });
-                  // Navigator.of(context).pushNamed(Routes.mapScreenRoute);
-                },
+                text: translateText(AppStrings.shareAppText, context),
+                onClick: () =>
+                    Share.share('check out my website https://fluttergems.dev'),
               ),
               MySeparator(height: 1, color: AppColors.gray),
-             loginDataModel.message!=null? MyListTile(
-                image: ImageAssets.logOutIcon,
-                text: translateText(AppStrings.logOutText,context),
-                onClick: () async {
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                  bool result = await prefs.remove('user');
-                  if(result){
-                    Navigator.pushReplacementNamed(context,Routes.initialRoute);
-                    context.read<LocaleCubit>().loginDataModel=null;
-                  }
-                },
-              ):MyListTile(
-               image: ImageAssets.logOutIcon,
-               text: translateText(AppStrings.loginText,context),
-               onClick: () {
-                 Navigator.of(context).pushNamed(Routes.loginScreenRoute);
-               },
-             ),
+              loginDataModel.message != null
+                  ? MyListTile(
+                      image: ImageAssets.logOutIcon,
+                      text: translateText(AppStrings.logOutText, context),
+                      onClick: () async {
+                        context
+                            .read<LocaleCubit>()
+                            .logoutUser(context)
+                            .whenComplete(() async {
+                          if (context.read<LocaleCubit>().logout ==
+                              'SuccessFully') {
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            bool result = await prefs.remove('user');
+                            if (result) {
+                              Navigator.pushReplacementNamed(
+                                  context, Routes.initialRoute);
+                              context.read<LocaleCubit>().loginDataModel = null;
+                            }
+                          } else {
+                            print('Errrrrrrrrror');
+                          }
+                        });
+                      },
+                    )
+                  : MyListTile(
+                      image: ImageAssets.logOutIcon,
+                      text: translateText(AppStrings.loginText, context),
+                      onClick: () {
+                        Navigator.of(context)
+                            .pushNamed(Routes.loginScreenRoute);
+                      },
+                    ),
               const SizedBox(
                 height: 12,
               )

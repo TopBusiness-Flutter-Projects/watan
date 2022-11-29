@@ -220,17 +220,19 @@ class _AddScreenState extends State<AddScreen> {
                         } else if (addAdsCubit.diningRoom == 0) {
                           snackBar(translateText(AppStrings.selectDiningRoomText, context), context,
                               color: AppColors.primary);
-                        } else if (addAdsCubit.longitude == 0 ||
+                        }else if (addAdsCubit.image.isEmpty) {
+                          snackBar(translateText(AppStrings.selectImageValidator, context), context,
+                              color: AppColors.primary);
+                        }else if(!widget.isUpdate){
+                         if (addAdsCubit.longitude == 0 ||
                             addAdsCubit.latitude == 0) {
                           snackBar(
                             translateText(AppStrings.selectLocationText, context),
                             context,
                             color: AppColors.primary,
                           );
-                        } else if (addAdsCubit.image.isEmpty) {
-                          snackBar(translateText(AppStrings.selectImageValidator, context), context,
-                              color: AppColors.primary);
-                        } else {
+                        }
+                        }  else {
                           context.read<AddAdsCubit>().btnText == 'update'
                               ? context.read<AddAdsCubit>().updateAdsPost()
                               : context.read<AddAdsCubit>().addAdsPost();

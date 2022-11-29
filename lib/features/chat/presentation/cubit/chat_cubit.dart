@@ -9,18 +9,13 @@ import '../../data/models/MyRooms.dart';
 part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
-  // late ServiceApi api;
   late List<MyMessage> list;
   late String imagePath;
   XFile? imageFile;
   String imageType = '';
 
   ChatCubit() : super(IsLoading()) {
-    // api = ServiceApi();
     imagePath = "";
-    // list = [];
-
-    //  getChat();
   }
 
   // void getChat(String room_id) async {

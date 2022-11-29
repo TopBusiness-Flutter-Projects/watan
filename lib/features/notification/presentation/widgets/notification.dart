@@ -1,60 +1,71 @@
 import 'dart:async';
 import 'dart:convert';
+
+// import 'dart:convert';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import '../../../../config/routes/app_routes.dart';
+import '../../../../firebase_options.dart';
+import '../../../chat/data/models/MyRooms.dart';
+import 'notificationlisten.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'notificationlisten.dart';
+
+
+
+
+
+
 
 class PushNotificationService {
-  final GlobalKey<NavigatorState> navigatorKey =
-      new GlobalKey<NavigatorState>();
-  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  // StreamController<String> streamController = StreamController<String>.broadcast();
-
+  FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin= FlutterLocalNotificationsPlugin();
+ static final BehaviorSubject<String> behaviorSubject = BehaviorSubject();
+  final BehaviorSubject<MyRoomsDatum> behaviorchat = BehaviorSubject();
   late AndroidNotificationChannel channel;
-  // late ChatModel chatModel;
-  // late MessageModel messageDataModel;
-  // final BehaviorSubject<String> behaviorSubject = BehaviorSubject();
-  // final BehaviorSubject<ChatModel> behaviorchat = BehaviorSubject();
-  // final BehaviorSubject<MessageModel> behaviormessage = BehaviorSubject();
+  late MyRoomsDatum chatModel;
+  late MyMessage messageDataModel;
 
-  void callbackground() {
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  }
 
-  Future initialise() async {
+  Future initialise({bool? isBackground, RemoteMessage? messages}) async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     channel = const AndroidNotificationChannel(
       'high_importance_channel', // id
       'High Importance Notifications', // title
       importance: Importance.high,
     );
-
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    AndroidInitializationSettings('@mipmap/ic_launcher');
     final DarwinInitializationSettings initializationSettingsDarwin =
-        DarwinInitializationSettings(
-            onDidReceiveLocalNotification: await ondidnotification);
+    DarwinInitializationSettings(
+        onDidReceiveLocalNotification: ondidnotification);
     final LinuxInitializationSettings initializationSettingsLinux =
-        LinuxInitializationSettings(defaultActionName: 'Open notification');
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: initializationSettingsAndroid,
-            iOS: initializationSettingsDarwin,
-            linux: initializationSettingsLinux);
-    flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: notificationTapBackground);
+    LinuxInitializationSettings(defaultActionName: 'Open notification');
+    final InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsDarwin,
+      linux: initializationSettingsLinux,
+    );
+    flutterLocalNotificationsPlugin!.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: await notificationTapBackground,
+    );
 
-    await flutterLocalNotificationsPlugin
+    await flutterLocalNotificationsPlugin!
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+        AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
-    NotificationSettings settings = await _fcm.requestPermission(
+    // initState()
+    final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+    NotificationSettings? settings;
+    settings = await _fcm.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -64,22 +75,18 @@ class PushNotificationService {
       sound: true,
     );
 
-    print('User granted permission: ${settings.authorizationStatus}');
-
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground!');
       print('Message data: ${message.data}');
       checkData(message);
-      //showNotification(message);
     });
-
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       print('Got a message whilstt in the foreground!');
       print('Message data: ${message.data}');
-
-//  showNotification(message);
       checkData(message);
     });
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
     FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true, // Required to display a heads up notification
       badge: true,
@@ -89,7 +96,9 @@ class PushNotificationService {
 
   Future<void> _firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     print("Handling a background message:");
 
     if (message.data.isNotEmpty) {
@@ -99,66 +108,80 @@ class PushNotificationService {
     // showNotification(message);
   }
 
-  void showNotification(RemoteMessage message) {
-    flutterLocalNotificationsPlugin.show(
+  void showNotification(RemoteMessage message, {String? payload}) {
+    channel = const AndroidNotificationChannel(
+      'high_importance_channel', // id
+      'High Importance Notifications', // title
+      importance: Importance.high,
+    );
+
+    if (flutterLocalNotificationsPlugin == null) {
+      // initState();
+      print('nullllllllllll');
+      flutterLocalNotificationsPlugin!.show(
         message.data.hashCode,
         message.data['title'],
         message.data['body'],
-        payload: 'chat',
+        payload: payload == 'dashBord' ? 'dashBord' : payload,
         NotificationDetails(
-            android: AndroidNotificationDetails(channel.id, channel.name,
-                channelDescription: channel.description,
-                importance: Importance.max,
-                icon: '@mipmap/ic_launcher')));
+          android: AndroidNotificationDetails(
+            channel.id,
+            channel.name,
+            channelDescription: channel.description,
+            importance: Importance.max,
+            icon: '@mipmap/ic_launcher',
+          ),
+        ),
+      );
+    } else {
+      print('notttttt nulllllllll');
+      flutterLocalNotificationsPlugin!.show(
+        message.data.hashCode,
+        message.data['title'],
+        message.data['body'],
+        payload: payload == 'dashBord' ? 'dashBord' : payload,
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            channel.id,
+            channel.name,
+            channelDescription: channel.description,
+            importance: Importance.max,
+            icon: '@mipmap/ic_launcher',
+          ),
+        ),
+      );
+    }
   }
-
   void checkData(RemoteMessage message) {
     if (message.data['note_type'].toString().contains("chat")) {
-    //  if(navigatorKey.currentState!.widget.initialRoute!=AppConstant.pageChatRoute){
-
-
-
-
-      // chatModel = ChatModel.fromJson(jsonDecode(message.data['room']));
-      // messageDataModel =
-      //     MessageModel.fromJson(jsonDecode(message.data['data']));
-      // final notification = LocalNotification("data", MessageModel.toJson(messageDataModel));
-
-
-      // behaviorchat.add(chatModel);
-      // behaviorSubject.add("chat");
-    //  behaviormessage.add(messageDataModel);
-     // print("sslsllslsl${navigatorKey.currentState}");
-      showNotification(message);
-      // NotificationsBloc.instance.newNotification(notification);
-    //  print("dldkkdk${messageDataModel.type}");
-      // if (ModalRoute.of(context)!
-      //     .settings
-      //     .name!
-      //     .contains(AppConstant.pageChatRoute)) {
-      //   //Navigator.of(context).pop();
-      //   // context..addmessage(message.data['data']);
-      // } else {
-
-      //}
+      chatModel = MyRoomsDatum.oneRoomFromJson(jsonDecode(message.data['room']));
+      messageDataModel = MyMessage.fromJson(jsonDecode(message.data['data']));
+      final notification =
+      LocalNotification("data", MyMessage.toJsonMyMessage(messageDataModel));
+      behaviorchat.add(chatModel);
+      if (AppRoutes.route == 'chat') {
+        print('======================');
+        NotificationsBloc.instance.newNotification(notification);
+      } else {
+        print('++++++++++++++++++++++++');
+        showNotification(message, payload: message.data['room']);
+      }
     } else {
-      showNotification(message);
+      print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      showNotification(message, payload: 'dashBord');
     }
   }
 
   Future notificationTapBackground(NotificationResponse details) async {
-    print('notification payload: ${details.payload}');
-    if (details.payload!.contains("chat")) {
-      // behaviorSubject.add("chat");
-      // streamController.add("chat");
-
+    if (details.payload!.contains("dashBord")) {
+      behaviorSubject.add("dashBord");
+      print('انا هناااااااااااااا من الداش بورد');
+    } else {
+      print('يا رب تشتغل با وتريحنا ');
+      behaviorSubject.add(details.payload!);
     }
   }
-
-  Future ondidnotification(
-      int id, String? title, String? body, String? payload) async {
-    print("object");
-    //   streamController.add("chat");
-    // behaviorSubject.add(payload!);
+  ondidnotification(int id, String? title, String? body, String? payload) async {
+    behaviorSubject.add(payload!);
   }
 }

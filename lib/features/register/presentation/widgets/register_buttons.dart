@@ -23,33 +23,35 @@ class RegisterButtons extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
               onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  if (context.read<RegisterCubit>().passwordController.text !=
-                      context
-                          .read<RegisterCubit>()
-                          .confirmPasswordController
-                          .text) {
-                    snackBar(
-                        translateText(
-                            AppStrings.passwordValidationMessage, context),
-                        context,
-                        color: AppColors.error);
-                  } else if (context.read<RegisterCubit>().image == null) {
-                    snackBar(translateText(AppStrings.selectImageValidator, context), context,
-                        color: AppColors.error);
-                  } else if (context.read<RegisterCubit>().longitude == 0 ||
-                      context.read<RegisterCubit>().latitude == 0) {
-                    snackBar(translateText(AppStrings.selectLocationText, context), context,
-                        color: AppColors.error);
-                  } else {
-                    if (registerCubit!.registerBtn == 'update' ||
-                        registerCubit!.registerBtn == 'save') {
-                      registerCubit!.updateProfileData();
-                    } else {
+
+                if (registerCubit!.registerBtn == 'update' ||
+                    registerCubit!.registerBtn == 'save') {
+                  registerCubit!.updateProfileData();
+                } else {
+                  if (formKey.currentState!.validate()) {
+                    if (context.read<RegisterCubit>().passwordController.text !=
+                        context
+                            .read<RegisterCubit>()
+                            .confirmPasswordController
+                            .text) {
+                      snackBar(
+                          translateText(
+                              AppStrings.passwordValidationMessage, context),
+                          context,
+                          color: AppColors.error);
+                    } else if (context.read<RegisterCubit>().image == null) {
+                      snackBar(translateText(AppStrings.selectImageValidator, context), context,
+                          color: AppColors.error);
+                    } else if (context.read<RegisterCubit>().longitude == 0 ||
+                        context.read<RegisterCubit>().latitude == 0) {
+                      snackBar(translateText(AppStrings.selectLocationText, context), context,
+                          color: AppColors.error);
+                    }else{
                       registerCubit!.postRegisterData();
                     }
                   }
                 }
+
               },
               style: ElevatedButton.styleFrom(
                   maximumSize: Size.infinite,

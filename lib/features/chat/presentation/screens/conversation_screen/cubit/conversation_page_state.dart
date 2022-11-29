@@ -16,7 +16,7 @@ class OnError extends ConversationPageState {
 
 class OneRoomLoading extends ConversationPageState {}
 class OneRoomLoaded extends ConversationPageState {
-  ChatModel myRooms;
+  List<MyMessage> myRooms;
   OneRoomLoaded(this.myRooms);
 }
 class OneRoomError extends ConversationPageState {

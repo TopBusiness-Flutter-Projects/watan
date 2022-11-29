@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:elwatn/core/models/response_message.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -120,24 +119,27 @@ class RegisterCubit extends Cubit<RegisterState> {
   postRegisterData() async {
     emit(RegisterLoading());
     Either<Failure, RegistrationDataModel> response =
-        await postRegisterUserUseCase(RegistrationUserModel(
-      userType: userType.toString(),
-      name: nameController.text,
-      email: emailController.text,
-      phone: phoneController.text,
-      whatsapp: whatsappController.text,
-      password: passwordController.text,
-      longitude: longitude,
-      latitude: latitude,
-      facebook: facebookController.text,
-      instagram: instaController.text,
-      twitter: twitterController.text,
-      snapchat: snapController.text,
-    ));
+        await postRegisterUserUseCase(
+      RegistrationUserModel(
+        userType: userType.toString(),
+        image: image!.path,
+        name: nameController.text,
+        email: emailController.text,
+        phone: phoneController.text,
+        whatsapp: whatsappController.text,
+        password: passwordController.text,
+        longitude: longitude,
+        latitude: latitude,
+        facebook: facebookController.text,
+        instagram: instaController.text,
+        twitter: twitterController.text,
+        snapchat: snapController.text,
+      ),
+    );
     response.fold(
       (failure) {
-        return RegisterFailure(
-            message: MapFailureMessage.mapFailureToMessage(failure));
+        emit(RegisterFailure(
+            message: MapFailureMessage.mapFailureToMessage(failure)));
       },
       (userModel) async {
         userModel.code == 200;
