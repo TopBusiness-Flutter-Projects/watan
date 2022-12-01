@@ -81,3 +81,17 @@ class ResetPasswordLoading extends RegisterState{}
 class ResetPasswordFailure extends RegisterState{}
 class ResetPasswordSuccessfully extends RegisterState{}
 class ResetPasswordInvalidCode extends RegisterState{}
+
+
+
+class OnTimerChanged extends RegisterState {
+  String time ;
+
+  OnTimerChanged(this.time);
+}
+class OnTimerChangedAgain extends RegisterState {}
+class OnSmsCodeSent extends RegisterState {
+  String smsCode;
+
+  OnSmsCodeSent(this.smsCode);
+}

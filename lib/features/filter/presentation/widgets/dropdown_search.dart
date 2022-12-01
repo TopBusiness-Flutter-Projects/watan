@@ -124,12 +124,11 @@ class DropdownSearchWidget extends StatelessWidget {
             for (var element in dropdownList) {
               if (element.contains(text!)) {
                 if (kind == "addPriceCurrency") {
-                  context.read<AddAdsCubit>().currency = element.split("/")[0];
+                  context.read<AddAdsCubit>().currency = element.split("/")[1];
                 } else if (kind == "addProject") {
-                  context.read<AddProjectCubit>().currency =
-                      element.split("/")[0];
+                  context.read<AddProjectCubit>().currency = element.split("/")[1];
                 } else {
-                  context.read<FilterCubit>().currency = element.split("/")[0];
+                  context.read<FilterCubit>().currency = element.split("/")[1];
                 }
               }
             }

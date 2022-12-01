@@ -70,7 +70,10 @@ class PriceWidget extends StatelessWidget {
             const SizedBox(width: 25),
             Expanded(
                 child: DropdownSearchWidget(
-              dropdownList: const ["USD/1", "IQD/2"],
+              dropdownList:  [
+                "${translateText(AppStrings.USDText, context)}/1",
+                "${translateText(AppStrings.IQDText, context)}/2"
+              ],
               isEnable: true,
               labelText: translateText(AppStrings.currencyText, context),
               icon: Icons.abc,

@@ -1,3 +1,4 @@
+import 'package:elwatn/config/routes/app_routes.dart';
 import 'package:elwatn/core/utils/app_strings.dart';
 import 'package:elwatn/core/utils/translate_text_method.dart';
 import 'package:flutter/material.dart';
@@ -46,18 +47,31 @@ class LoginScreen extends StatelessWidget {
                   const Duration(milliseconds: 400),
                   () {
                     context.read<LocaleCubit>().getStoreUser();
-                    Navigator.pushReplacement(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        alignment: Alignment.center,
-                        duration: const Duration(milliseconds: 1300),
-                        child: NavigatorBar(
-                          loginDataModel:
-                              context.read<LoginCubit>().userLoginModel!,
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.fade,
+                          alignment: Alignment.center,
+                          duration: const Duration(milliseconds: 1300),
+                          child: NavigatorBar(
+                            loginDataModel:
+                                context.read<LoginCubit>().userLoginModel!,
+                          ),
                         ),
-                      ),
-                    );
+                        ModalRoute.withName(Routes.loginScreenRoute));
+
+                    // return Navigator.pushAndRemoveUntil(
+                    //   context,
+                    //   PageTransition(
+                    //     type: PageTransitionType.fade,
+                    //     alignment: Alignment.center,
+                    //     duration: const Duration(milliseconds: 1300),
+                    //     child: NavigatorBar(
+                    //       loginDataModel:
+                    //           context.read<LoginCubit>().userLoginModel!,
+                    //     ),
+                    //   ),
+                    // );
                     Future.delayed(
                       const Duration(milliseconds: 700),
                       () {
@@ -84,7 +98,6 @@ class LoginScreen extends StatelessWidget {
                       const Duration(milliseconds: 700),
                       () {
                         context.read<LoginCubit>().loginSuccessfully();
-
                       },
                     );
                   },

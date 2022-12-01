@@ -34,9 +34,13 @@ class PriceAddWidget extends StatelessWidget {
                     child: CustomTextField(
                       controller: context.read<AddAdsCubit>().priceController,
                       image: "null",
-                      title: title == translateText(AppStrings.areaText, context) ? "$title in m" : title,
+                      title:
+                          title == translateText(AppStrings.areaText, context)
+                              ? "$title"
+                              : title,
                       textInputType: TextInputType.number,
-                      validatorMessage: title == translateText(AppStrings.areaText, context)
+                      validatorMessage: title ==
+                              translateText(AppStrings.areaText, context)
                           ? translateText(AppStrings.areaText, context)
                           : translateText(AppStrings.priceValidator, context),
                     ),
@@ -44,7 +48,10 @@ class PriceAddWidget extends StatelessWidget {
                   Expanded(
                     child: DropdownSearchWidget(
                       kind: "addPriceCurrency",
-                      dropdownList: const ["USD/1", "IQD/2"],
+                      dropdownList: [
+                        "${translateText(AppStrings.USDText, context)}/1",
+                        "${translateText(AppStrings.IQDText, context)}/2"
+                      ],
                       isEnable: true,
                       labelText:
                           translateText(AppStrings.currencyText, context),
@@ -56,11 +63,14 @@ class PriceAddWidget extends StatelessWidget {
             : CustomTextField(
                 controller: context.read<AddAdsCubit>().areaController,
                 image: "null",
-                title: title == translateText(AppStrings.areaText, context) ? "$title in m" : title,
+                title: title == translateText(AppStrings.areaText, context)
+                    ? "$title"
+                    : title,
                 textInputType: TextInputType.number,
-                validatorMessage: title == translateText(AppStrings.areaText, context)
-                    ? translateText(AppStrings.areaText, context)
-                    : translateText(AppStrings.priceValidator, context),
+                validatorMessage:
+                    title == translateText(AppStrings.areaText, context)
+                        ? translateText(AppStrings.areaText, context)
+                        : translateText(AppStrings.priceValidator, context),
               ),
       ],
     );

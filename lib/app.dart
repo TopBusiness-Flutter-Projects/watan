@@ -171,12 +171,18 @@ void _runWhileAppIsTerminated() async {
                 value.notificationResponse != null &&
                 value.notificationResponse!.payload!.isNotEmpty)
               {
-                chatModel = MyRoomsDatum.oneRoomFromJson(jsonDecode(value
-                    .notificationResponse!.payload
-                    .toString()
-                    .replaceAll("chat", "")
-                    .replaceAll("room", ""))),
-                Routes.chatModel = chatModel
+                print('------------------====---------------------'),
+                print(value.notificationResponse!.payload.toString()),
+                chatModel = MyRoomsDatum.oneRoomFromJson(
+                  jsonDecode(
+                    value.notificationResponse!.payload
+                        .toString()
+                        .replaceAll("chat", "")
+                        .replaceAll("room", ""),
+                  ),
+                ),
+                Routes.chatModel = chatModel,
+                flutterLocalNotificationsPlugin!.cancelAll(),
               }
           });
 }

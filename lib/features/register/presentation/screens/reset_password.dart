@@ -32,6 +32,9 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   void initState() {
     super.initState();
+    // if(context.read<RegisterCubit>().phone.isNotEmpty){
+    context.read<RegisterCubit>().startTimer();
+    // }
   }
 
   @override
@@ -58,6 +61,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       ),
       body: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
+          String time = context.read<RegisterCubit>().time;
           if (state is CheckCodeInvalidCode) {
             Future.delayed(const Duration(seconds: 1), () {
               snackBar('Invalid Code Please Enter Correct Code', context,
@@ -117,7 +121,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                               selectedColor: AppColors.primary,
                             ),
                             cursorColor: AppColors.primary,
-                            animationDuration: const Duration(milliseconds: 300),
+                            animationDuration:
+                                const Duration(milliseconds: 300),
                             errorAnimationController: errorController,
                             keyboardType: TextInputType.number,
                             onChanged: (value) {
@@ -160,12 +165,42 @@ class _ResetPasswordState extends State<ResetPassword> {
                           setState(
                             () {
                               hasError = false;
-                              context.read<RegisterCubit>().checkCode(currentText);
+                              context
+                                  .read<RegisterCubit>()
+                                  .verifySmsCode(currentText, context);
                             },
                           );
                         }
                       },
                     ),
+                    SizedBox(height: 22),
+                    BlocBuilder<RegisterCubit, RegisterState>(
+                      builder: (context, state) {
+                        String time =
+                            context.read<RegisterCubit>().seconds.toString();
+                        return InkWell(
+                          onTap: time.isEmpty
+                              ? () {
+                            context.read<RegisterCubit>().startTimer();
+                            context
+                                      .read<RegisterCubit>()
+                                      .sendSmsCode(context);
+                                }
+                              : null,
+                          child: Text(
+                            time.isNotEmpty
+                                ? time
+                                : translateText(AppStrings.resendText, context),
+                            style: TextStyle(
+                              color: time.isNotEmpty
+                                  ? AppColors.black
+                                  : AppColors.primary,
+                              fontSize: time.isNotEmpty ? 16.0 : 13.0,
+                            ),
+                          ),
+                        );
+                      },
+                    )
                   ],
                 ),
               ),

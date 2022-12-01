@@ -188,11 +188,23 @@ class _AddScreenState extends State<AddScreen> {
                   CustomButton(
                     text: context.read<AddAdsCubit>().btnText == 'update'
                         ? translateText(AppStrings.updateBtnText, context)
-                        : translateText(AppStrings.addBtn, context),
+                        : translateText(AppStrings.publishBtn, context),
                     color: AppColors.primary,
                     paddingHorizontal: 60,
                     onClick: () {
                       if (formKey.currentState!.validate()) {
+                        if(!widget.isUpdate){
+                          print('----------wwwwwwwwww--------------');
+                          if (addAdsCubit.longitude == 0 ||
+                              addAdsCubit.latitude == 0) {
+                            print('----------1111111111--------------');
+                            snackBar(
+                              translateText(AppStrings.selectLocationText, context),
+                              context,
+                              color: AppColors.primary,
+                            );
+                          }
+                        }
                         if (addAdsCubit.cityId == 0) {
                           snackBar(translateText(AppStrings.selectCityText, context), context,
                               color: AppColors.primary);
@@ -223,16 +235,8 @@ class _AddScreenState extends State<AddScreen> {
                         }else if (addAdsCubit.image.isEmpty) {
                           snackBar(translateText(AppStrings.selectImageValidator, context), context,
                               color: AppColors.primary);
-                        }else if(!widget.isUpdate){
-                         if (addAdsCubit.longitude == 0 ||
-                            addAdsCubit.latitude == 0) {
-                          snackBar(
-                            translateText(AppStrings.selectLocationText, context),
-                            context,
-                            color: AppColors.primary,
-                          );
-                        }
                         }  else {
+
                           context.read<AddAdsCubit>().btnText == 'update'
                               ? context.read<AddAdsCubit>().updateAdsPost()
                               : context.read<AddAdsCubit>().addAdsPost();

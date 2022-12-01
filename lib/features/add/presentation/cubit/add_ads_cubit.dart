@@ -327,7 +327,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
         descriptionKu: descController.text,
         furniture: furnished.toString(),
         price: priceController.text,
-        currency: currency,
+        currency: currency=='1'?'USD':'IQD',
         size: int.parse(areaController.text),
         amenities: amenitiesId,
         bedroom: bedroom.toString(),

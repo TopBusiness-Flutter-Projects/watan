@@ -201,7 +201,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ? const SizedBox(height: 0)
                         : const LocationAndSocialWidget(),
                     const SizedBox(height: 25),
-                    RegisterButtons(formKey: formKey),
+                    RegisterButtons(formKey: formKey,isUser: widget.isUser),
                   ],
                 ),
               ),

@@ -9,9 +9,11 @@ import '../cubit/register_cubit.dart';
 
 // ignore: must_be_immutable
 class RegisterButtons extends StatelessWidget {
-  RegisterButtons({Key? key, required this.formKey}) : super(key: key);
+  RegisterButtons({Key? key, required this.formKey, required this.isUser})
+      : super(key: key);
   final GlobalKey<FormState> formKey;
   RegisterCubit? registerCubit;
+  final bool isUser;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,10 @@ class RegisterButtons extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
               onPressed: () {
-
+                String phone =
+                    context.read<RegisterCubit>().phoneController.text;
+                String whatsapp =
+                    context.read<RegisterCubit>().whatsappController.text;
                 if (registerCubit!.registerBtn == 'update' ||
                     registerCubit!.registerBtn == 'save') {
                   registerCubit!.updateProfileData();
@@ -35,23 +40,43 @@ class RegisterButtons extends StatelessWidget {
                             .confirmPasswordController
                             .text) {
                       snackBar(
+                        translateText(
+                          AppStrings.passwordValidationMessage,
+                          context,
+                        ),
+                        context,
+                        color: AppColors.error,
+                      );
+                    } else if (context.read<RegisterCubit>().image == null) {
+                      snackBar(
                           translateText(
-                              AppStrings.passwordValidationMessage, context),
+                              AppStrings.selectImageValidator, context),
                           context,
                           color: AppColors.error);
-                    } else if (context.read<RegisterCubit>().image == null) {
-                      snackBar(translateText(AppStrings.selectImageValidator, context), context,
+                    } else if (phone.length < 10 || phone.length > 11) {
+                      snackBar(
+                          translateText(AppStrings.correctPhoneText, context),
+                          context,
                           color: AppColors.error);
-                    } else if (context.read<RegisterCubit>().longitude == 0 ||
-                        context.read<RegisterCubit>().latitude == 0) {
-                      snackBar(translateText(AppStrings.selectLocationText, context), context,
+                    } else if (whatsapp.length < 10 || whatsapp.length > 11) {
+                      snackBar(
+                          translateText(AppStrings.correctWhatsappText, context),
+                          context,
                           color: AppColors.error);
-                    }else{
+                    } else if (!isUser) {
+                      if (context.read<RegisterCubit>().longitude == 0 ||
+                          context.read<RegisterCubit>().latitude == 0) {
+                        snackBar(
+                            translateText(
+                                AppStrings.selectLocationText, context),
+                            context,
+                            color: AppColors.error);
+                      }
+                    } else {
                       registerCubit!.postRegisterData();
                     }
                   }
                 }
-
               },
               style: ElevatedButton.styleFrom(
                   maximumSize: Size.infinite,

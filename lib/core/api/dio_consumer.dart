@@ -27,6 +27,9 @@ class DioConsumer implements BaseApiConsumer {
       ..baseUrl = EndPoints.baseUrl
       ..responseType = ResponseType.plain
       ..followRedirects = false
+      ..receiveTimeout = 1000 * 60
+      ..connectTimeout = 1000 * 60
+      ..sendTimeout = 1000 * 60
       ..validateStatus = (status) {
         return status! < StatusCode.internalServerError;
       };

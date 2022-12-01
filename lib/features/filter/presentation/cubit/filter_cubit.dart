@@ -200,7 +200,11 @@ class FilterCubit extends Cubit<FilterState> {
       bedroom: bedroom == -1 ? null : bedroom,
       type: type == -1 ? null : type,
       cityId: cityId == 0 ? null : cityId,
-      currency: currency.isEmpty ? null : currency,
+      currency: currency.isEmpty
+          ? null
+          : currency == '1'
+              ? "USD"
+              : 'IQD',
       locationId: locationId == 0 ? null : locationId,
       priceFrom: priceFromController.text.isEmpty
           ? null

@@ -25,7 +25,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // runWhileAppIsTerminated();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   pushNotificationService.initialise();
   await injector.setup();
@@ -152,48 +151,9 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
   if (message.data.isNotEmpty) {
-    checkData(message);
-
     print("Handling a background message: ${message.data}");
+    checkData(message);
   }
-}
-void runWhileAppIsTerminated() async {
-  await flutterLocalNotificationsPlugin!
-      .getNotificationAppLaunchDetails()
-      .then((value) => {
-    // Fluttertoast.showToast(
-    //   msg: value!.notificationResponse!.payload.toString(),
-    //   // message
-    //   toastLength: Toast.LENGTH_SHORT,
-    //   // length
-    //   gravity: ToastGravity.BOTTOM,
-    //   fontSize: 7,
-    //   // location
-    //   timeInSecForIosWeb: 60,
-    //   // duration
-    // ),
-    if(value!=null&&value.notificationResponse!=null&&value.notificationResponse!.payload!.isNotEmpty){
-      // chatModel = ChatModel.fromJson(jsonDecode(value!
-      //     .notificationResponse!.payload
-      //     .toString()
-      //     .replaceAll("chat", "")
-      //     .replaceAll("room", ""))),
-      // Fluttertoast.showToast(
-      //   msg: chatModel.id.toString(), // message
-      //   toastLength: Toast.LENGTH_SHORT, // length
-      //   gravity: ToastGravity.BOTTOM, // location
-      //   timeInSecForIosWeb: 60,
-      //   // duration
-      // ),
-      // AppRoutes.chatmodel = chatModel
-    }});
-  // Fluttertoast.showToast(
-  //     msg: details!.notificationResponse!.payload! + "kkfkfjj", // message
-  //     toastLength: Toast.LENGTH_SHORT, // length
-  //     gravity: ToastGravity.CENTER, // location
-  //     timeInSecForIosWeb: 60,
-  //   // duration
-  // );
 }
 
 

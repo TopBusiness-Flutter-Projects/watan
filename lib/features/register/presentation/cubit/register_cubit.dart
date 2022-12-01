@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -125,8 +127,12 @@ class RegisterCubit extends Cubit<RegisterState> {
         image: image!.path,
         name: nameController.text,
         email: emailController.text,
-        phone: phoneController.text,
-        whatsapp: whatsappController.text,
+        phone: phoneController.text.length == 11
+            ? phoneController.text.substring(1)
+            : phoneController.text,
+        whatsapp: whatsappController.text.length == 11
+            ? whatsappController.text.substring(1)
+            : whatsappController.text,
         password: passwordController.text,
         longitude: longitude,
         latitude: latitude,
@@ -197,6 +203,93 @@ class RegisterCubit extends Cubit<RegisterState> {
     );
   }
 
+  //////////////////send OTP///////////////////
+
+  String phoneNumber = '';
+  String mySmsCode = '';
+  String smsCode = '';
+  String time = '';
+  int seconds = 60;
+  Timer? timer;
+  FirebaseAuth _mAuth = FirebaseAuth.instance;
+  String? verificationId;
+  int? resendToken;
+
+  sendSmsCode(BuildContext context) async {
+    emit(SendCodeLoading());
+    _mAuth.setSettings(forceRecaptchaFlow: true);
+    print(phoneNumber);
+    print('=-=-=-=-=.............-=-=-=-=');
+    _mAuth.verifyPhoneNumber(
+      forceResendingToken: this.resendToken,
+      phoneNumber: phoneNumber,
+      timeout: Duration(seconds: 1),
+
+      verificationCompleted: (PhoneAuthCredential credential) {
+        print('=-=-=-=-=-=-=-=-=');
+        smsCode = credential.smsCode!;
+        this.verificationId = credential.verificationId;
+        print("verificationId=>${verificationId}");
+        emit(OnSmsCodeSent(smsCode));
+        verifySmsCode(smsCode, context);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        emit(CheckCodeInvalidCode());
+        print("Errrrorrrrr : ${e.message}");
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        print('&&&&&&&&&&&& send Code &&&&&&&&&&&&&&&');
+        this.resendToken = resendToken;
+        this.verificationId = verificationId;
+        print("verificationId=>${verificationId}");
+        emit(OnSmsCodeSent(''));
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        this.verificationId = verificationId;
+      },
+    );
+  }
+
+  verifySmsCode(String smsCode, BuildContext context) async {
+    print(smsCode);
+    print(verificationId);
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: verificationId!,
+      smsCode: smsCode,
+    );
+    await _mAuth.signInWithCredential(credential).then((value) {
+      print('LoginSuccess');
+      emit(CheckCodeSuccessfully());
+      stopTimer();
+    }).catchError((error) {
+      print('phone auth =>${error.toString()}');
+    });
+  }
+
+  startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (seconds > 0) {
+        seconds--;
+        time = '${seconds}'.padLeft(2, '0');
+        print(seconds);
+        emit(OnTimerChanged('00:${time}'));
+        Future.delayed(Duration(milliseconds: 250),(){
+          emit(OnTimerChangedAgain());
+        });
+      } else {
+        time = '';
+        seconds = 60;
+        emit(OnTimerChanged(''));
+        timer.cancel();
+      }
+    });
+  }
+
+  stopTimer() {
+    timer!.cancel();
+  }
+
+//////////////// send Email ///////////////////
   sendCodeToEmail(String email) async {
     emit(SendCodeLoading());
     final response = await sendCodeUseCase(email);

@@ -74,15 +74,15 @@
   "user_desc": "He can buy, rent and offer his unit for sale or rent",
   "company_and_office_desc": "Can sell and rent more than one unit",
   "project_desc": "Can sell and rent more than one unit",
-  "start_btn": "Start",
+  "start_btn": "Create",
   "back_btn": "Back",
   "location_text": "Location",
-  "forget_password_title": "Please enter your registered in the email ID.",
-  "forget_password_desc": "We will send a verification code to your registered  email ID.",
+  "forget_password_title": "Please enter your registered in the Phone Number .",
+  "forget_password_desc": "We will send a verification code to your registered Phone Number.",
   "send_btn": "Send",
   "reset_password_text": "Reset Password",
   "reset_password_title": "Please enter your verification code .",
-  "reset_password_desc": "We have sent a verification code to your registered email ID ",
+  "reset_password_desc": "We have sent a verification code to your registered Phone Number ",
   "reset_password_validator_message": "Please fill up all the cells properly",
   "done_btn": "Done",
   "new_password_text": "New Password",
@@ -200,8 +200,14 @@
   "percent_validator": "Please Inter Percent",
   "unit_details_floor_plan_title": "Unit Details & Floor Plan",
   "bedroom_validator": "Please Enter Bedroom Value",
-  "bathroom_validator": "Please Enter Bathroom Value"
-
+  "bathroom_validator": "Please Enter Bathroom Value",
+  "publish_btn": "Publish",
+  "correct_phone_text": "Please Inter Correct Phone",
+  "correct_whatsapp_text": "Please Inter Correct Whatsapp",
+  "USD_text": "USD",
+  "IQD_text": "IQD",
+  "select_btn": "Select",
+  "resend_text": "Resend"
 
 
 }

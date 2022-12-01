@@ -43,7 +43,7 @@ class ContactWidget extends StatelessWidget {
               : context.read<AddAdsCubit>().phoneController,
           image: ImageAssets.mobileGoldIcon,
           title: translateText(AppStrings.phoneHint, context),
-          textInputType: TextInputType.number,
+          textInputType: TextInputType.phone,
           validatorMessage:
               translateText(AppStrings.phoneValidatorMessage, context),
         ),
@@ -55,7 +55,7 @@ class ContactWidget extends StatelessWidget {
               : context.read<AddAdsCubit>().whatsappController,
           image: ImageAssets.whatsappGoldIcon,
           title: translateText(AppStrings.whatsappHint, context),
-          textInputType: TextInputType.number,
+          textInputType: TextInputType.phone,
           validatorMessage:
               translateText(AppStrings.whatsappValidatorMessage, context),
         ),

@@ -122,6 +122,8 @@ class AppStrings {
   static const String selectCityText = 'select_city_text';
   static const String selectLocationText = 'select_location_text';
   static const String selectAgentText = 'select_agent_text';
+  static const String correctPhoneText = 'correct_phone_text';
+  static const String correctWhatsappText = 'correct_whatsapp_text';
   static const String currencyText = 'currency_text';
   static const String toText = 'To_text';
   static const String createBtnText = 'crate_btn_text';
@@ -217,6 +219,11 @@ class AppStrings {
   static const String unitDetailsFloorPlanTitle = 'unit_details_floor_plan_title';
   static const String bedroomValidator = 'bedroom_validator';
   static const String bathroomValidator = 'bathroom_validator';
+  static const String publishBtn = 'publish_btn';
+  static const String USDText = 'USD_text';
+  static const String IQDText = 'IQD_text';
+  static const String selectBtn = 'select_btn';
+  static const String resendText = 'resend_text';
 
 
 

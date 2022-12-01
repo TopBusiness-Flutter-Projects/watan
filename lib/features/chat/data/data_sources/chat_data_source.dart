@@ -52,7 +52,10 @@ class ChatDataSource extends BaseChatDataSource {
           ? sendMessage.sendMessageWithoutPhotoToJson()
           : await sendMessage.sendMessageWithPhotoToJson(),
       options: Options(
-        headers: {"Authorization": sendMessage.token},
+        headers: {
+          "Authorization": sendMessage.token,
+          "Connection": 'keep-alive',
+        },
       ),
     );
     return GetOneMessage.fromJson(jsonDecode(response.data));

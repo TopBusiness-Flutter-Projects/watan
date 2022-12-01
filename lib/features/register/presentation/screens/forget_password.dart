@@ -16,7 +16,7 @@ import '../widgets/header_title.dart';
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +34,21 @@ class ForgetPasswordScreen extends StatelessWidget {
       ),
       body: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
-          if(state is SendCodeInvalidEmail){
-            Future.delayed(const Duration(milliseconds: 500),(){
-              snackBar('Invalid Email Please Enter Valid Email' , context,color: AppColors.error);
+          if (state is SendCodeInvalidEmail) {
+            Future.delayed(const Duration(milliseconds: 500), () {
+              snackBar('Invalid Email Please Enter Valid Email', context,
+                  color: AppColors.error);
             });
           }
-          if(state is SendCodeLoading){
+          if (state is SendCodeLoading) {
             return const ShowLoadingIndicator();
           }
-          if(state is SendCodeSuccessfully){
-            Future.delayed(const Duration(seconds: 1),(){
-              Navigator.pushReplacementNamed(context, Routes.resetPasswordRoute);
+          if (state is OnSmsCodeSent) {
+            Future.delayed(const Duration(seconds: 1), () {
+              Navigator.pushReplacementNamed(
+                context,
+                Routes.resetPasswordRoute,
+              );
             });
             return const ShowLoadingIndicator();
           }
@@ -64,12 +68,12 @@ class ForgetPasswordScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       CustomTextField(
-                        controller: emailController,
-                        image: ImageAssets.emailRegisterIcon,
-                        title: translateText(AppStrings.emailHint, context),
+                        controller: phoneController,
+                        image: ImageAssets.mobileGoldIcon,
+                        title: translateText(AppStrings.phoneHint, context),
                         validatorMessage: translateText(
-                            AppStrings.emailValidatorMessage, context),
-                        textInputType: TextInputType.emailAddress,
+                            AppStrings.phoneValidatorMessage, context),
+                        textInputType: TextInputType.phone,
                       ),
                       const SizedBox(height: 60),
                       CustomButton(
@@ -78,9 +82,25 @@ class ForgetPasswordScreen extends StatelessWidget {
                         paddingHorizontal: 60,
                         onClick: () {
                           if (_formKey.currentState!.validate()) {
-                            context
-                                .read<RegisterCubit>()
-                                .sendCodeToEmail(emailController.text);
+                            if (phoneController.text.length < 10 ||
+                                phoneController.text.length > 11) {
+                              snackBar(
+                                translateText(
+                                    AppStrings.correctPhoneText, context),
+                                context,
+                                color: AppColors.error,
+                              );
+                            } else {
+                              context.read<RegisterCubit>().phoneNumber =
+                                  phoneController.text.length == 11
+                                      ? '+20' +
+                                          phoneController.text.substring(1)
+                                      : '+20' + phoneController.text;
+
+                              context
+                                  .read<RegisterCubit>()
+                                  .sendSmsCode(context);
+                            }
                           }
                         },
                       ),

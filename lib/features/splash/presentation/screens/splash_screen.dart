@@ -24,28 +24,38 @@ class _SplashScreenState extends State<SplashScreen> {
   LoginDataModel loginDataModel = const LoginDataModel();
 
   _goNext() {
-    if(Routes.chatModel!=null){
+    if (Routes.chatModel != null) {
+      print('Routes.chatModel');
+      print(Routes.chatModel);
       Navigator.push(
         context,
         PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 1300),
-          child: ChatPage(myRoomDatum: Routes.chatModel!,),
-        ),
-      ).then((value) => Navigator.pushReplacement(
-        context,
-        PageTransition(
-          type: PageTransitionType.fade,
-          alignment: Alignment.center,
-          duration: const Duration(milliseconds: 1300),
-          child: NavigatorBar(
-            loginDataModel: loginDataModel,
+          child: ChatPage(
+            myRoomDatum: Routes.chatModel!,
           ),
         ),
-      ));
-
-    }else{
+      ).then(
+        (value) {
+          Routes.chatModel = null;
+          print('Routes.chatModel');
+          print(Routes.chatModel);
+          Navigator.pushReplacement(
+            context,
+            PageTransition(
+              type: PageTransitionType.fade,
+              alignment: Alignment.center,
+              duration: const Duration(milliseconds: 1300),
+              child: NavigatorBar(
+                loginDataModel: loginDataModel,
+              ),
+            ),
+          );
+        },
+      );
+    } else {
       Navigator.pushReplacement(
         context,
         PageTransition(
