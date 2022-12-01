@@ -48,6 +48,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   initState() {
     super.initState();
+    Routes.chatModel = null;
     _onRefresh();
     AppRoutes.route = 'chat';
     context
