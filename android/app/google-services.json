@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "281106816985",
+    "project_id": "watan-85dba",
+    "storage_bucket": "watan-85dba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281106816985:android:94e2727c483458903dc3c8",
+        "android_client_info": {
+          "package_name": "com.example.elwatn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281106816985-lh41f89ch6mla6k4njc1de52loihiivo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXz6m2pOWvw-_Tfgm6PSRoPJPdq-MpE2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281106816985-lh41f89ch6mla6k4njc1de52loihiivo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "281106816985-f5c0lrvssg2h2npi1v3ihq0gm6te18ql.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.elwatn"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
