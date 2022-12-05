@@ -4,14 +4,17 @@ import 'package:elwatn/core/utils/translate_text_method.dart';
 import 'package:elwatn/core/widgets/list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/app_strings.dart';
+import '../../../../core/widgets/restart_app.dart';
 import '../../../../core/widgets/separator.dart';
 import '../../../app_settings/presentation/screens/app_settings.dart';
 import '../../../language/presentation/cubit/locale_cubit.dart';
 import '../../../login/data/models/login_data_model.dart';
+import '../../../splash/presentation/screens/splash_screen.dart';
 
 class DrawerWidget extends StatelessWidget {
   DrawerWidget(
@@ -146,12 +149,19 @@ class DrawerWidget extends StatelessWidget {
                                 await SharedPreferences.getInstance();
                             bool result = await prefs.remove('user');
                             if (result) {
-                              Navigator.pushReplacementNamed(
-                                  context, Routes.initialRoute);
+                              Routes.isLogout = true;
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.fade,
+                                    alignment: Alignment.center,
+                                    duration:
+                                        const Duration(milliseconds: 1300),
+                                    child: SplashScreen(),
+                                  ),
+                                  ModalRoute.withName(Routes.loginScreenRoute));
                               context.read<LocaleCubit>().loginDataModel = null;
                             }
-                          } else {
-                            print('Errrrrrrrrror');
                           }
                         });
                       },

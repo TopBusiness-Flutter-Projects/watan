@@ -41,7 +41,6 @@ class HomePageCubit extends Cubit<HomePageState> {
   HomeSlider? slider;
   Categories? categories;
   NewPopularItems? newPopularItems;
-
   LoginDataModel? loginDataModel;
 
   Future<void> getAllDataOfHomePage() async {

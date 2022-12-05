@@ -34,10 +34,13 @@ class ForgetPasswordScreen extends StatelessWidget {
       ),
       body: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
-          if (state is SendCodeInvalidEmail) {
+          if (state is CheckCodeInvalidCode) {
             Future.delayed(const Duration(milliseconds: 500), () {
-              snackBar('Invalid Email Please Enter Valid Email', context,
-                  color: AppColors.error);
+              snackBar(
+                'Invalid Phone Please Enter Valid Phone',
+                context,
+                color: AppColors.error,
+              );
             });
           }
           if (state is SendCodeLoading) {
@@ -93,13 +96,17 @@ class ForgetPasswordScreen extends StatelessWidget {
                             } else {
                               context.read<RegisterCubit>().phoneNumber =
                                   phoneController.text.length == 11
-                                      ? '+20' +
+                                      ? AppStrings.phoneCode +
                                           phoneController.text.substring(1)
-                                      : '+20' + phoneController.text;
+                                      : AppStrings.phoneCode + phoneController.text;
 
-                              context
-                                  .read<RegisterCubit>()
-                                  .sendSmsCode(context);
+                              context.read<RegisterCubit>().checkCode(
+                                    phoneController.text.length == 11
+                                        ? AppStrings.phoneCode +
+                                            phoneController.text.substring(1)
+                                        : AppStrings.phoneCode + phoneController.text,
+                                    context,
+                                  );
                             }
                           }
                         },

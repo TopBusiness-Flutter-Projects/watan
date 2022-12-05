@@ -218,15 +218,11 @@ class RegisterCubit extends Cubit<RegisterState> {
   sendSmsCode(BuildContext context) async {
     emit(SendCodeLoading());
     _mAuth.setSettings(forceRecaptchaFlow: true);
-    print(phoneNumber);
-    print('=-=-=-=-=.............-=-=-=-=');
     _mAuth.verifyPhoneNumber(
       forceResendingToken: this.resendToken,
       phoneNumber: phoneNumber,
       timeout: Duration(seconds: 1),
-
       verificationCompleted: (PhoneAuthCredential credential) {
-        print('=-=-=-=-=-=-=-=-=');
         smsCode = credential.smsCode!;
         this.verificationId = credential.verificationId;
         print("verificationId=>${verificationId}");
@@ -238,7 +234,6 @@ class RegisterCubit extends Cubit<RegisterState> {
         print("Errrrorrrrr : ${e.message}");
       },
       codeSent: (String verificationId, int? resendToken) {
-        print('&&&&&&&&&&&& send Code &&&&&&&&&&&&&&&');
         this.resendToken = resendToken;
         this.verificationId = verificationId;
         print("verificationId=>${verificationId}");
@@ -273,7 +268,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         time = '${seconds}'.padLeft(2, '0');
         print(seconds);
         emit(OnTimerChanged('00:${time}'));
-        Future.delayed(Duration(milliseconds: 250),(){
+        Future.delayed(Duration(milliseconds: 250), () {
           emit(OnTimerChangedAgain());
         });
       } else {
@@ -308,13 +303,15 @@ class RegisterCubit extends Cubit<RegisterState> {
     });
   }
 
-  checkCode(String code) async {
+  checkCode(String phone, context) async {
     emit(CheckCodeLoading());
-    final response = await checkCodeUseCase(code);
+    final response = await checkCodeUseCase(phone);
     response.fold((l) => emit(CheckCodeFailure()), (r) {
       if (r.code == 200) {
-        checkCodeOfEmail = r.checkCode;
+        phoneNumber = phone;
+        // checkCodeOfEmail = r.checkCode;
         emit(CheckCodeSuccessfully());
+        sendSmsCode(context);
         Future.delayed(Duration(seconds: 2), () {
           emit(RegisterInitial());
         });
@@ -329,7 +326,8 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   resetPassword(String password) async {
     emit(ResetPasswordLoading());
-    final response = await resetPasswordUseCase([checkCodeOfEmail, password]);
+    final response =
+        await resetPasswordUseCase([phoneNumber, password]);
     response.fold((l) => emit(ResetPasswordFailure()), (r) {
       if (r.code == 200) {
         emit(ResetPasswordSuccessfully());

@@ -61,13 +61,13 @@ class _ResetPasswordState extends State<ResetPassword> {
       ),
       body: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
-          String time = context.read<RegisterCubit>().time;
-          if (state is CheckCodeInvalidCode) {
-            Future.delayed(const Duration(seconds: 1), () {
-              snackBar('Invalid Code Please Enter Correct Code', context,
-                  color: AppColors.error);
-            });
-          }
+          // String time = context.read<RegisterCubit>().time;
+          // if (state is CheckCodeInvalidCode) {
+          //   Future.delayed(const Duration(seconds: 1), () {
+          //     snackBar('Invalid Code Please Enter Correct Code', context,
+          //         color: AppColors.error);
+          //   });
+          // }
           if (state is CheckCodeLoading) {
             return const ShowLoadingIndicator();
           }

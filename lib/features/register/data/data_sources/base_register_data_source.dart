@@ -75,17 +75,21 @@ class RegistrationDataSource implements BaseRegistrationDataSource {
   Future<StatusResponse> checkCode(String code) async {
     final response = await apiConsumer.post(
       EndPoints.checkCodeUrl,
-      body: {"code": code},
+      body: {"phone": code},
     );
     return StatusResponse.checkCodeFromJson(response);
   }
 
   @override
   Future<StatusResponse> resetPassword(List<String> passwords) async {
+    print('passwords[0]');
+    print(passwords[0]);
+    print('passwords[1]');
+    print(passwords[1]);
     final response = await apiConsumer.post(
       EndPoints.resetPasswordUrl,
       body: {
-        "code": passwords[0],
+        "phone": passwords[0],
         'password': passwords[1],
         'password_confirmation': passwords[1],
       },

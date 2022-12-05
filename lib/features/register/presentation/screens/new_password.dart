@@ -110,6 +110,10 @@ class NewPassword extends StatelessWidget {
                               context,
                               color: AppColors.error);
                         } else {
+                          print('========00000=======');
+                          print(
+                            context.read<RegisterCubit>().phoneNumber,
+                          );
                           context
                               .read<RegisterCubit>()
                               .resetPassword(passwordController.text);

@@ -53,6 +53,7 @@ class HomePageDataSource implements BaseHomePageDataSource {
         options: Options(headers: {
           "Authorization": deviceTokenModel.userToken,
         }));
+    print("dldll${StatusResponse.fromJson(response).code}");
     return StatusResponse.fromJson(response);
   }
 }

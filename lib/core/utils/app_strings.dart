@@ -14,6 +14,7 @@ class AppStrings {
   static const String arabicCode = 'ar';
   static const String kurdishCode = 'fa';
   static const String locale = 'locale';
+  static const String phoneCode = '+964';
 
   //Strings Language
 

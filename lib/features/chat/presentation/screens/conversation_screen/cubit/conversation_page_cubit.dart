@@ -19,7 +19,7 @@ import '../../../../domain/use_cases/send_message_use_case.dart';
 part 'conversation_page_state.dart';
 
 class ConversationPageCubit extends Cubit<ConversationPageState> {
-  late ChatModel allMyRooms;
+  ChatModel? allMyRooms;
   late ChatModel oneRoom;
   LoginDataModel? loginDataModel;
   List<MyMessage> allMessages = [];
@@ -33,7 +33,7 @@ class ConversationPageCubit extends Cubit<ConversationPageState> {
   ConversationPageCubit(this.getMyRoomsUseCase, this.getOneRoomUseCase,
       this.sendMessageUseCase, this.openRoomUseCase)
       : super(IsLoadingData()) {
-    _getStoreUser().then((value) => getAllRoomsData());
+    getStoreUser().then((value) => getAllRoomsData());
   }
 
   final GetMyRoomsUseCase getMyRoomsUseCase;
@@ -41,7 +41,7 @@ class ConversationPageCubit extends Cubit<ConversationPageState> {
   final SendMessageUseCase sendMessageUseCase;
   final OpenRoomUseCase openRoomUseCase;
 
-  Future _getStoreUser() async {
+  Future getStoreUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('user') != null) {
       Map<String, dynamic> userMap = jsonDecode(prefs.getString('user')!);
@@ -50,8 +50,11 @@ class ConversationPageCubit extends Cubit<ConversationPageState> {
     }
   }
 
-  void getAllRoomsData() async {
+  Future<void> getAllRoomsData() async {
+    print('object Cubit');
+    print(loginDataModel!.data!.user!.name);
     emit(IsLoadingData());
+    allMyRooms = null;
     final response =
         await getMyRoomsUseCase(loginDataModel!.data!.accessToken!);
     emit(
@@ -65,8 +68,8 @@ class ConversationPageCubit extends Cubit<ConversationPageState> {
     );
   }
 
-  emitTheSuccess(List<MyMessage> myRooms,MyMessage message) {
-    if(!isCubit){
+  emitTheSuccess(List<MyMessage> myRooms, MyMessage message) {
+    if (!isCubit) {
       tempMessages = allMessages.reversed.toList();
       tempMessages.add(message);
       allMessages = tempMessages.reversed.toList();
@@ -91,7 +94,7 @@ class ConversationPageCubit extends Cubit<ConversationPageState> {
         ),
       );
     } else {
-      _getStoreUser().whenComplete(() => getOneRoomData(roomId));
+      getStoreUser().whenComplete(() => getOneRoomData(roomId));
     }
   }
 
@@ -106,21 +109,29 @@ class ConversationPageCubit extends Cubit<ConversationPageState> {
     sendMessage(imageFile!.path, myRoomsDatum);
   }
 
-  Future <void> sendMessage(String message, MyRoomsDatum myRoomsDatum) async {
+  Future<void> sendMessage(String message, MyRoomsDatum myRoomsDatum) async {
     emit(SendLoading());
+    print('myRoomsDatum.fromUserId');
+    print(myRoomsDatum.fromUserId);
+    print('myRoomsDatum.toUserId');
+    print(myRoomsDatum.toUserId);
     final response = await sendMessageUseCase(
       imageType == 'file'
           ? SendMessage(
               roomId: myRoomsDatum.id,
               type: imageType,
-              toUserId: myRoomsDatum.toUserId,
+              toUserId: loginDataModel!.data!.user!.id == myRoomsDatum.toUserId
+                  ? myRoomsDatum.fromUserId
+                  : myRoomsDatum.toUserId,
               file: message,
               token: loginDataModel!.data!.accessToken,
             )
           : SendMessage(
               roomId: myRoomsDatum.id,
               type: imageType,
-              toUserId: myRoomsDatum.toUserId,
+              toUserId: loginDataModel!.data!.user!.id == myRoomsDatum.toUserId
+                  ? myRoomsDatum.fromUserId
+                  : myRoomsDatum.toUserId,
               message: message,
               token: loginDataModel!.data!.accessToken,
             ),
@@ -130,10 +141,10 @@ class ConversationPageCubit extends Cubit<ConversationPageState> {
         (failure) => SendError(MapFailureMessage.mapFailureToMessage(failure)),
         (message) {
           print('Er0000r : cubit');
-            tempMessages = allMessages.reversed.toList();
-            tempMessages.add(message.data!);
-            allMessages = tempMessages.reversed.toList();
-            // isCubit = true;
+          tempMessages = allMessages.reversed.toList();
+          tempMessages.add(message.data!);
+          allMessages = tempMessages.reversed.toList();
+          // isCubit = true;
           return SendLoaded(message);
         },
       ),

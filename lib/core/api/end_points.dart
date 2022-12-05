@@ -36,7 +36,7 @@ class EndPoints {
   static const String updateProfileUrl = '${baseUrl}auth/update-profile';
   static const String updateStoreProfileUrl = '${baseUrl}auth/me';
   static const String sendCodeToEmailUrl = '${baseUrl}auth/password/email';
-  static const String checkCodeUrl = '${baseUrl}auth/password/code/check';
+  static const String checkCodeUrl = '${baseUrl}auth/password/phone/check';
   static const String resetPasswordUrl = '${baseUrl}auth/password/reset';
   static const String addAdsUrl = '${baseUrl}ads/add_ads';
   static const String updateAdsUrl = '${baseUrl}ads/update_ad/';

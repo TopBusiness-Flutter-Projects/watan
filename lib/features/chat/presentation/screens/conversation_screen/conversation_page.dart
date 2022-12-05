@@ -87,20 +87,20 @@ class _ConversationPageState extends State<ConversationPage> {
         } else {
           if (context
               .read<ConversationPageCubit>()
-              .allMyRooms
+              .allMyRooms!
               .data!
               .isNotEmpty) {
             return ListView.builder(
                 itemCount: context
                     .read<ConversationPageCubit>()
-                    .allMyRooms
+                    .allMyRooms!
                     .data!
                     .length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: ((context, index) {
                   MyRoomsDatum model = context
                       .read<ConversationPageCubit>()
-                      .allMyRooms
+                      .allMyRooms!
                       .data![index];
                   return InkWell(
                     onTap: () => _onTaped(myRoomsDatum: model, index: index),
@@ -120,11 +120,12 @@ class _ConversationPageState extends State<ConversationPage> {
                 child: Column(
                   children: [
                     Container(
-                      height:MediaQuery.of(context).size.longestSide,
+                      height: MediaQuery.of(context).size.longestSide,
                       child: Center(
                           child: Text(
                         translateText(AppStrings.noConversationsText, context),
-                        style: TextStyle(color: AppColors.black, fontSize: 15.0),
+                        style:
+                            TextStyle(color: AppColors.black, fontSize: 15.0),
                       )),
                     ),
                   ],
@@ -149,10 +150,22 @@ class _ConversationPageState extends State<ConversationPage> {
   }
 
   Future<void> _onRefresh() async {
+    if (Routes.isLogout) {
+      context.read<ConversationPageCubit>().getStoreUser().whenComplete(
+            () => context
+                .read<ConversationPageCubit>()
+                .getAllRoomsData()
+                .whenComplete(
+                  () => Routes.isLogout = false,
+                ),
+          );
+    }
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('user') != null) {
       Map<String, dynamic> userMap = jsonDecode(prefs.getString('user')!);
       LoginDataModel loginDataModel = LoginDataModel.fromJson(userMap);
+      print('object');
+      print(loginDataModel.data!.user!.name);
       user_id = loginDataModel.data!.user!.id!;
       setState(() {
         user_id;

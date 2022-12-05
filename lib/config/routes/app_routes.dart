@@ -20,7 +20,8 @@ import '../../features/profile/presentation/screens/agency_screen.dart';
 import '../../features/profile/presentation/screens/new_edit_agency.dart';
 
 class Routes {
-  static  MyRoomsDatum? chatModel;
+  static MyRoomsDatum? chatModel;
+  static bool isLogout = false;
 
   static const String initialRoute = '/';
   static const String notificationRoute = '/notification';
@@ -44,6 +45,7 @@ class Routes {
 
 class AppRoutes {
   static String route = '';
+
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.initialRoute:

@@ -25,12 +25,15 @@ class RegisterButtons extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
               onPressed: () {
+                print('....................................');
+
                 String phone =
                     context.read<RegisterCubit>().phoneController.text;
                 String whatsapp =
                     context.read<RegisterCubit>().whatsappController.text;
                 if (registerCubit!.registerBtn == 'update' ||
                     registerCubit!.registerBtn == 'save') {
+                  print('zzzzzzzzzzzzzz');
                   registerCubit!.updateProfileData();
                 } else {
                   if (formKey.currentState!.validate()) {
@@ -39,6 +42,7 @@ class RegisterButtons extends StatelessWidget {
                             .read<RegisterCubit>()
                             .confirmPasswordController
                             .text) {
+                      print('eeeeeeeeeeeeeeee');
                       snackBar(
                         translateText(
                           AppStrings.passwordValidationMessage,
@@ -48,31 +52,26 @@ class RegisterButtons extends StatelessWidget {
                         color: AppColors.error,
                       );
                     } else if (context.read<RegisterCubit>().image == null) {
+                      print('vvvvvvvvvvv');
                       snackBar(
                           translateText(
                               AppStrings.selectImageValidator, context),
                           context,
                           color: AppColors.error);
                     } else if (phone.length < 10 || phone.length > 11) {
+                      print('xxxxxxxxxxxxx');
                       snackBar(
                           translateText(AppStrings.correctPhoneText, context),
                           context,
                           color: AppColors.error);
                     } else if (whatsapp.length < 10 || whatsapp.length > 11) {
+                      print('qqqqqqqqq');
                       snackBar(
                           translateText(AppStrings.correctWhatsappText, context),
                           context,
                           color: AppColors.error);
-                    } else if (!isUser) {
-                      if (context.read<RegisterCubit>().longitude == 0 ||
-                          context.read<RegisterCubit>().latitude == 0) {
-                        snackBar(
-                            translateText(
-                                AppStrings.selectLocationText, context),
-                            context,
-                            color: AppColors.error);
-                      }
                     } else {
+                      print('[[[[[[[[[[[[[');
                       registerCubit!.postRegisterData();
                     }
                   }
