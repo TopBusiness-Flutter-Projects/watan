@@ -9,7 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../features/profile/presentation/cubit/profile_cubit.dart';
 
 class CustomTextField extends StatelessWidget {
-   const CustomTextField({
+  const CustomTextField({
     Key? key,
     required this.image,
     required this.title,
@@ -40,69 +40,87 @@ class CustomTextField extends StatelessWidget {
       child: Column(
         children: [
           image != "null"
-              ? Row(
-                  children: [
-                    SvgPicture.asset(image,color: imageColor,),
-                    const SizedBox(width: 6),
-                    Text(
-                      title,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
+              ? Directionality(
+                  textDirection: isNum
+                      ? TextDirection.ltr
+                      : IsLanguage.isEnLanguage(context)
+                          ? TextDirection.ltr
+                          : TextDirection.rtl,
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        image,
+                        color: imageColor,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        title,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
                 )
               : const SizedBox(width: 0),
           image != "null"
               ? const SizedBox(height: 6)
               : const SizedBox(width: 0),
-          TextFormField(
-            controller: controller,
-            keyboardType: textInputType,
-            inputFormatters: textInputType ==TextInputType.number?[ThousandsSeparatorInputFormatter()]:[],
-            obscureText: isPassword,
-            decoration: InputDecoration(
-                prefixIcon: isNum
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 12),
-                        child: Text(
-                          IsLanguage.isEnLanguage(context)
-                              ? "+964"
-                              : "+ ${replaceToArabicNumber("964")}",
-                          style: const TextStyle(fontSize: 16),
-                          textAlign: TextAlign.center,
+          Directionality(
+            textDirection: isNum
+                ? TextDirection.ltr
+                : IsLanguage.isEnLanguage(context)
+                    ? TextDirection.ltr
+                    : TextDirection.rtl,
+            child: TextFormField(
+              controller: controller,
+              keyboardType: textInputType,
+              inputFormatters: textInputType == TextInputType.number
+                  ? [ThousandsSeparatorInputFormatter()]
+                  : [],
+              obscureText: isPassword,
+              decoration: InputDecoration(
+                  prefixIcon: isNum
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 12),
+                          child: Text(
+                            IsLanguage.isEnLanguage(context)
+                                ? "+964"
+                                : "+ ${replaceToArabicNumber("964")}",
+                            style: const TextStyle(fontSize: 16),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      : null,
+                  hintText: title,
+                  border: image != "null"
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide.none,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                      )
-                    : null,
-                hintText: title,
-                border: image != "null"
-                    ? OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide.none,
-                      )
-                    : OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                fillColor: AppColors.scaffoldBackground,
-                filled: true),
-            maxLines: isPassword ? 1 : 20,
-            minLines: minLine,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return validatorMessage;
-              } else if (isAgent) {
-                if (context.read<ProfileCubit>().statusCode == 422) {
+                  fillColor: AppColors.scaffoldBackground,
+                  filled: true),
+              maxLines: isPassword ? 1 : 20,
+              minLines: minLine,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
                   return validatorMessage;
+                } else if (isAgent) {
+                  if (context.read<ProfileCubit>().statusCode == 422) {
+                    return validatorMessage;
+                  }
                 }
-              }
-              return null;
-            },
+                return null;
+              },
+            ),
           )
         ],
       ),
     );
   }
 }
-
 
 class ThousandsSeparatorInputFormatter extends TextInputFormatter {
   static const separator = ','; // Change this to '.' for other locales

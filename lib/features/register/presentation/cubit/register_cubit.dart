@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:elwatn/core/utils/app_strings.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +78,9 @@ class RegisterCubit extends Cubit<RegisterState> {
     passwordController.text = "";
     nameController.text = userModel.data!.user!.name ?? "";
     whatsappController.text = userModel.data!.user!.whatsapp ?? "";
-    phoneController.text = userModel.data!.user!.phone ?? "";
+    phoneController.text = userModel.data!.user!.phone!.contains('+964')
+        ? userModel.data!.user!.phone!.substring(4)
+        : userModel.data!.user!.phone!;
     facebookController.text = userModel.data!.user!.facebook ?? "";
     instaController.text = userModel.data!.user!.instagram ?? "";
     twitterController.text = userModel.data!.user!.twitter ?? "";
@@ -128,8 +131,8 @@ class RegisterCubit extends Cubit<RegisterState> {
         name: nameController.text,
         email: emailController.text,
         phone: phoneController.text.length == 11
-            ? phoneController.text.substring(1)
-            : phoneController.text,
+            ? AppStrings.phoneCode + phoneController.text.substring(1)
+            : AppStrings.phoneCode + phoneController.text,
         whatsapp: whatsappController.text.length == 11
             ? whatsappController.text.substring(1)
             : whatsappController.text,
@@ -175,12 +178,14 @@ class RegisterCubit extends Cubit<RegisterState> {
     Either<Failure, LoginModel> response = await updateProfileUseCase(
       RegistrationUserModel(
         name: nameController.text,
-        phone: phoneController.text,
+        phone: phoneController.text.length == 11
+            ? AppStrings.phoneCode + phoneController.text.substring(1)
+            : AppStrings.phoneCode + phoneController.text,
         whatsapp: whatsappController.text,
         email: emailController.text,
         password: passwordController.text,
         userType: userType.toString(),
-        image: image != null ? image!.path : "",
+        image: image != null ? image!.path : null,
         token: token,
       ),
     );
@@ -229,6 +234,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(OnSmsCodeSent(smsCode));
         verifySmsCode(smsCode, context);
       },
+
       verificationFailed: (FirebaseAuthException e) {
         emit(CheckCodeInvalidCode());
         print("Errrrorrrrr : ${e.message}");
@@ -326,8 +332,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   resetPassword(String password) async {
     emit(ResetPasswordLoading());
-    final response =
-        await resetPasswordUseCase([phoneNumber, password]);
+    final response = await resetPasswordUseCase([phoneNumber, password]);
     response.fold((l) => emit(ResetPasswordFailure()), (r) {
       if (r.code == 200) {
         emit(ResetPasswordSuccessfully());

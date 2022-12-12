@@ -31,15 +31,15 @@ class _ListNumbersWidgetState extends State<ListNumbersWidget> {
     if (widget.kind != 'null') {
       if (context.read<AddAdsCubit>().btnText == 'update') {
         if (widget.kind == 'bathroom') {
-          selected = context.read<AddAdsCubit>().bathroom ;
+          selected = context.read<AddAdsCubit>().bathroom;
         } else if (widget.kind == 'kitchen') {
-          selected = context.read<AddAdsCubit>().kitchen ;
+          selected = context.read<AddAdsCubit>().kitchen;
         } else if (widget.kind == 'living') {
-          selected =context.read<AddAdsCubit>().livingRoom ;
+          selected = context.read<AddAdsCubit>().livingRoom;
         } else if (widget.kind == 'dining') {
-          selected =context.read<AddAdsCubit>().diningRoom ;
+          selected = context.read<AddAdsCubit>().diningRoom;
         }
-      }else{
+      } else {
         context.read<AddAdsCubit>().bathroom = 0;
       }
     } else {
@@ -109,7 +109,11 @@ class _ListNumbersWidgetState extends State<ListNumbersWidget> {
                             ),
                             child: Center(
                                 child: Text(
-                              (index + 1).toString(),
+                              IsLanguage.isEnLanguage(context)
+                                  ? (index + 1).toString()
+                                  : replaceToArabicNumber(
+                                      (index + 1).toString(),
+                                    ),
                               style: TextStyle(
                                   fontSize: 12, color: AppColors.primary),
                             )),
@@ -126,7 +130,10 @@ class _ListNumbersWidgetState extends State<ListNumbersWidget> {
                             ),
                             child: Center(
                                 child: Text(
-                             IsLanguage.isEnLanguage(context)? (index + 1).toString():replaceToArabicNumber( (index + 1).toString()),
+                              IsLanguage.isEnLanguage(context)
+                                  ? (index + 1).toString()
+                                  : replaceToArabicNumber(
+                                      (index + 1).toString()),
                               style: const TextStyle(fontSize: 12),
                             )),
                           ),

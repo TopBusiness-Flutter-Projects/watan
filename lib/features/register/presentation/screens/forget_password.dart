@@ -96,10 +96,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                             } else {
                               context.read<RegisterCubit>().phoneNumber =
                                   phoneController.text.length == 11
-                                      ? AppStrings.phoneCode +
-                                          phoneController.text.substring(1)
+                                      ? AppStrings.phoneCode + phoneController.text.substring(1)
                                       : AppStrings.phoneCode + phoneController.text;
-
                               context.read<RegisterCubit>().checkCode(
                                     phoneController.text.length == 11
                                         ? AppStrings.phoneCode +

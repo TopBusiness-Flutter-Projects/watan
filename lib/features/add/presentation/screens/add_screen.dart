@@ -169,7 +169,7 @@ class _AddScreenState extends State<AddScreen> {
                   ),
                   const GrayLine(),
                    ListNumbersWidget(
-                    image: ImageAssets.dinnerIcon,
+                    image: ImageAssets.livingRoomIcon,
                     title: translateText(AppStrings.diningText, context),
                     kind: 'dining',
                   ),
@@ -194,10 +194,8 @@ class _AddScreenState extends State<AddScreen> {
                     onClick: () {
                       if (formKey.currentState!.validate()) {
                         if(!widget.isUpdate){
-                          print('----------wwwwwwwwww--------------');
                           if (addAdsCubit.longitude == 0 ||
                               addAdsCubit.latitude == 0) {
-                            print('----------1111111111--------------');
                             snackBar(
                               translateText(AppStrings.selectLocationText, context),
                               context,

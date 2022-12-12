@@ -44,6 +44,9 @@ class RegistrationDataSource implements BaseRegistrationDataSource {
 
   @override
   Future<LoginModel> updateProfileData(RegistrationUserModel user) async {
+    print('User Image');
+    print(user.image);
+    print(user.updateUserProfileToJson());
     Response response = await apiConsumer.newPost(EndPoints.updateProfileUrl,
         body: await user.updateUserProfileToJson(),
         formDataIsEnabled: true,

@@ -31,9 +31,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerWidget(
-        closeDrawer: () {
-          _scaffoldKey.currentState!.closeDrawer();
-        },
+        closeDrawer: () => _scaffoldKey.currentState!.closeDrawer(),
         loginDataModel: widget.loginDataModel,
       ),
       bottomNavigationBar: CurvedNavigationBar(

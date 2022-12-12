@@ -74,7 +74,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
   int cityId = 0;
   int locationId = 0;
   int type = -1;
-  int price = 0;
+  String price = '';
   int bedroom = -1;
   int bathroom = 0;
   int kitchen = 0;
@@ -255,7 +255,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
         furniture: furnished.toString(),
         price: priceController.text,
         currency: currency,
-        size: int.parse(areaController.text),
+        size: areaController.text,
         amenities: amenitiesId,
         bedroom: bedroom.toString(),
         bathRoom: bathroom.toString(),
@@ -328,7 +328,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
         furniture: furnished.toString(),
         price: priceController.text,
         currency: currency=='1'?'USD':'IQD',
-        size: int.parse(areaController.text),
+        size:areaController.text,
         amenities: amenitiesId,
         bedroom: bedroom.toString(),
         bathRoom: bathroom.toString(),
@@ -398,7 +398,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     cityId = 0;
     locationId = 0;
     type = -1;
-    price = 0;
+    price = '';
     bedroom = -1;
     bathroom = 0;
     kitchen = 0;
@@ -427,7 +427,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     cityId = 0;
     locationId = 0;
     type = -1;
-    price = 0;
+    price = '';
     bedroom = -1;
     bathroom = 0;
     kitchen = 0;

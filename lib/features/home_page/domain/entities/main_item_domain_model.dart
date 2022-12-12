@@ -70,7 +70,7 @@ class MainItem extends Equatable {
   final String? titleKu;
   final String? descriptionKu;
   final String? furniture;
-  final int? price;
+  final String? price;
   final String? currency;
   final String? size;
   final int? bedroom;

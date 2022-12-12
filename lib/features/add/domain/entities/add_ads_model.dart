@@ -91,7 +91,7 @@ class AddAdsModel {
   List<String>? floorPlans;
   List<String>? videos;
   String? currency;
-  int? size;
+  String? size;
   String? bedroom;
   String? bathRoom;
   String? kitchen;

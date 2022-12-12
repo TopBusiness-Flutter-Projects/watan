@@ -24,10 +24,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    if(Routes.isLogout){
+    if (Routes.isLogout) {
       context.read<HomePageCubit>().getAllDataOfHomePage();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomePageCubit, HomePageState>(
@@ -40,7 +41,6 @@ class _HomePageState extends State<HomePage> {
               },
               child: Column(
                 children: [
-
                   const ShowLoadingIndicator(),
                 ],
               ));
@@ -52,9 +52,10 @@ class _HomePageState extends State<HomePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  CustomAppBar(openMyDrawer: () {
-                    widget.scaffoldKey.currentState!.openDrawer();
-                  }),
+                  CustomAppBar(
+                    openMyDrawer: () =>
+                        widget.scaffoldKey.currentState!.openDrawer(),
+                  ),
                   BannerWidget(sliderData: state.slider.data!),
                   CategoriesWidget(categoriesDatum: state.categories.data!),
                   HomeModelWidget(
@@ -75,7 +76,8 @@ class _HomePageState extends State<HomePage> {
           );
         } else if (state is HomePageError) {
           return error_widget.ErrorWidget(
-            onPressed: () => context.read<HomePageCubit>().getAllDataOfHomePage(),
+            onPressed: () =>
+                context.read<HomePageCubit>().getAllDataOfHomePage(),
           );
         } else {
           return const ShowLoadingIndicator();
