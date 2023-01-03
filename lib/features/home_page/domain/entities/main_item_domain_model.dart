@@ -22,9 +22,7 @@ class MainItem extends Equatable {
     this.currency,
     this.size,
     this.bedroom,
-    this.babyRoom,
     this.kitchen,
-    this.receptionRoom,
     this.diningRoom,
     this.bathRoom,
     this.livingRoom,
@@ -75,10 +73,8 @@ class MainItem extends Equatable {
   final String? size;
   final int? bedroom;
   final int? bathRoom;
-  final int? babyRoom;
   final int? kitchen;
   final int? livingRoom;
-  final int? receptionRoom;
   final int? diningRoom;
   final String? type;
   final String? advertizerNameAr;
@@ -129,9 +125,7 @@ class MainItem extends Equatable {
         size,
         bedroom,
         bathRoom,
-        babyRoom,
         kitchen,
-        receptionRoom,
         diningRoom,
         advertizerNameAr,
         advertizerNameEn,

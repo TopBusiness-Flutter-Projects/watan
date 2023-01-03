@@ -6,6 +6,7 @@ abstract class MyAdsState extends Equatable{
 }
 
 class MyAdsInitial extends MyAdsState {}
+class MyAdsSetStateWidget extends MyAdsState {}
 
 class MyAdsDeletedSuccessfully extends MyAdsState {}
 class MyAdsChangeStatusSuccessfully extends MyAdsState {}

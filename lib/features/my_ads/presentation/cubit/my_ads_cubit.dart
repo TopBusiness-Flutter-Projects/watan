@@ -27,9 +27,16 @@ class MyAdsCubit extends Cubit<MyAdsState> {
   List<MainProjectItemModel> forSaleProjectList = [];
   late LoginDataModel loginDataModel;
 
+  bool isActive = false;
+
   final GetMyAdsUseCase getMyAdsUseCase;
   final DeleteMyAdsUseCase deleteMyAdsUseCase;
   final ChangeStatusMyAdsUseCase changeStatusMyAdsUseCase;
+
+  setStateWidgets(){
+    isActive=true;
+    emit(MyAdsSetStateWidget());
+  }
 
   Future<LoginDataModel> getStoreUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -59,6 +66,7 @@ class MyAdsCubit extends Cubit<MyAdsState> {
           } else {
             forSaleProjectList = profileAdsModel.data!.forSaleProject!;
           }
+          isActive = false;
           return MyAdsLoaded(profileAdsModel);
         },
       ),

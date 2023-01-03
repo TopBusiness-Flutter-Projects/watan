@@ -44,6 +44,9 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if(context.read<MyAdsCubit>().isActive){
+
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,
@@ -60,6 +63,15 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
       ),
       body: BlocBuilder<MyAdsCubit, MyAdsState>(
         builder: (context, state) {
+          if(state is MyAdsSetStateWidget){
+            context.read<MyAdsCubit>().getStoreUser().then(
+                  (value) => context.read<MyAdsCubit>().getMyProfileAds(
+                value.data!.accessToken!,
+                widget.kindOfClass,
+                value.data!.user!.userType.toString(),
+              ),
+            );
+          }
           if (state is MyAdsDeletedSuccessfully) {
             Future.delayed(const Duration(seconds: 2), () {
               snackBar(

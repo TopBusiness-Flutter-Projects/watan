@@ -80,7 +80,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
   int kitchen = 0;
   int livingRoom = 0;
   int diningRoom = 0;
-  int size = 0;
+  String size = '';
   int propertySelected = -1;
   int postId = 0;
   double longitude = 0;
@@ -123,7 +123,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     citiesLocationKu.clear();
     btnText = 'update';
     type = int.parse(mainItem.type!);
-    size = int.parse(mainItem.size!);
+    size = mainItem.size!;
     furnished = int.parse(mainItem.furniture!);
     propertySelected = int.parse(mainItem.type!);
     status = mainItem.status!;
@@ -404,7 +404,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     kitchen = 0;
     livingRoom = 0;
     diningRoom = 0;
-    size = 0;
+    size = '';
     propertySelected = -1;
     status = 'sale';
     currency = '';
@@ -433,7 +433,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     kitchen = 0;
     livingRoom = 0;
     diningRoom = 0;
-    size = 0;
+    size = '';
     type = 0;
     propertySelected = -1;
     status = 'sale';
