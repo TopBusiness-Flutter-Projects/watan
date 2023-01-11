@@ -59,19 +59,6 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                         ModalRoute.withName(Routes.loginScreenRoute));
-
-                    // return Navigator.pushAndRemoveUntil(
-                    //   context,
-                    //   PageTransition(
-                    //     type: PageTransitionType.fade,
-                    //     alignment: Alignment.center,
-                    //     duration: const Duration(milliseconds: 1300),
-                    //     child: NavigatorBar(
-                    //       loginDataModel:
-                    //           context.read<LoginCubit>().userLoginModel!,
-                    //     ),
-                    //   ),
-                    // );
                     Future.delayed(
                       const Duration(milliseconds: 700),
                       () {

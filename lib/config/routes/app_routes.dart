@@ -18,6 +18,7 @@ import '../../features/map/presentation/screens/map.dart';
 import '../../features/notification/presentation/screens/notification.dart';
 import '../../features/profile/presentation/screens/agency_screen.dart';
 import '../../features/profile/presentation/screens/new_edit_agency.dart';
+import '../../features/profile/presentation/widgets/loading_screen.dart';
 
 class Routes {
   static MyRoomsDatum? chatModel;
@@ -41,6 +42,7 @@ class Routes {
   static const String newAndEditAgencyScreenRoute = '/newAndEditAgencyScreen';
   static const String mapScreenRoute = '/mapScreen';
   static const String filterResultRoute = '/filterResult';
+  static const String loadingScreenWidgetRoute = '/loadingScreenWidget';
 }
 
 class AppRoutes {
@@ -109,10 +111,10 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => const NewAndEditAgencyScreen(),
         );
-      // case Routes.agencyProfileScreenRoute:
-      // return MaterialPageRoute(
-      //   builder: (context) =>   const AgencyProfileScreen(),
-      // );
+      case Routes.loadingScreenWidgetRoute:
+      return MaterialPageRoute(
+        builder: (context) =>   const LoadingScreenWidget(),
+      );
       case Routes.mapScreenRoute:
         return MaterialPageRoute(
           builder: (context) => const MapScreen(),

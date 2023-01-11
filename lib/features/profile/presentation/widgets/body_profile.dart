@@ -96,7 +96,8 @@ class BodyProfileWidget extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) {
                           return RegisterScreen(
-                            title: translateText(AppStrings.updateProfileTitle, context),
+                            title: translateText(
+                                AppStrings.updateProfileTitle, context),
                             isUser: true,
                           );
                         },
@@ -108,7 +109,8 @@ class BodyProfileWidget extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) {
                           return RegisterScreen(
-                            title: translateText(AppStrings.updateProfileTitle, context),
+                            title: translateText(
+                                AppStrings.updateProfileTitle, context),
                             isUser: false,
                           );
                         },

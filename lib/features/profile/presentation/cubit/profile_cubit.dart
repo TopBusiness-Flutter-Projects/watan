@@ -89,7 +89,11 @@ class ProfileCubit extends Cubit<ProfileState> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool result = await prefs.remove('user');
     if (result) {
-      Navigator.pushReplacementNamed(context, Routes.initialRoute);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        Routes.initialRoute,
+        (route) => false,
+      );
       Future.delayed(Duration(seconds: 1), () {
         emit(ProfileInitial());
       });

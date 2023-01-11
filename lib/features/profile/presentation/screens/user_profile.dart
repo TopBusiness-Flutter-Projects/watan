@@ -1,6 +1,8 @@
+import 'package:elwatn/config/routes/app_routes.dart';
 import 'package:elwatn/core/utils/snackbar_method.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/widgets/show_loading_indicator.dart';
 import '../../../login/data/models/login_data_model.dart';
 import '../cubit/profile_cubit.dart';
@@ -13,32 +15,36 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return BlocBuilder<ProfileCubit, ProfileState>(
-        builder: (context, state) {
-          if (state is ProfileUserDeletedError) {
-            Future.delayed(const Duration(milliseconds: 500), () {
-              snackBar("Errrrrrror", context);
-            });
-          }
-          if (state is ProfileUserDeletedSuccessfully) {
-            context.read<ProfileCubit>().removeUserFromLocal(context);
-          }
-          if (state is ProfileUserDeletedLoading) {
-            Future.delayed(Duration(milliseconds: 500), () {
-              Navigator.pop(context);
-            });
-            return const ShowLoadingIndicator();
-          }
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                HeaderProfileWidget(loginDataModel: loginDataModel),
-                const SizedBox(height: 30),
-                BodyProfileWidget(loginDataModel: loginDataModel),
-              ],
-            ),
-          );
-        },
-      );
+    return BlocBuilder<ProfileCubit, ProfileState>(
+      builder: (context, state) {
+        if (state is ProfileUserDeletedError) {
+          Future.delayed(const Duration(milliseconds: 500), () {
+            snackBar("Errrrrrror", context);
+          });
+        }
+        if (state is ProfileUserDeletedLoading) {
+          Future.delayed(Duration(milliseconds: 500), () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.loadingScreenWidgetRoute,
+              (route) => false,
+            );
+          });
+          Future.delayed(Duration(milliseconds: 700), () {
+            Navigator.pop(context);
+          });
+          return const ShowLoadingIndicator();
+        }
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              HeaderProfileWidget(loginDataModel: loginDataModel),
+              const SizedBox(height: 30),
+              BodyProfileWidget(loginDataModel: loginDataModel),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
