@@ -40,26 +40,19 @@ class CustomTextField extends StatelessWidget {
       child: Column(
         children: [
           image != "null"
-              ? Directionality(
-                  textDirection: isNum
-                      ? TextDirection.ltr
-                      : IsLanguage.isEnLanguage(context)
-                          ? TextDirection.ltr
-                          : TextDirection.rtl,
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        image,
-                        color: imageColor,
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        title,
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ],
+              ? Row(
+                children: [
+                  SvgPicture.asset(
+                    image,
+                    color: imageColor,
                   ),
-                )
+                  const SizedBox(width: 6),
+                  Text(
+                    title,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ],
+              )
               : const SizedBox(width: 0),
           image != "null"
               ? const SizedBox(height: 6)

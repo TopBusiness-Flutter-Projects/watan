@@ -44,8 +44,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   String imageLink = "";
   String registerBtn = "";
   String token = "";
-  double latitude = 0;
-  double longitude = 0;
+  double latitude = 0.0;
+  double longitude = 0.0;
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController whatsappController = TextEditingController();
@@ -88,6 +88,10 @@ class RegisterCubit extends Cubit<RegisterState> {
     imageLink = userModel.data!.user!.image ?? "";
   }
 
+  clearData(){
+
+  }
+
   updateLoginStoreData(String token) async {
     final response = await updateStoreProfileUseCase(token);
     response.fold(
@@ -127,7 +131,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         await postRegisterUserUseCase(
       RegistrationUserModel(
         userType: userType.toString(),
-        image: image!.path,
+        image: image!=null?image!.path:null,
         name: nameController.text,
         email: emailController.text,
         phone: phoneController.text.length == 11
@@ -156,6 +160,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         if (userModel.code == 200) {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('user', jsonEncode(userModel)).then((value) {
+            confirmPasswordController.clear();
             emit(RegisterLoaded(userModel));
             Future.delayed(
               const Duration(seconds: 2),
@@ -226,7 +231,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     _mAuth.verifyPhoneNumber(
       forceResendingToken: this.resendToken,
       phoneNumber: phoneNumber,
-      timeout: Duration(seconds: 1),
+      // timeout: Duration(seconds: 1),
       verificationCompleted: (PhoneAuthCredential credential) {
         smsCode = credential.smsCode!;
         this.verificationId = credential.verificationId;
@@ -234,7 +239,6 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(OnSmsCodeSent(smsCode));
         verifySmsCode(smsCode, context);
       },
-
       verificationFailed: (FirebaseAuthException e) {
         emit(CheckCodeInvalidCode());
         print("Errrrorrrrr : ${e.message}");
@@ -246,8 +250,10 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(OnSmsCodeSent(''));
       },
       codeAutoRetrievalTimeout: (String verificationId) {
+        print('kokokokokokok');
         this.verificationId = verificationId;
       },
+
     );
   }
 

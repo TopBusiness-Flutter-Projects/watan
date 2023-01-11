@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:elwatn/core/utils/snackbar_method.dart';
-import 'package:elwatn/features/details/presentation/widgets/list_tile_all_details.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_strings.dart';
@@ -53,10 +53,21 @@ class NewEditAgentBodyWidget extends StatelessWidget {
                   : "",
               textInputType: TextInputType.text,
             ),
-            ListTileAllDetailsWidget(
-              image: ImageAssets.speakIcon,
-              text: translateText(AppStrings.languageTitle, context),
-              iconColor: AppColors.primary,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    ImageAssets.speakIcon,
+                    color: AppColors.primary,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    translateText(AppStrings.languageTitle, context),
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 18),
@@ -110,6 +121,7 @@ class NewEditAgentBodyWidget extends StatelessWidget {
                     )
                   : context.read<ProfileCubit>().phoneValidator,
               textInputType: TextInputType.phone,
+              isNum: true,
             ),
             const SizedBox(height: 12),
             CustomTextField(
@@ -125,6 +137,7 @@ class NewEditAgentBodyWidget extends StatelessWidget {
                   : "",
               title: translateText(AppStrings.whatsappHint, context),
               textInputType: TextInputType.phone,
+              isNum: true,
             ),
             const SizedBox(height: 12),
             CustomTextField(
@@ -197,9 +210,36 @@ class NewEditAgentBodyWidget extends StatelessWidget {
                   } else if (context.read<ProfileCubit>().languages.isEmpty) {
                     snackBar("please Choose Language", context,
                         color: AppColors.error);
+                  }
+                  if (context.read<ProfileCubit>().phoneController.text.length <
+                          10 ||
+                      context.read<ProfileCubit>().phoneController.text.length >
+                          11) {
+                    snackBar(
+                        translateText(AppStrings.correctPhoneText, context),
+                        context,
+                        color: AppColors.error);
+                  } else if (context
+                              .read<ProfileCubit>()
+                              .whatsappController
+                              .text
+                              .length <
+                          10 ||
+                      context
+                              .read<ProfileCubit>()
+                              .whatsappController
+                              .text
+                              .length >
+                          11) {
+                    snackBar(
+                        translateText(AppStrings.correctWhatsappText, context),
+                        context,
+                        color: AppColors.error);
                   } else {
                     if (context.read<ProfileCubit>().agentBtnText == "update") {
-                      context.read<ProfileCubit>().editAgent(context.read<ProfileCubit>().agentModel);
+                      context
+                          .read<ProfileCubit>()
+                          .editAgent(context.read<ProfileCubit>().agentModel);
                     } else {
                       context.read<ProfileCubit>().postNewAgent();
                     }

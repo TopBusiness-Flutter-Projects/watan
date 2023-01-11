@@ -261,10 +261,28 @@ class _AddScreenState extends State<AddScreen> {
                               color: AppColors.primary);
                         } else if (addAdsCubit.image.isEmpty) {
                           snackBar(
-                              translateText(
-                                  AppStrings.selectImageValidator, context),
-                              context,
-                              color: AppColors.primary);
+                            translateText(
+                                AppStrings.selectImageValidator, context),
+                            context,
+                            color: AppColors.primary,
+                          );
+                        } else if (addAdsCubit.phoneController.text.length <
+                                10 ||
+                            addAdsCubit.phoneController.text.length > 11) {
+                          snackBar(
+                            translateText(AppStrings.correctPhoneText, context),
+                            context,
+                            color: AppColors.error,
+                          );
+                        } else if (addAdsCubit.whatsappController.text.length <
+                                10 ||
+                            addAdsCubit.whatsappController.text.length > 11) {
+                          snackBar(
+                            translateText(
+                                AppStrings.correctWhatsappText, context),
+                            context,
+                            color: AppColors.error,
+                          );
                         } else {
                           if (!widget.isUpdate) {
                             if (addAdsCubit.longitude == 0.0 ||

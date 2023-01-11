@@ -59,23 +59,26 @@ class RegisterButtons extends StatelessWidget {
                         context,
                         color: AppColors.error,
                       );
-                    } else if (context.read<RegisterCubit>().image == null) {
+                    }
+                    // else if (context.read<RegisterCubit>().image == null) {
+                    //   snackBar(
+                    //       translateText(
+                    //           AppStrings.selectImageValidator, context),
+                    //       context,
+                    //       color: AppColors.error);
+                    // }
+                    else if (phone.length < 10 || phone.length > 11) {
                       snackBar(
-                          translateText(
-                              AppStrings.selectImageValidator, context),
-                          context,
-                          color: AppColors.error);
-                    } else if (phone.length < 10 || phone.length > 11) {
-                      snackBar(
-                          translateText(AppStrings.correctPhoneText, context),
-                          context,
-                          color: AppColors.error);
+                        translateText(AppStrings.correctPhoneText, context),
+                        context,
+                        color: AppColors.error,
+                      );
                     } else if (whatsapp.length < 10 || whatsapp.length > 11) {
                       snackBar(
-                          translateText(
-                              AppStrings.correctWhatsappText, context),
-                          context,
-                          color: AppColors.error);
+                        translateText(AppStrings.correctWhatsappText, context),
+                        context,
+                        color: AppColors.error,
+                      );
                     } else {
                       registerCubit!.postRegisterData();
                     }

@@ -105,7 +105,9 @@ class RegistrationUserModel extends RegistrationUser {
         "email": email,
         "password": password,
         "whatsapp": whatsapp,
-        "image": await MultipartFile.fromFile(image!),
+        if (image != null) ...{
+          "image": await MultipartFile.fromFile(image!),
+        },
         "user_type": userType,
       };
 
@@ -115,7 +117,9 @@ class RegistrationUserModel extends RegistrationUser {
         "email": email,
         "password": password,
         "whatsapp": whatsapp,
-        "image": await MultipartFile.fromFile(image!),
+        if (image != null) ...{
+          "image": await MultipartFile.fromFile(image!),
+        },
         "user_type": userType,
         "facebook": facebook,
         "instagram": instagram,

@@ -53,7 +53,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
         title: Text(
           widget.kindOfClass == 'myAds'
               ? translateText(AppStrings.myAdsText, context)
-              : translateText(AppStrings.mySolidText, context),
+              : translateText(AppStrings.soledPropertyText, context),
           style: TextStyle(color: AppColors.black),
         ),
         iconTheme: IconThemeData(

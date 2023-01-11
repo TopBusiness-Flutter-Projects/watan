@@ -43,7 +43,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               );
             });
           }
-          if (state is SendCodeLoading) {
+          if (state is SendCodeLoading||state is CheckCodeLoading) {
             return const ShowLoadingIndicator();
           }
           if (state is OnSmsCodeSent) {
@@ -71,12 +71,16 @@ class ForgetPasswordScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       CustomTextField(
-                        controller: phoneController,
+                        imageColor: AppColors.primary,
+                        controller: context.read<RegisterCubit>().phoneController,
                         image: ImageAssets.mobileGoldIcon,
                         title: translateText(AppStrings.phoneHint, context),
                         validatorMessage: translateText(
-                            AppStrings.phoneValidatorMessage, context),
+                          AppStrings.phoneValidatorMessage,
+                          context,
+                        ),
                         textInputType: TextInputType.phone,
+                        isNum: true,
                       ),
                       const SizedBox(height: 60),
                       CustomButton(

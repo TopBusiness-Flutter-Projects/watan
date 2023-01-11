@@ -14,7 +14,7 @@ class AppStrings {
   static const String arabicCode = 'ar';
   static const String kurdishCode = 'fa';
   static const String locale = 'locale';
-  static const String phoneCode = '+964';
+  static const String phoneCode = '+20';
 
   //Strings Language
 
@@ -127,6 +127,7 @@ class AppStrings {
   static const String correctWhatsappText = 'correct_whatsapp_text';
   static const String currencyText = 'currency_text';
   static const String toText = 'To_text';
+  static const String fromText = 'From_text';
   static const String createBtnText = 'crate_btn_text';
   static const String choosePhotoMessage = 'choose_photo_message';
   static const String aboutValidatorMessage = 'about_validator_message';

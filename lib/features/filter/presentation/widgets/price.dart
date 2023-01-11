@@ -42,16 +42,14 @@ class PriceWidget extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  hintText: IsLanguage.isEnLanguage(context)
-                      ? "0"
-                      : replaceToArabicNumber('0'),
+                  hintText: translateText(AppStrings.fromText, context),
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
             const SizedBox(width: 16),
             Text(
-              translateText(AppStrings.toText, context),
+              ' _ ',
               style: TextStyle(fontSize: 12),
             ),
             const SizedBox(width: 16),
@@ -63,7 +61,7 @@ class PriceWidget extends StatelessWidget {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8)),
-                  hintText: translateText(AppStrings.anyHint, context),
+                  hintText: translateText(AppStrings.toText, context),
                 ),
               ),
             ),
