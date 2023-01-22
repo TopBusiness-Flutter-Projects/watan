@@ -53,7 +53,6 @@ class LoginCubit extends Cubit<LoginState> {
   storeUser(LoginModel loginModel) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String softwareType = '';
-
     await prefs.setString('user', jsonEncode(loginModel));
     String? token = await FirebaseMessaging.instance.getToken();
     if (Platform.isAndroid) {

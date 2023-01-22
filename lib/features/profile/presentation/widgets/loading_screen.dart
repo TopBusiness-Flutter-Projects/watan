@@ -14,8 +14,8 @@ class LoadingScreenWidget extends StatelessWidget {
         if (state is ProfileUserDeletedSuccessfully) {
           context.read<ProfileCubit>().removeUserFromLocal(context);
         }
-        return Placeholder(
-          child: Center(
+        return Scaffold(
+          body: Center(
             child: CircularProgressIndicator(
               color: AppColors.primary,
             ),

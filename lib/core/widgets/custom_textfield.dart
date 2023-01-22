@@ -41,18 +41,18 @@ class CustomTextField extends StatelessWidget {
         children: [
           image != "null"
               ? Row(
-                children: [
-                  SvgPicture.asset(
-                    image,
-                    color: imageColor,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    title,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              )
+                  children: [
+                    SvgPicture.asset(
+                      image,
+                      color: imageColor,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      title,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ],
+                )
               : const SizedBox(width: 0),
           image != "null"
               ? const SizedBox(height: 6)
@@ -71,30 +71,31 @@ class CustomTextField extends StatelessWidget {
                   : [],
               obscureText: isPassword,
               decoration: InputDecoration(
-                  prefixIcon: isNum
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 12),
-                          child: Text(
-                            IsLanguage.isEnLanguage(context)
-                                ? "+964"
-                                : "+ ${replaceToArabicNumber("964")}",
-                            style: const TextStyle(fontSize: 16),
-                            textAlign: TextAlign.center,
-                          ),
-                        )
-                      : null,
-                  hintText: title,
-                  border: image != "null"
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide.none,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                prefixIcon: isNum
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 12),
+                        child: Text(
+                          IsLanguage.isEnLanguage(context)
+                              ? "+964"
+                              : "+ ${replaceToArabicNumber("964")}",
+                          style: const TextStyle(fontSize: 16),
+                          textAlign: TextAlign.center,
                         ),
-                  fillColor: AppColors.scaffoldBackground,
-                  filled: true),
+                      )
+                    : null,
+                hintText: title,
+                border: image != "null"
+                    ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide.none,
+                      )
+                    : OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                fillColor: AppColors.scaffoldBackground,
+                filled: true,
+              ),
               maxLines: isPassword ? 1 : 20,
               minLines: minLine,
               validator: (value) {

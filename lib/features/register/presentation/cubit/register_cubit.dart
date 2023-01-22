@@ -77,10 +77,16 @@ class RegisterCubit extends Cubit<RegisterState> {
     emailController.text = userModel.data!.user!.email!;
     passwordController.text = "";
     nameController.text = userModel.data!.user!.name ?? "";
-    whatsappController.text = userModel.data!.user!.whatsapp ?? "";
     phoneController.text = userModel.data!.user!.phone!.contains('+964')
         ? userModel.data!.user!.phone!.substring(4)
-        : userModel.data!.user!.phone!;
+        : userModel.data!.user!.phone!.contains('+20')
+            ? userModel.data!.user!.phone!.substring(3)
+            : userModel.data!.user!.phone!;
+    whatsappController.text = userModel.data!.user!.whatsapp!.contains('+964')
+        ? userModel.data!.user!.whatsapp!.substring(4)
+        : userModel.data!.user!.whatsapp!.contains('+20')
+        ? userModel.data!.user!.whatsapp!.substring(3)
+        : userModel.data!.user!.whatsapp!;
     facebookController.text = userModel.data!.user!.facebook ?? "";
     instaController.text = userModel.data!.user!.instagram ?? "";
     twitterController.text = userModel.data!.user!.twitter ?? "";
@@ -88,9 +94,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     imageLink = userModel.data!.user!.image ?? "";
   }
 
-  clearData(){
-
-  }
+  clearData() {}
 
   updateLoginStoreData(String token) async {
     final response = await updateStoreProfileUseCase(token);
@@ -131,15 +135,15 @@ class RegisterCubit extends Cubit<RegisterState> {
         await postRegisterUserUseCase(
       RegistrationUserModel(
         userType: userType.toString(),
-        image: image!=null?image!.path:null,
+        image: image != null ? image!.path : null,
         name: nameController.text,
         email: emailController.text,
         phone: phoneController.text.length == 11
             ? AppStrings.phoneCode + phoneController.text.substring(1)
             : AppStrings.phoneCode + phoneController.text,
         whatsapp: whatsappController.text.length == 11
-            ? whatsappController.text.substring(1)
-            : whatsappController.text,
+            ? AppStrings.phoneCode + whatsappController.text.substring(1)
+            : AppStrings.phoneCode + whatsappController.text,
         password: passwordController.text,
         longitude: longitude,
         latitude: latitude,
@@ -253,7 +257,6 @@ class RegisterCubit extends Cubit<RegisterState> {
         print('kokokokokokok');
         this.verificationId = verificationId;
       },
-
     );
   }
 

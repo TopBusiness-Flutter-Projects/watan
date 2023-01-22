@@ -89,8 +89,9 @@ class ForgetPasswordScreen extends StatelessWidget {
                         paddingHorizontal: 60,
                         onClick: () {
                           if (_formKey.currentState!.validate()) {
-                            if (phoneController.text.length < 10 ||
-                                phoneController.text.length > 11) {
+                            if (context.read<RegisterCubit>().phoneController.text.length < 10 ||
+                                context.read<RegisterCubit>().phoneController.text.length > 11) {
+                              print(context.read<RegisterCubit>().phoneController.text.length);
                               snackBar(
                                 translateText(
                                     AppStrings.correctPhoneText, context),
@@ -99,14 +100,14 @@ class ForgetPasswordScreen extends StatelessWidget {
                               );
                             } else {
                               context.read<RegisterCubit>().phoneNumber =
-                                  phoneController.text.length == 11
-                                      ? AppStrings.phoneCode + phoneController.text.substring(1)
-                                      : AppStrings.phoneCode + phoneController.text;
+                              context.read<RegisterCubit>().phoneController.text.length == 11
+                                      ? AppStrings.phoneCode + context.read<RegisterCubit>().phoneController.text.substring(1)
+                                      : AppStrings.phoneCode + context.read<RegisterCubit>().phoneController.text;
                               context.read<RegisterCubit>().checkCode(
-                                    phoneController.text.length == 11
+                                context.read<RegisterCubit>().phoneController.text.length == 11
                                         ? AppStrings.phoneCode +
-                                            phoneController.text.substring(1)
-                                        : AppStrings.phoneCode + phoneController.text,
+                                    context.read<RegisterCubit>().phoneController.text.substring(1)
+                                        : AppStrings.phoneCode + context.read<RegisterCubit>().phoneController.text,
                                     context,
                                   );
                             }
