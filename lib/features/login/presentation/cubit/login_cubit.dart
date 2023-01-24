@@ -43,7 +43,7 @@ class LoginCubit extends Cubit<LoginState> {
             message: MapFailureMessage.mapFailureToMessage(failure)),
         (loginModel) {
           userLoginModel = loginModel;
-          storeUser(loginModel);
+          userLoginModel!.code == 200 ? storeUser(loginModel) : null;
           return LoginLoaded(loginModel: loginModel);
         },
       ),

@@ -12,6 +12,7 @@ class LoadingScreenWidget extends StatelessWidget {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         if (state is ProfileUserDeletedSuccessfully) {
+
           context.read<ProfileCubit>().removeUserFromLocal(context);
         }
         return Scaffold(

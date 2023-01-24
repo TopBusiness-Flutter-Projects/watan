@@ -21,8 +21,7 @@ class NewPopularDataModel extends NewPopularData {
       NewPopularDataModel(
         dataNew:
             List<MainItemModel>.from(json["new"].map((x) => MainItemModel.fromJson(x))),
-        popular: List<MainItemModel>.from(
-            json["popular"].map((x) => MainItemModel.fromJson(x))),
+        popular: List<MainItemModel>.from(json["popular"].map((x) => MainItemModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

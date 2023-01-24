@@ -37,7 +37,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           if (state is CheckCodeInvalidCode) {
             Future.delayed(const Duration(milliseconds: 500), () {
               snackBar(
-                'Invalid Phone Please Enter Valid Phone',
+                translateText(AppStrings.invalidPhoneMessage, context),
                 context,
                 color: AppColors.error,
               );

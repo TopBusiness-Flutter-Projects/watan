@@ -86,12 +86,12 @@ class MainProjectItem extends Equatable {
   final int? subAreaId;
   final double? latitude;
   final double? longitude;
-  final int? minPrice;
-  final int? maxPrice;
+  final String? minPrice;
+  final String? maxPrice;
   final String? projectStatus;
   final String? areaRange;
-  final int? minPriceOfMeter;
-  final int? maxPriceOfMeter;
+  final String? minPriceOfMeter;
+  final String? maxPriceOfMeter;
   final String? desc;
   final String? paymentTerms;
   final String? paymentDetails;

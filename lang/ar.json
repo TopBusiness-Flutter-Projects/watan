@@ -62,6 +62,7 @@
   "phone_validator_message": "الرجاء إدخال رقم الهاتف",
   "whatsapp_validator_message": "الرجاء إدخال رقم الواتساب",
   "password_validation_message": "كلمة المرور غير متطابقة",
+  "password_length_validation_message": "كلمة المرور يجب ان لا تقل عن 6 عناصر",
   "register_text": "انشاء حساب",
   "forget_password_text": "نسيت كلمة المرور",
   "welcome_text": "مرحبا بكم في وطن",
@@ -208,7 +209,8 @@
   "USD_text": "دولار",
   "IQD_text": "دينار",
   "select_btn": "اختيار",
-  "resend_text": "اعاده الارسال"
+  "resend_text": "اعاده الارسال",
+  "invalid_phone": "لا يوجد بريد الكترونى مرتبط بهذا الرقم"
 
 
 

@@ -62,6 +62,7 @@
   "phone_validator_message": "تکایە ژمارەی تەلەفۆنەکە بنووسە",
   "whatsapp_validator_message": "تکایە ژمارەی واتس ئەپەکەت بنووسە",
   "password_validation_message": "وشەی نهێنی یەکناگرێتەوە",
+  "password_length_validation_message": "وشەی نهێنی دەبێت بەلایەنی کەمەوە ٦ پیت بێت.",
   "register_text": "هەژمارێک دروست بکە",
   "forget_password_text": "وشەی نهێنیت لەبیر كردووە",
   "welcome_text": "بەخێربێن بۆ نیشتمان",
@@ -207,7 +208,8 @@
   "USD_text": "دولار",
   "IQD_text": "دينار",
   "select_btn": "هەڵبژاردن",
-  "resend_text": "ناردنەوە"
+  "resend_text": "ناردنەوە",
+  "invalid_phone": "هیچ ئیمەیڵێک پەیوەندی بەم ژمارەیەوە نییە "
 
 
 

@@ -20,8 +20,8 @@ class LoginBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    emailController.text='ahmad75yehia@gmail.com';
-    passwordController.text='000000';
+    // emailController.text='ahmad75yehia@gmail.com';
+    // passwordController.text='000000';
     return SingleChildScrollView(
       child: SizedBox(
         height: MediaQuery.of(context).size.longestSide,

@@ -29,7 +29,7 @@ class ProvidedByWidget extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           CachedNetworkImage(
-            imageUrl: mainItemModel!.userModel!.image!,
+            imageUrl: mainItemModel!.userModel!.image??'http://clipart-library.com/images/pT5ra4Xgc.jpg',
             width: 60,
             height: 60,
             fit: BoxFit.fill,
@@ -63,7 +63,7 @@ class ProvidedByWidget extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            mainItemModel!.userModel!.name!,
+            mainItemModel!.userModel!.name??"noooooo",
             style: const TextStyle(fontSize: 14),
           ),
           const SizedBox(height: 16),

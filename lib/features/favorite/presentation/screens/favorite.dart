@@ -64,58 +64,40 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       onRefresh: () async {
                         context.read<FavouritesCubit>().getMyFavourites();
                       },
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ...List.generate(
-                              context
-                                  .read<FavouritesCubit>()
-                                  .mainItemModel!
-                                  .length,
-                              (index) => SecondMainItemWidget(
-                                mainItemModel: context
-                                    .read<FavouritesCubit>()
-                                    .mainItemModel![index],
-                              ),
-                            ),
+                      child: ListView(
+                        children: [
+                          ...List.generate(
                             context
-                                        .read<FavouritesCubit>()
-                                        .mainItemModel!
-                                        .length <=
-                                    4
-                                ? Container(height: 800)
-                                : Container()
-                          ],
-                        ),
+                                .read<FavouritesCubit>()
+                                .mainItemModel!
+                                .length,
+                            (index) => SecondMainItemWidget(
+                              mainItemModel: context
+                                  .read<FavouritesCubit>()
+                                  .mainItemModel![index],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     RefreshIndicator(
                       onRefresh: () async {
                         context.read<FavouritesCubit>().getMyFavourites();
                       },
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ...List.generate(
-                              context
-                                  .read<FavouritesCubit>()
-                                  .mainProjectItemModel!
-                                  .length,
-                              (index) => SecondMainProjectItemWidget(
-                                mainProjectItemModel: context
-                                    .read<FavouritesCubit>()
-                                    .mainProjectItemModel![index],
-                              ),
-                            ),
+                      child: ListView(
+                        children: [
+                          ...List.generate(
                             context
-                                        .read<FavouritesCubit>()
-                                        .mainProjectItemModel!
-                                        .length <
-                                    3
-                                ? Container(height: 800)
-                                : Container()
-                          ],
-                        ),
+                                .read<FavouritesCubit>()
+                                .mainProjectItemModel!
+                                .length,
+                            (index) => SecondMainProjectItemWidget(
+                              mainProjectItemModel: context
+                                  .read<FavouritesCubit>()
+                                  .mainProjectItemModel![index],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

@@ -352,7 +352,7 @@ class _SecondMainItemWidgetState extends State<SecondMainItemWidget> {
                             ViewsWidget(
                                 views: widget.mainItemModel!.views.toString()),
                             ManageNetworkImage(
-                              imageUrl: widget.mainItemModel!.userModel!.image!,
+                              imageUrl: widget.mainItemModel!.userModel!.image??'http://clipart-library.com/images/pT5ra4Xgc.jpg',
                               width: 28,
                               height: 28,
                               borderRadius:36 ,

@@ -91,6 +91,7 @@ class _ConversationPageState extends State<ConversationPage> {
               .data!
               .isNotEmpty) {
             return ListView.builder(
+              physics: AlwaysScrollableScrollPhysics(),
                 itemCount: context
                     .read<ConversationPageCubit>()
                     .allMyRooms!
@@ -116,20 +117,18 @@ class _ConversationPageState extends State<ConversationPage> {
             return RefreshIndicator(
               onRefresh: () async =>
                   context.read<ConversationPageCubit>().getAllRoomsData(),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.longestSide,
-                      child: Center(
-                          child: Text(
-                        translateText(AppStrings.noConversationsText, context),
-                        style:
-                            TextStyle(color: AppColors.black, fontSize: 15.0),
-                      )),
-                    ),
-                  ],
-                ),
+              child: ListView(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.longestSide,
+                    child: Center(
+                        child: Text(
+                      translateText(AppStrings.noConversationsText, context),
+                      style:
+                          TextStyle(color: AppColors.black, fontSize: 15.0),
+                    )),
+                  ),
+                ],
               ),
             );
           }

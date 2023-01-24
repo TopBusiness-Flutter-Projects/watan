@@ -62,6 +62,7 @@
   "phone_validator_message": "Please enter Phone",
   "whatsapp_validator_message": "Please enter Whatsapp",
   "password_validation_message": "Passwords does not Match",
+  "password_length_validation_message": "The password must be at least 6 characters.",
   "forget_password_text": "Forget Password",
   "register_text": "Register",
   "welcome_text": "Welcome to WATAN",
@@ -208,7 +209,8 @@
   "USD_text": "USD",
   "IQD_text": "IQD",
   "select_btn": "Select",
-  "resend_text": "Resend"
+  "resend_text": "Resend",
+  "invalid_phone": "There is no Email Associated with this Phone "
 
 
 }

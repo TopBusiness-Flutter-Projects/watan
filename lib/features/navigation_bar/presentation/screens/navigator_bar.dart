@@ -59,8 +59,8 @@ class _NavigatorBarState extends State<NavigatorBar> {
         color: Colors.white,
         buttonBackgroundColor: AppColors.primary,
         backgroundColor: AppColors.scaffoldBackground,
-        animationCurve: Curves.easeInOut,
-        animationDuration: const Duration(milliseconds: 600),
+        animationCurve: Curves.linear,
+        animationDuration: const Duration(milliseconds: 100),
         onTap: (index) {
           setState(() {
             _page = index;

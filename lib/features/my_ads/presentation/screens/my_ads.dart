@@ -131,25 +131,20 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                                     .toString(),
                               );
                         },
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              ...List.generate(
-                                context.read<MyAdsCubit>().forSaleList.length,
-                                (index) => SecondMainItemWidget(
-                                  mainItemModel: context
-                                      .read<MyAdsCubit>()
-                                      .forSaleList[index],
-                                  isMyAdds: widget.kindOfClass == 'myAds'
-                                      ? true
-                                      : false,
-                                ),
+                        child: ListView(
+                          children: [
+                            ...List.generate(
+                              context.read<MyAdsCubit>().forSaleList.length,
+                              (index) => SecondMainItemWidget(
+                                mainItemModel: context
+                                    .read<MyAdsCubit>()
+                                    .forSaleList[index],
+                                isMyAdds: widget.kindOfClass == 'myAds'
+                                    ? true
+                                    : false,
                               ),
-                              Container(
-                                height: 800,
-                              )
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                       RefreshIndicator(
@@ -161,22 +156,20 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                                     .toString(),
                               );
                         },
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              ...List.generate(
-                                context.read<MyAdsCubit>().forRentList.length,
-                                (index) => SecondMainItemWidget(
-                                  mainItemModel: context
-                                      .read<MyAdsCubit>()
-                                      .forRentList[index],
-                                  isMyAdds: widget.kindOfClass == 'myAds'
-                                      ? true
-                                      : false,
-                                ),
+                        child: ListView(
+                          children: [
+                            ...List.generate(
+                              context.read<MyAdsCubit>().forRentList.length,
+                              (index) => SecondMainItemWidget(
+                                mainItemModel: context
+                                    .read<MyAdsCubit>()
+                                    .forRentList[index],
+                                isMyAdds: widget.kindOfClass == 'myAds'
+                                    ? true
+                                    : false,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -205,34 +198,23 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                                     .toString(),
                               );
                         },
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              ...List.generate(
-                                context
-                                    .read<MyAdsCubit>()
-                                    .forSaleProjectList
-                                    .length,
-                                (index) => SecondMainProjectItemWidget(
-                                  mainProjectItemModel: context
-                                      .read<MyAdsCubit>()
-                                      .forSaleProjectList[index],
-                                  isMyAdds: widget.kindOfClass == 'myAds'
-                                      ? true
-                                      : false,
-                                ),
-                              ),
+                        child: ListView(
+                          children: [
+                            ...List.generate(
                               context
-                                          .read<MyAdsCubit>()
-                                          .forSaleProjectList
-                                          .length <
-                                      3
-                                  ? Container(
-                                      height: 500,
-                                    )
-                                  : Container()
-                            ],
-                          ),
+                                  .read<MyAdsCubit>()
+                                  .forSaleProjectList
+                                  .length,
+                              (index) => SecondMainProjectItemWidget(
+                                mainProjectItemModel: context
+                                    .read<MyAdsCubit>()
+                                    .forSaleProjectList[index],
+                                isMyAdds: widget.kindOfClass == 'myAds'
+                                    ? true
+                                    : false,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],

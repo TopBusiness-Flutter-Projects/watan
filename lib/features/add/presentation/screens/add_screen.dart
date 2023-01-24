@@ -86,7 +86,6 @@ class _AddScreenState extends State<AddScreen> {
         if (state is UpdateAdsPostLoaded) {
           Future.delayed(Duration(milliseconds: 400), () {
             context.read<MyAdsCubit>().setStateWidgets();
-            ;
             Navigator.pop(context);
           });
           return const ShowLoadingIndicator();
@@ -284,7 +283,7 @@ class _AddScreenState extends State<AddScreen> {
                             color: AppColors.error,
                           );
                         } else {
-                          if (!widget.isUpdate) {
+                          // if (!widget.isUpdate) {
                             if (addAdsCubit.longitude == 0.0 ||
                                 addAdsCubit.latitude == 0.0) {
                               snackBar(
@@ -298,7 +297,7 @@ class _AddScreenState extends State<AddScreen> {
                                   ? context.read<AddAdsCubit>().updateAdsPost()
                                   : context.read<AddAdsCubit>().addAdsPost();
                             }
-                          }
+                          // }
                         }
                       }
                     },

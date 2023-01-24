@@ -284,7 +284,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
         Future.delayed(
           const Duration(seconds: 2),
           () {
-            changeState();
+            changeStates();
           },
         );
       },
@@ -294,7 +294,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
           Future.delayed(
             const Duration(seconds: 2),
             () {
-              changeState();
+              changeStates();
             },
           );
         } else {
@@ -302,7 +302,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
           Future.delayed(
             const Duration(seconds: 2),
             () {
-              changeState();
+              changeStates();
             },
           );
         }
@@ -359,7 +359,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
         Future.delayed(
           const Duration(seconds: 2),
           () {
-            changeState();
+            changeStates();
           },
         );
       },
@@ -369,7 +369,8 @@ class AddAdsCubit extends Cubit<AddAdsState> {
           Future.delayed(
             const Duration(seconds: 2),
             () {
-              changeState();
+              print('************************************');
+              changeStates();
             },
           );
         } else {
@@ -377,7 +378,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
           Future.delayed(
             const Duration(seconds: 2),
             () {
-              changeState();
+              changeStates();
             },
           );
         }
@@ -385,7 +386,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     );
   }
 
-  changeState() {
+  changeStates() {
     titleController.clear();
     descController.clear();
     priceController.clear();
@@ -410,7 +411,8 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     currency = '';
     latitude = 0;
     longitude = 0;
-    emit(changeState());
+    print('#############################################3');
+    emit(ChangeState());
   }
 
   clearData() {
