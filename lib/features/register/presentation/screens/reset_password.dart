@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:elwatn/core/utils/snackbar_method.dart';
 
 import 'package:elwatn/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';

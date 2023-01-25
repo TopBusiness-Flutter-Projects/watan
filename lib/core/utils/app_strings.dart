@@ -228,6 +228,8 @@ class AppStrings {
   static const String selectBtn = 'select_btn';
   static const String resendText = 'resend_text';
   static const String invalidPhoneMessage = 'invalid_phone';
+  static const String selectAllText = 'select_all_text';
+  static const String unselectAllText = 'unselect_all_text';
 
 
 

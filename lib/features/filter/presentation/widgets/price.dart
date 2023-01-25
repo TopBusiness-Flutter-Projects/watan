@@ -65,18 +65,20 @@ class PriceWidget extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 25),
-            Expanded(
-                child: DropdownSearchWidget(
-              dropdownList:  [
-                "${translateText(AppStrings.USDText, context)}/1",
-                "${translateText(AppStrings.IQDText, context)}/2"
-              ],
-              isEnable: true,
-              labelText: translateText(AppStrings.currencyText, context),
-              icon: Icons.abc,
-            ))
           ],
+        ),
+        const SizedBox(height: 12),
+        SizedBox(
+          width: MediaQuery.of(context).size.width/2,
+          child: DropdownSearchWidget(
+            dropdownList:  [
+              "${translateText(AppStrings.USDText, context)}/1",
+              "${translateText(AppStrings.IQDText, context)}/2"
+            ],
+            isEnable: true,
+            labelText: translateText(AppStrings.currencyText, context),
+            icon: Icons.abc,
+          ),
         )
       ],
     );

@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/app_strings.dart';
+import '../../../../core/utils/toast_message_method.dart';
 import '../../../../core/widgets/restart_app.dart';
 import '../../../../core/widgets/separator.dart';
 import '../../../app_settings/presentation/screens/app_settings.dart';
@@ -56,11 +57,18 @@ class DrawerWidget extends StatelessWidget {
               ),
               MySeparator(height: 1, color: AppColors.gray),
               MyListTile(
-                image: ImageAssets.notificationIcon,
-                text: translateText(AppStrings.notificationText, context),
-                onClick: () =>
-                    Navigator.of(context).pushNamed(Routes.notificationRoute),
-              ),
+                  image: ImageAssets.notificationIcon,
+                  text: translateText(AppStrings.notificationText, context),
+                  onClick: () {
+                    loginDataModel.message != null
+                        ? Navigator.of(context)
+                            .pushNamed(Routes.notificationRoute)
+                        : toastMessage(
+                            translateText(AppStrings.shouldLoginText, context),
+                            context,
+                            color: AppColors.yellow,
+                          );
+                  }),
               MySeparator(height: 1, color: AppColors.gray),
               MyListTile(
                 image: ImageAssets.bloggsIcon,

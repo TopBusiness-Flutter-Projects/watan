@@ -21,6 +21,7 @@ class BedRoomsWidget extends StatefulWidget {
 
 class _BedRoomsWidgetState extends State<BedRoomsWidget> {
   int selected = -1;
+  bool isAllSelected = false;
 
   @override
   void initState() {
@@ -51,7 +52,22 @@ class _BedRoomsWidgetState extends State<BedRoomsWidget> {
             Text(
               translateText(AppStrings.bedroomText, context),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            )
+            ),
+            Spacer(),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  isAllSelected = !isAllSelected;
+                });
+              },
+              child: Text(
+                translateText(isAllSelected?AppStrings.unselectAllText:AppStrings.selectAllText, context),
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: isAllSelected ? AppColors.primary : AppColors.gray),
+              ),
+            ),
           ],
         ),
         const SizedBox(
@@ -72,10 +88,17 @@ class _BedRoomsWidgetState extends State<BedRoomsWidget> {
                         context.read<AddAdsCubit>().bedroom = selected;
                       });
                     } else {
-                      setState(() {
-                        selected = index;
-                        context.read<FilterCubit>().bedroom = selected;
-                      });
+                      if(selected==index){
+                        setState(() {
+                          selected=-1;
+                          context.read<FilterCubit>().bedroom = -1;
+                        });
+                      }else{
+                        setState(() {
+                          selected = index;
+                          context.read<FilterCubit>().bedroom = selected;
+                        });
+                      }
                     }
                   },
                   child: Padding(
@@ -86,10 +109,10 @@ class _BedRoomsWidgetState extends State<BedRoomsWidget> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: selected == index
+                          color: (selected == index || isAllSelected)
                               ? AppColors.primary
                               : AppColors.gray,
-                          width: selected == index ? 2 : 1,
+                          width: (selected == index || isAllSelected) ? 2 : 1,
                         ),
                       ),
                       child: Center(
@@ -101,7 +124,9 @@ class _BedRoomsWidgetState extends State<BedRoomsWidget> {
                                   : replaceToArabicNumber(index.toString()),
                           style: TextStyle(
                             fontSize: 12,
-                            color: selected == index ? AppColors.primary : null,
+                            color: (selected == index || isAllSelected)
+                                ? AppColors.primary
+                                : null,
                           ),
                         ),
                       ),

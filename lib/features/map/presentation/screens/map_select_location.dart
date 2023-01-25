@@ -104,8 +104,8 @@ class _SelectMapLocationScreenState extends State<SelectMapLocationScreen> {
                     minZoomLevel: 3,
                     maxZoomLevel: 18,
                     stepZoom: 1.0,
-                    showContributorBadgeForOSM: true,
-                    showDefaultInfoWindow: true,
+                    showContributorBadgeForOSM: false,
+                    showDefaultInfoWindow: false,
                   ),
                   Positioned(
                     right: MediaQuery.of(context).size.width / 2 - 32,

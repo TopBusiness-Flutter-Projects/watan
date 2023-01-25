@@ -49,10 +49,11 @@ class _MapScreenState extends State<MapScreen> {
                 controller!.listenerMapSingleTapping.value!,
                 markerIcon: MarkerIcon(
                   assetMarker: AssetMarker(
-                      image: AssetImage(
-                        ImageAssets.markerImage,
-                      ),
-                      scaleAssetImage: 2),
+                    image: AssetImage(
+                      ImageAssets.markerImage,
+                    ),
+                    scaleAssetImage: 2,
+                  ),
                 ),
               );
             }
@@ -75,8 +76,11 @@ class _MapScreenState extends State<MapScreen> {
         ? BlocBuilder<MapCubit, MapState>(
             builder: (context, state) {
               if (state is AllMapLocationsError) {
-                toastMessage('Error To Get Posts Locations', context,
-                    color: AppColors.error);
+                toastMessage(
+                  'Error To Get Posts Locations',
+                  context,
+                  color: AppColors.error,
+                );
               }
               if (state is AllMapLocationsLoading) {
                 return ShowLoadingIndicator();
@@ -105,8 +109,8 @@ class _MapScreenState extends State<MapScreen> {
                       minZoomLevel: 3,
                       maxZoomLevel: 18,
                       stepZoom: 1.0,
-                      showContributorBadgeForOSM: true,
-                      showDefaultInfoWindow: true,
+                      showContributorBadgeForOSM: false,
+                      showDefaultInfoWindow: false,
                       staticPoints: [
                         StaticPositionGeoPoint(
                           "line 1",
@@ -122,35 +126,6 @@ class _MapScreenState extends State<MapScreen> {
                       ],
                     ),
                   ),
-                  // floatingActionButton: ValueListenableBuilder<bool>(
-                  //   valueListenable: showFab,
-                  //   builder: (ctx, isShow, child) {
-                  //     if (!isShow) {
-                  //       return SizedBox.shrink();
-                  //     }
-                  //     return child!;
-                  //   },
-                  //   child: FloatingActionButton(
-                  //     onPressed: () async {
-                  //       if (!trackingNotifier.value) {
-                  //         await controller!.currentLocation();
-                  //         await controller!.enableTracking();
-                  //       } else {
-                  //         await controller!.disabledTracking();
-                  //       }
-                  //       trackingNotifier.value = !trackingNotifier.value;
-                  //     },
-                  //     child: ValueListenableBuilder<bool>(
-                  //       valueListenable: trackingNotifier,
-                  //       builder: (ctx, isTracking, _) {
-                  //         if (isTracking) {
-                  //           return Icon(Icons.gps_off_sharp);
-                  //         }
-                  //         return Icon(Icons.my_location);
-                  //       },
-                  //     ),
-                  //   ),
-                  // ),
                 );
               }
             },

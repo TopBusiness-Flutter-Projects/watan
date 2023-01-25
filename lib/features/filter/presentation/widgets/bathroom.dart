@@ -6,7 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/utils/assets_manager.dart';
+import '../../../../core/utils/translate_text_method.dart';
 import '../cubit/filter_cubit.dart';
 
 class ListNumbersWidget extends StatefulWidget {
@@ -25,6 +27,9 @@ class ListNumbersWidget extends StatefulWidget {
 }
 
 class _ListNumbersWidgetState extends State<ListNumbersWidget> {
+  int selected = -1;
+  bool isAllSelected = false;
+
   @override
   void initState() {
     super.initState();
@@ -47,8 +52,6 @@ class _ListNumbersWidgetState extends State<ListNumbersWidget> {
     }
   }
 
-  int selected = -1;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -64,7 +67,29 @@ class _ListNumbersWidgetState extends State<ListNumbersWidget> {
             Text(
               widget.title,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            )
+            ),
+            if (widget.kind == 'null') ...{
+              Spacer(),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    isAllSelected = !isAllSelected;
+                  });
+                },
+                child: Text(
+                  translateText(
+                      isAllSelected
+                          ? AppStrings.unselectAllText
+                          : AppStrings.selectAllText,
+                      context),
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color:
+                          isAllSelected ? AppColors.primary : AppColors.gray),
+                ),
+              ),
+            }
           ],
         ),
         const SizedBox(
@@ -80,10 +105,22 @@ class _ListNumbersWidgetState extends State<ListNumbersWidget> {
                 (index) => GestureDetector(
                   onTap: () {
                     setState(() {
-                      selected = index;
+                      if (widget.kind == 'null') {
+                        if(selected==index){
+                          selected = -1;
+                        }else{
+                          selected = index;
+                        }
+                      }else{
+                        selected = index;
+                      }
                     });
                     if (widget.kind == 'null') {
-                      context.read<FilterCubit>().bathroom = selected + 1;
+                      if(selected==index){
+                        context.read<FilterCubit>().bathroom = 0;
+                      }else{
+                        context.read<FilterCubit>().bathroom = selected + 1;
+                      }
                     } else {
                       if (widget.kind == 'bathroom') {
                         context.read<AddAdsCubit>().bathroom = selected + 1;
@@ -96,7 +133,7 @@ class _ListNumbersWidgetState extends State<ListNumbersWidget> {
                       }
                     }
                   },
-                  child: selected == index
+                  child: (selected == index||isAllSelected)
                       ? Padding(
                           padding: const EdgeInsets.only(right: 16),
                           child: Container(
@@ -105,18 +142,23 @@ class _ListNumbersWidgetState extends State<ListNumbersWidget> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
-                                  color: AppColors.primary, width: 2),
+                                color: AppColors.primary,
+                                width: 2,
+                              ),
                             ),
                             child: Center(
-                                child: Text(
-                              IsLanguage.isEnLanguage(context)
-                                  ? (index + 1).toString()
-                                  : replaceToArabicNumber(
-                                      (index + 1).toString(),
-                                    ),
-                              style: TextStyle(
-                                  fontSize: 12, color: AppColors.primary),
-                            )),
+                              child: Text(
+                                IsLanguage.isEnLanguage(context)
+                                    ? (index + 1).toString()
+                                    : replaceToArabicNumber(
+                                        (index + 1).toString(),
+                                      ),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                            ),
                           ),
                         )
                       : Padding(
@@ -129,13 +171,15 @@ class _ListNumbersWidgetState extends State<ListNumbersWidget> {
                               border: Border.all(color: AppColors.gray),
                             ),
                             child: Center(
-                                child: Text(
-                              IsLanguage.isEnLanguage(context)
-                                  ? (index + 1).toString()
-                                  : replaceToArabicNumber(
-                                      (index + 1).toString()),
-                              style: const TextStyle(fontSize: 12),
-                            )),
+                              child: Text(
+                                IsLanguage.isEnLanguage(context)
+                                    ? (index + 1).toString()
+                                    : replaceToArabicNumber(
+                                        (index + 1).toString(),
+                                      ),
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ),
                           ),
                         ),
                 ),

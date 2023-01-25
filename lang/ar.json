@@ -210,7 +210,9 @@
   "IQD_text": "دينار",
   "select_btn": "اختيار",
   "resend_text": "اعاده الارسال",
-  "invalid_phone": "لا يوجد بريد الكترونى مرتبط بهذا الرقم"
+  "invalid_phone": "لا يوجد بريد الكترونى مرتبط بهذا الرقم",
+  "select_all_text": "تحديد الكل",
+  "unselect_all_text": "الغاء التحديد"
 
 
 
