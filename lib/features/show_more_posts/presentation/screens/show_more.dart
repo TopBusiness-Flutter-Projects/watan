@@ -27,16 +27,11 @@ class _ShowMoreScreenState extends State<ShowMoreScreen> {
   @override
   void initState() {
     super.initState();
-    if(widget.kind.toLowerCase()=='popular'){
-      context
-          .read<ShowMoreCubit>()
-          .getShowMoreData(pram: 'popular');
-    }else{
-      context
-          .read<ShowMoreCubit>()
-          .getShowMoreData(pram: 'new');
+    if (widget.kind.toLowerCase() == 'popular') {
+      context.read<ShowMoreCubit>().getShowMoreData(pram: 'popular');
+    } else {
+      context.read<ShowMoreCubit>().getShowMoreData(pram: 'new');
     }
-
   }
 
   @override
@@ -60,15 +55,23 @@ class _ShowMoreScreenState extends State<ShowMoreScreen> {
             return LazyLoadScrollView(
               isLoading: context.read<ShowMoreCubit>().isLoadingVertical,
               onEndOfPage: () {
-                if (context.read<ShowMoreCubit>().showMore.data!.links!.next == null) {
-                  snackBar(translateText(AppStrings.noDataMessage, context),
-                      context,color: AppColors.error);
+                if (context.read<ShowMoreCubit>().showMore.data!.links!.next ==
+                    null) {
+                  snackBar(
+                      translateText(AppStrings.noDataMessage, context), context,
+                      color: AppColors.error);
                 } else {
                   snackBar("loading", context);
                   context.read<ShowMoreCubit>().getPaginationData(
-                      link: context.read<ShowMoreCubit>().showMore.data!.links!.next!,
-                      pram: widget.kind.toLowerCase()=='popular'?"popular":"new"
-                  );
+                      link: context
+                          .read<ShowMoreCubit>()
+                          .showMore
+                          .data!
+                          .links!
+                          .next!,
+                      pram: widget.kind.toLowerCase() == 'popular'
+                          ? "popular"
+                          : "new");
                 }
               },
               child: BodyWidget(

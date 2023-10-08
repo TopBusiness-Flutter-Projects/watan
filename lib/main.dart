@@ -12,13 +12,8 @@ import 'firebase_options.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:async';
 import 'dart:convert';
-
 import '../../../../config/routes/app_routes.dart';
-
 import 'app_bloc_observer.dart';
-
-
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,16 +24,15 @@ Future<void> main() async {
   pushNotificationService.initialise();
   await injector.setup();
   BlocOverrides.runZoned(
-        () => runApp(Watan()),
+    () => runApp(Watan()),
     blocObserver: AppBlocObserver(),
   );
 }
 
-
 PushNotificationService pushNotificationService = PushNotificationService();
 
-
-FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin= FlutterLocalNotificationsPlugin();
+FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 final BehaviorSubject<String> behaviorSubject = BehaviorSubject();
 final BehaviorSubject<MyRoomsDatum> behaviorchat = BehaviorSubject();
 late AndroidNotificationChannel channel;
@@ -50,8 +44,6 @@ void showNotification(RemoteMessage message, {String? payload}) {
     'High Importance Notifications', // title
     importance: Importance.high,
   );
-
-
 
   if (flutterLocalNotificationsPlugin == null) {
     // initState();
@@ -90,12 +82,13 @@ void showNotification(RemoteMessage message, {String? payload}) {
     );
   }
 }
+
 void checkData(RemoteMessage message) {
   if (message.data['note_type'].toString().contains("chat")) {
     chatModel = MyRoomsDatum.oneRoomFromJson(jsonDecode(message.data['room']));
     messageDataModel = MyMessage.fromJson(jsonDecode(message.data['data']));
     final notification =
-    LocalNotification("data", MyMessage.toJsonMyMessage(messageDataModel));
+        LocalNotification("data", MyMessage.toJsonMyMessage(messageDataModel));
     behaviorchat.add(chatModel);
     if (AppRoutes.route == 'chat') {
       NotificationsBloc.instance.newNotification(notification);
@@ -106,6 +99,7 @@ void checkData(RemoteMessage message) {
     showNotification(message, payload: 'dashBord');
   }
 }
+
 Future notificationTapBackground(NotificationResponse details) async {
   if (details.payload!.contains("dashBord")) {
     behaviorSubject.add("dashBord");
@@ -115,9 +109,11 @@ Future notificationTapBackground(NotificationResponse details) async {
     behaviorSubject.add(details.payload!);
   }
 }
+
 ondidnotification(int id, String? title, String? body, String? payload) async {
   behaviorSubject.add(payload!);
 }
+
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -130,12 +126,12 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   );
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   AndroidInitializationSettings initializationSettingsAndroid =
-  AndroidInitializationSettings('@mipmap/ic_launcher');
+      AndroidInitializationSettings('@mipmap/ic_launcher');
   final DarwinInitializationSettings initializationSettingsDarwin =
-  DarwinInitializationSettings(
-      onDidReceiveLocalNotification: ondidnotification);
+      DarwinInitializationSettings(
+          onDidReceiveLocalNotification: ondidnotification);
   final LinuxInitializationSettings initializationSettingsLinux =
-  LinuxInitializationSettings(defaultActionName: 'Open notification');
+      LinuxInitializationSettings(defaultActionName: 'Open notification');
   final InitializationSettings initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
     iOS: initializationSettingsDarwin,
@@ -148,15 +144,10 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
   await flutterLocalNotificationsPlugin!
       .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
   if (message.data.isNotEmpty) {
     print("Handling a background message: ${message.data}");
     checkData(message);
   }
 }
-
-
-
-
-
