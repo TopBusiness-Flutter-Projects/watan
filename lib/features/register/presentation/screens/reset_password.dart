@@ -177,15 +177,18 @@ class _ResetPasswordState extends State<ResetPassword> {
                       builder: (context, state) {
                         String time =
                             context.read<RegisterCubit>().seconds.toString();
+                        if(time=='60'){
+                          time='';
+                        }
                         return InkWell(
-                          onTap: time.isEmpty
-                              ? () {
+                          onTap:
+                               () {
                             context.read<RegisterCubit>().startTimer();
                             context
                                       .read<RegisterCubit>()
                                       .sendSmsCode(context);
                                 }
-                              : null,
+                          ,
                           child: Text(
                             time.isNotEmpty
                                 ? time

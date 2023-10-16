@@ -212,7 +212,8 @@
   "resend_text": "اعاده الارسال",
   "invalid_phone": "لا يوجد بريد الكترونى مرتبط بهذا الرقم",
   "select_all_text": "تحديد الكل",
-  "unselect_all_text": "الغاء التحديد"
+  "unselect_all_text": "الغاء التحديد",
+  "invalid_code": "كود خاطئ"
 
 
 

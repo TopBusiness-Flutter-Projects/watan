@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:elwatn/core/utils/app_strings.dart';
+import 'package:elwatn/core/utils/toast_message_method.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/utils/map_failure_message.dart';
+import '../../../../core/utils/translate_text_method.dart';
 import '../../../login/data/models/login_data_model.dart';
 import '../../../login/domain/entities/login_domain_model.dart';
 import '../../data/models/register_data_model.dart';
@@ -272,11 +274,14 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(CheckCodeSuccessfully());
       stopTimer();
     }).catchError((error) {
+      toastMessage(translateText(AppStrings.invalidCodeMessage, context), context);
       print('phone auth =>${error.toString()}');
     });
   }
 
   startTimer() {
+
+
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (seconds > 0) {
         seconds--;

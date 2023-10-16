@@ -69,7 +69,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
   LoginDataModel? loginDataModel;
 
   String status = 'sale';
-  String currency = '';
+  String currency = 'IQD';
   int furnished = 1;
   int cityId = 0;
   int locationId = 0;
@@ -439,7 +439,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     type = 0;
     propertySelected = -1;
     status = 'sale';
-    currency = '';
+    currency = 'USD';
     videoLink = '';
     latitude = 0;
     longitude = 0;

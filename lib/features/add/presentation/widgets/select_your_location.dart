@@ -1,11 +1,13 @@
 import 'package:elwatn/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/translate_text_method.dart';
 import '../../../details/presentation/widgets/list_tile_all_details.dart';
 import '../../../map/presentation/screens/map_select_location.dart';
+import '../cubit/add_ads_cubit.dart';
 
 class SelectYourLocation extends StatelessWidget {
   const SelectYourLocation({Key? key, required this.kindOfSelected})
@@ -22,7 +24,7 @@ class SelectYourLocation extends StatelessWidget {
           iconColor: AppColors.primary,
           isAddScreen: true,
         ),
-        Row(
+    context.read<AddAdsCubit>().longitude==0? Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(width: 8),
@@ -43,11 +45,11 @@ class SelectYourLocation extends StatelessWidget {
                 ImageAssets.mapImage,
                 height: 48,
                 width: 48,
-              ),
+              )
             ),
             const SizedBox(width: 8),
           ],
-        )
+        ):Icon(Icons.check),
       ],
     );
   }

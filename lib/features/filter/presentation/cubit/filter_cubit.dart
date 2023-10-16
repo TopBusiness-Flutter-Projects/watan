@@ -59,7 +59,7 @@ class FilterCubit extends Cubit<FilterState> {
   List<String> agentName = [];
 
   String status = 'sale';
-  String currency = '';
+  String currency = 'IQD';
   int cityId = 0;
 
   int locationId = 0;
@@ -242,7 +242,7 @@ class FilterCubit extends Cubit<FilterState> {
     type = -1;
     priceFromController.clear();
     priceToController.clear();
-    currency = '';
+    currency = 'IQD';
     bedroom = -1;
     bathroom = 0;
     areaFromController.clear();

@@ -212,7 +212,9 @@
   "resend_text": "Resend",
   "invalid_phone": "There is no Email Associated with this Phone ",
   "select_all_text": "Select All",
-  "unselect_all_text": "Unselect All"
+  "unselect_all_text": "Unselect All",
+  "invalid_code": "Invaild Code"
+
 
 
 }

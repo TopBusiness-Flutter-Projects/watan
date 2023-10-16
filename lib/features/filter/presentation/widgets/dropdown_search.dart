@@ -9,7 +9,7 @@ import '../../../../core/utils/translate_text_method.dart';
 import '../../../add_project/presentation/cubit/add_project_cubit.dart';
 import '../cubit/filter_cubit.dart';
 
-class DropdownSearchWidget extends StatelessWidget {
+class DropdownSearchWidget extends StatefulWidget {
   const DropdownSearchWidget({
     Key? key,
     required this.dropdownList,
@@ -27,30 +27,43 @@ class DropdownSearchWidget extends StatelessWidget {
   final String? update;
 
   @override
-  Widget build(BuildContext context) {
-    List<String> s = [];
-    List<String> ids = [];
-    for (var element in dropdownList) {
+  State<DropdownSearchWidget> createState() => _DropdownSearchWidgetState();
+}
+
+class _DropdownSearchWidgetState extends State<DropdownSearchWidget> {
+  List<String> s = [];
+  List<String> ids = [];
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for (var element in widget.dropdownList) {
       s.add(element.split("/")[0]);
       ids.add(element.split("/")[1]);
+      print(";;lll");
+      print(s[0]);
     }
+  }
+  @override
+  Widget build(BuildContext context) {
+
 
     return Theme(
       data: ThemeData(
           textTheme: const TextTheme(subtitle1: TextStyle(fontSize: 14))),
       child: DropdownSearch<String>(
-        selectedItem: kind == 'addAds'
+        selectedItem: widget.kind == 'addAds'
             ? context.read<AddAdsCubit>().btnText == 'update'
                 ? context.read<AddAdsCubit>().citiesEn.isNotEmpty
                     ? s[ids
                         .indexOf(context.read<AddAdsCubit>().cityId.toString())]
                     : null
                 : null
-            : kind == "addPriceCurrency"
-                ? context.read<AddAdsCubit>().currency == 'USD'
+            : widget.kind == "addPriceCurrency"
+                ? context.read<AddAdsCubit>().currency == 'IQD'
                     ? s[0]
                     : s[1]
-                : kind == "addProject"
+                : widget.kind == "addProject"
                     ? context.read<AddProjectCubit>().btnText == 'update'
                         ? context.read<AddProjectCubit>().citiesEn.isNotEmpty
                             ? s[ids.indexOf(
@@ -62,40 +75,40 @@ class DropdownSearchWidget extends StatelessWidget {
           showSelectedItems: true,
           fit: FlexFit.loose,
         ),
-        enabled: isEnable,
+        enabled: widget.isEnable,
         items: s,
         dropdownDecoratorProps: DropDownDecoratorProps(
           dropdownSearchDecoration: InputDecoration(
             filled: true,
             enabled: true,
             isCollapsed: false,
-            hintText: labelText,
+            hintText: widget.labelText,
             iconColor: AppColors.primary,
             focusColor: AppColors.primary,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            prefixIcon: icon == Icons.abc
+            prefixIcon: widget.icon == Icons.abc
                 ? null
                 : Icon(
-                    icon,
+                    widget.icon,
                     color: AppColors.gray,
                   ),
           ),
         ),
         autoValidateMode: AutovalidateMode.always,
         onChanged: (text) {
-          if (labelText == translateText(AppStrings.selectCityText, context)) {
-            for (var element in dropdownList) {
+          if (widget.labelText == translateText(AppStrings.selectCityText, context)) {
+            for (var element in widget.dropdownList) {
               if (element.contains(text!)) {
-                if (kind == 'addAds') {
+                if (widget.kind == 'addAds') {
                   context.read<AddAdsCubit>().clearCitiesLocations();
                   context
                       .read<AddAdsCubit>()
                       .getAllLocationOfCitiesById(element.split("/")[1]);
                   context.read<AddAdsCubit>().cityId =
                       int.parse(element.split("/")[1]);
-                } else if (kind == 'addProject') {
+                } else if (widget.kind == 'addProject') {
                   context.read<AddProjectCubit>().clearCitiesLocations();
                   context
                       .read<AddProjectCubit>()
@@ -112,20 +125,20 @@ class DropdownSearchWidget extends StatelessWidget {
                 }
               }
             }
-          } else if (labelText == "Select Agent") {
-            for (var element in dropdownList) {
+          } else if (widget.labelText == "Select Agent") {
+            for (var element in widget.dropdownList) {
               if (element.contains(text!)) {
                 context.read<FilterCubit>().agentId =
                     int.parse(element.split("/")[1]);
               }
             }
-          } else if (labelText ==
+          } else if (widget.labelText ==
               translateText(AppStrings.currencyText, context)) {
-            for (var element in dropdownList) {
+            for (var element in widget.dropdownList) {
               if (element.contains(text!)) {
-                if (kind == "addPriceCurrency") {
+                if (widget.kind == "addPriceCurrency") {
                   context.read<AddAdsCubit>().currency = element.split("/")[1];
-                } else if (kind == "addProject") {
+                } else if (widget.kind == "addProject") {
                   context.read<AddProjectCubit>().currency = element.split("/")[1];
                 } else {
                   context.read<FilterCubit>().currency = element.split("/")[1];

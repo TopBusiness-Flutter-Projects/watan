@@ -14,7 +14,7 @@ class AppStrings {
   static const String arabicCode = 'ar';
   static const String kurdishCode = 'fa';
   static const String locale = 'locale';
-  static const String phoneCode = '+964';
+  static const String phoneCode = '+20';
 
   //Strings Language
 
@@ -228,6 +228,7 @@ class AppStrings {
   static const String selectBtn = 'select_btn';
   static const String resendText = 'resend_text';
   static const String invalidPhoneMessage = 'invalid_phone';
+  static const String invalidCodeMessage = 'invalid_code';
   static const String selectAllText = 'select_all_text';
   static const String unselectAllText = 'unselect_all_text';
 

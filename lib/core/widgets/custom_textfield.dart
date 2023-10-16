@@ -77,8 +77,8 @@ class CustomTextField extends StatelessWidget {
                             vertical: 8, horizontal: 12),
                         child: Text(
                           IsLanguage.isEnLanguage(context)
-                              ? "+964"
-                              : "+ ${replaceToArabicNumber("964")}",
+                              ? "+20"
+                              : "+ ${replaceToArabicNumber("20")}",
                           style: const TextStyle(fontSize: 16),
                           textAlign: TextAlign.center,
                         ),

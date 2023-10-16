@@ -211,7 +211,9 @@
   "resend_text": "ناردنەوە",
   "invalid_phone": "هیچ ئیمەیڵێک پەیوەندی بەم ژمارەیەوە نییە ",
   "select_all_text": "هەموویان هەڵبژێره",
-  "unselect_all_text": "بژاردنەکانت هەڵگێڕەوە"
+  "unselect_all_text": "بژاردنەکانت هەڵگێڕەوە",
+  "invalid_code": "كۆده\u200Cكه\u200C هه\u200Cڵه\u200Cیه\u200C"
+
 
 
 

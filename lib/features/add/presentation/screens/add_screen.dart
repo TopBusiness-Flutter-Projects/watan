@@ -228,31 +228,31 @@ class _AddScreenState extends State<AddScreen> {
                                   AppStrings.selectCurrencyText, context),
                               context,
                               color: AppColors.primary);
-                        } else if (addAdsCubit.bedroom == -1) {
+                        } else if ((addAdsCubit.type<3)&&addAdsCubit.bedroom == -1) {
                           snackBar(
                               translateText(
                                   AppStrings.selectBedRoomText, context),
                               context,
                               color: AppColors.primary);
-                        } else if (addAdsCubit.kitchen == 0) {
+                        } else if ((addAdsCubit.type<3)&&addAdsCubit.kitchen == 0) {
                           snackBar(
                               translateText(
                                   AppStrings.selectKitchenText, context),
                               context,
                               color: AppColors.primary);
-                        } else if (addAdsCubit.bathroom == 0) {
+                        } else if ((addAdsCubit.type<3)&&addAdsCubit.bathroom == 0) {
                           snackBar(
                               translateText(
                                   AppStrings.selectBathRoomText, context),
                               context,
                               color: AppColors.primary);
-                        } else if (addAdsCubit.livingRoom == 0) {
+                        } else if ((addAdsCubit.type<3)&&addAdsCubit.livingRoom == 0) {
                           snackBar(
                               translateText(
                                   AppStrings.selectLivingRoomText, context),
                               context,
                               color: AppColors.primary);
-                        } else if (addAdsCubit.diningRoom == 0) {
+                        } else if ((addAdsCubit.type<3)&&addAdsCubit.diningRoom == 0) {
                           snackBar(
                               translateText(
                                   AppStrings.selectDiningRoomText, context),

@@ -81,7 +81,7 @@ class AddProjectCubit extends Cubit<AddProjectState> {
   LoginDataModel? loginDataModel;
 
   String statusProject = 'new';
-  String currency = '';
+  String currency = 'IQD';
   int cityId = 0;
   int locationId = 0;
   int type = -1;
@@ -411,7 +411,7 @@ class AddProjectCubit extends Cubit<AddProjectState> {
     type = -1;
     type = 0;
     propertySelected = -1;
-    currency = '';
+    currency = 'IQD';
     videoLink = '';
     unitPlanBedroom.clear();
     unitPlanBathroom.clear();
