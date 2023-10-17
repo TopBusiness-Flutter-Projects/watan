@@ -110,17 +110,26 @@ class _ShowListsState extends State<ShowLists> {
             child: widget.index == 0 || widget.index == 1
                 ? RefreshIndicator(
                     onRefresh: () => getPosts(),
-                    child: ShowListBodyWidget(
+                    child: context.read<ShowListsCubit>().mainItemsList.length>0? ShowListBodyWidget(
                       mainItemModel:
                           context.read<ShowListsCubit>().mainItemsList,
-                    ),
+                    ):
+          Center(
+          child: Text(translateText("no_data", context),
+          style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+          ),
+          ),
                   )
                 : RefreshIndicator(
                     onRefresh: () => getPosts(),
-                    child: ShowProjectListBodyWidget(
+                    child: context.read<ShowListsCubit>().mainProjectItemsList.length>0? ShowProjectListBodyWidget(
                       mainProjectItemModel:
                           context.read<ShowListsCubit>().mainProjectItemsList,
-                    ),
+                    ) :   Center(
+            child: Text(translateText("no_data", context),
+            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+          ),
+          ),
                   ),
           );
         },

@@ -139,10 +139,13 @@ class _SelectMapLocationScreenState extends State<SelectMapLocationScreen> {
                         if (controller!.listenerMapSingleTapping.value !=
                             null) {
                           if (widget.kindOfSelected == 'addAds') {
-                            context.read<AddAdsCubit>().latitude = controller!
-                                .listenerMapSingleTapping.value!.latitude;
-                            context.read<AddAdsCubit>().longitude = controller!
-                                .listenerMapSingleTapping.value!.longitude;
+                            context.read<AddAdsCubit>().updateLocation(controller!
+                                .listenerMapSingleTapping.value!.latitude,controller!
+                                .listenerMapSingleTapping.value!.longitude);
+                            // context.read<AddAdsCubit>().latitude = controller!
+                            //     .listenerMapSingleTapping.value!.latitude;
+                            // context.read<AddAdsCubit>().longitude = controller!
+                            //     .listenerMapSingleTapping.value!.longitude;
                             Future.delayed(Duration(milliseconds: 250), () {
                               Navigator.pop(context);
                             });
@@ -156,12 +159,15 @@ class _SelectMapLocationScreenState extends State<SelectMapLocationScreen> {
                               Navigator.pop(context);
                             });
                           } else {
-                            context.read<AddProjectCubit>().latitude =
-                                controller!
-                                    .listenerMapSingleTapping.value!.latitude;
-                            context.read<AddProjectCubit>().longitude =
-                                controller!
-                                    .listenerMapSingleTapping.value!.longitude;
+                            context.read<AddProjectCubit>().updateLocation(controller!
+                                .listenerMapSingleTapping.value!.latitude,controller!
+                                .listenerMapSingleTapping.value!.longitude);
+                            // context.read<AddProjectCubit>().latitude =
+                            //     controller!
+                            //         .listenerMapSingleTapping.value!.latitude;
+                            // context.read<AddProjectCubit>().longitude =
+                            //     controller!
+                            //         .listenerMapSingleTapping.value!.longitude;
                             Future.delayed(Duration(milliseconds: 250), () {
                               Navigator.pop(context);
                             });

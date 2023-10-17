@@ -130,3 +130,4 @@ class AmenitiesSelected extends AddAdsState {}
 class NewImagePicked extends AddAdsState {}
 
 class ChangeState extends AddAdsState {}
+class ChangeLocationState extends AddAdsState {}

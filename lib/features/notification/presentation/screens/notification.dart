@@ -36,7 +36,7 @@ class NotificationScreen extends StatelessWidget {
               onRefresh: () async =>
                   context.read<NotificationCubit>().getAllNotification(),
               child: SingleChildScrollView(
-                child: Column(
+                child:     state.notificationsModel.data!.length>0?Column(
                   children: [
                     ...List.generate(
                       state.notificationsModel.data!.length,
@@ -49,6 +49,10 @@ class NotificationScreen extends StatelessWidget {
                       Container(height: 800)
                     }
                   ],
+                ):    Center(
+                  child: Text(translateText("no_data", context),
+                    style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             );

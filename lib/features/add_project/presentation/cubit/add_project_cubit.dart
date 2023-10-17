@@ -510,4 +510,10 @@ class AddProjectCubit extends Cubit<AddProjectState> {
       },
     );
   }
+  void updateLocation(double latitude, double longitude) {
+    this.latitude=latitude;
+    this.longitude=longitude;
+    emit(ChangeLocationState());
+
+  }
 }

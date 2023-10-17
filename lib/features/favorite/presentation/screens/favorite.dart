@@ -64,7 +64,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       onRefresh: () async {
                         context.read<FavouritesCubit>().getMyFavourites();
                       },
-                      child: ListView(
+                      child:  context
+                          .read<FavouritesCubit>()
+                          .mainItemModel!
+                          .length>0?ListView(
                         children: [
                           ...List.generate(
                             context
@@ -78,13 +81,20 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             ),
                           ),
                         ],
-                      ),
+                      ) :   Center(
+        child: Text(translateText("no_data", context),
+        style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+        ),
+        ),
                     ),
                     RefreshIndicator(
                       onRefresh: () async {
                         context.read<FavouritesCubit>().getMyFavourites();
                       },
-                      child: ListView(
+                      child: context
+            .read<FavouritesCubit>()
+            .mainProjectItemModel!
+            .length>0? ListView(
                         children: [
                           ...List.generate(
                             context
@@ -98,6 +108,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             ),
                           ),
                         ],
+                      ):    Center(
+                        child: Text(translateText("no_data", context),
+                          style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ],

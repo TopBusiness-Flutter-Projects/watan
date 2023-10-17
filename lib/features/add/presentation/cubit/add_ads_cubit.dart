@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:elwatn/core/models/response_message.dart';
+import 'package:elwatn/features/language/presentation/cubit/locale_cubit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -443,5 +444,12 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     videoLink = '';
     latitude = 0;
     longitude = 0;
+  }
+
+  void updateLocation(double latitude, double longitude) {
+    this.latitude=latitude;
+    this.longitude=longitude;
+    emit(ChangeLocationState());
+
   }
 }

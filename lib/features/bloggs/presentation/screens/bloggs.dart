@@ -46,12 +46,18 @@ class _BloggsScreenState extends State<BloggsScreen> {
             return Column(
               children: [
                 Expanded(
-                  child: ListView.separated(
+
+                  child: state.bloggs.data!.length>0?ListView.separated(
                       itemBuilder: (context, index) =>
                           BloggsItem(bloggsDatum: state.bloggs.data![index]),
                       separatorBuilder: (context, index) =>
                       const SizedBox(height: 18),
-                      itemCount: state.bloggs.data!.length),
+                      itemCount: state.bloggs.data!.length):
+                  Center(
+                    child: Text(translateText("no_data", context),
+                    style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 )
               ],
             );

@@ -40,39 +40,75 @@ class FilterResult extends StatelessWidget {
           activeColor: AppColors.primary,
           // background: AppColors.buttonBackground,
         ),
-        titles:  [
-          translateText(AppStrings.adsText,context),
-          translateText(AppStrings.projectText,context),
+        titles: [
+          translateText(AppStrings.adsText, context),
+          translateText(AppStrings.projectText, context),
         ],
         pages: [
           SingleChildScrollView(
-            child: Column(
-              children: [
-                ...List.generate(
-                  context.read<FilterCubit>().filterResponse.data!.ads!.length,
-                  (index) => SecondMainItemWidget(
-                    mainItemModel: context
+            child:
+                context.read<FilterCubit>().filterResponse.data!.ads!.length > 0
+                    ? Column(
+                        children: [
+                          ...List.generate(
+                            context
+                                .read<FilterCubit>()
+                                .filterResponse
+                                .data!
+                                .ads!
+                                .length,
+                            (index) => SecondMainItemWidget(
+                              mainItemModel: context
+                                  .read<FilterCubit>()
+                                  .filterResponse
+                                  .data!
+                                  .ads![index],
+                            ),
+                          ),
+                        ],
+                      )
+                    : Center(
+                        child: Text(
+                          translateText("no_data", context),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+          ),
+          SingleChildScrollView(
+            child: context
                         .read<FilterCubit>()
                         .filterResponse
                         .data!
-                        .ads![index],
+                        .projects!
+                        .length >
+                    0
+                ? Column(
+                    children: [
+                      ...List.generate(
+                        context
+                            .read<FilterCubit>()
+                            .filterResponse
+                            .data!
+                            .projects!
+                            .length,
+                        (index) => SecondMainProjectItemWidget(
+                          mainProjectItemModel: context
+                              .read<FilterCubit>()
+                              .filterResponse
+                              .data!
+                              .projects![index],
+                        ),
+                      ),
+                    ],
+                  )
+                : Center(
+                    child: Text(
+                      translateText("no_data", context),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                ...List.generate(
-                  context.read<FilterCubit>().filterResponse.data!.projects!.length,
-                  (index) => SecondMainProjectItemWidget(
-                    mainProjectItemModel:
-                    context.read<FilterCubit>().filterResponse.data!.projects![index],
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),

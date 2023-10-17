@@ -131,7 +131,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                                     .toString(),
                               );
                         },
-                        child: ListView(
+                        child:    context.read<MyAdsCubit>().forSaleList.length>0?ListView(
                           children: [
                             ...List.generate(
                               context.read<MyAdsCubit>().forSaleList.length,
@@ -145,6 +145,10 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                               ),
                             ),
                           ],
+                        ):    Center(
+                          child: Text(translateText("no_data", context),
+                            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       RefreshIndicator(
@@ -156,7 +160,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                                     .toString(),
                               );
                         },
-                        child: ListView(
+                        child:     context.read<MyAdsCubit>().forRentList.length>0?ListView(
                           children: [
                             ...List.generate(
                               context.read<MyAdsCubit>().forRentList.length,
@@ -170,6 +174,10 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                               ),
                             ),
                           ],
+                        ):    Center(
+                          child: Text(translateText("no_data", context),
+                            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ],
@@ -198,7 +206,10 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                                     .toString(),
                               );
                         },
-                        child: ListView(
+                        child:  context
+                            .read<MyAdsCubit>()
+              .forSaleProjectList
+              .length>0? ListView(
                           children: [
                             ...List.generate(
                               context
@@ -215,6 +226,10 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                               ),
                             ),
                           ],
+                        ):    Center(
+                          child: Text(translateText("no_data", context),
+                            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ],

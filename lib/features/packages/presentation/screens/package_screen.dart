@@ -97,8 +97,13 @@ class _PackageScreenState extends State<PackageScreen> {
                     ),
                   ),
                   Expanded(
-                    child: BodyPackageWidget(
+                    child: state.package.data!.length>0?
+                    BodyPackageWidget(
                       package: state.package,
+                    )  :  Center(
+                      child: Text(translateText("no_data", context),
+                        style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                   CustomButton(

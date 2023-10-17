@@ -113,4 +113,5 @@ class UpdateAdsPostErrorResponse extends AddProjectState {
 
 class ChangePaymentState extends AddProjectState {}
 class ChangeUnitPlanState extends AddProjectState {}
+class ChangeLocationState extends AddProjectState {}
 
