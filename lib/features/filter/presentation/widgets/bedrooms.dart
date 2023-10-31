@@ -61,7 +61,11 @@ class _BedRoomsWidgetState extends State<BedRoomsWidget> {
                 });
               },
               child: Text(
-                translateText(isAllSelected?AppStrings.unselectAllText:AppStrings.selectAllText, context),
+                translateText(
+                    isAllSelected
+                        ? AppStrings.unselectAllText
+                        : AppStrings.selectAllText,
+                    context),
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
@@ -88,12 +92,12 @@ class _BedRoomsWidgetState extends State<BedRoomsWidget> {
                         context.read<AddAdsCubit>().bedroom = selected;
                       });
                     } else {
-                      if(selected==index){
+                      if (selected == index) {
                         setState(() {
-                          selected=-1;
+                          selected = -1;
                           context.read<FilterCubit>().bedroom = -1;
                         });
-                      }else{
+                      } else {
                         setState(() {
                           selected = index;
                           context.read<FilterCubit>().bedroom = selected;

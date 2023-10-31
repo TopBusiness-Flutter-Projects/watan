@@ -79,26 +79,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
           registerCubit = context.read<RegisterCubit>();
           if (state is RegisterFailure) {
             Future.delayed(const Duration(seconds: 1), () {
-              snackBar(translateText(AppStrings.someErrorMessage, context), context,color: AppColors.error);
+              snackBar(
+                  translateText(AppStrings.someErrorMessage, context), context,
+                  color: AppColors.error);
             });
           }
-          if (state is UpdateProfileLoading||state is RegisterLoading) {
+          if (state is UpdateProfileLoading || state is RegisterLoading) {
             return const ShowLoadingIndicator();
           }
-          if (state is UpdateStoreDataSuccessfully||state is RegisterLoaded) {
+          if (state is UpdateStoreDataSuccessfully || state is RegisterLoaded) {
             Future.delayed(const Duration(seconds: 1), () {
               Navigator.pushReplacementNamed(context, Routes.initialRoute);
             });
             return const ShowLoadingIndicator();
           }
-          if(state is RegisterValidator){
-            if(state.code==409){
-              Future.delayed(Duration(milliseconds: 300),(){
-                snackBar(translateText(AppStrings.phoneValidatorMessage, context), context,color: AppColors.error);
+          if (state is RegisterValidator) {
+            if (state.code == 409) {
+              Future.delayed(Duration(milliseconds: 300), () {
+                snackBar(
+                    translateText(AppStrings.phoneValidatorMessage, context),
+                    context,
+                    color: AppColors.error);
               });
-            }else{
-              Future.delayed(Duration(milliseconds: 300),(){
-                snackBar(translateText(AppStrings.emailValidatorMessage, context), context,color: AppColors.error);
+            } else {
+              Future.delayed(Duration(milliseconds: 300), () {
+                snackBar(
+                    translateText(AppStrings.emailValidatorMessage, context),
+                    context,
+                    color: AppColors.error);
               });
             }
           }
@@ -201,7 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ? const SizedBox(height: 0)
                         : const LocationAndSocialWidget(),
                     const SizedBox(height: 25),
-                    RegisterButtons(formKey: formKey,isUser: widget.isUser),
+                    RegisterButtons(formKey: formKey, isUser: widget.isUser),
                   ],
                 ),
               ),

@@ -228,31 +228,36 @@ class _AddScreenState extends State<AddScreen> {
                                   AppStrings.selectCurrencyText, context),
                               context,
                               color: AppColors.primary);
-                        } else if ((addAdsCubit.type<3)&&addAdsCubit.bedroom == -1) {
+                        } else if ((addAdsCubit.type < 3) &&
+                            addAdsCubit.bedroom == -1) {
                           snackBar(
                               translateText(
                                   AppStrings.selectBedRoomText, context),
                               context,
                               color: AppColors.primary);
-                        } else if ((addAdsCubit.type<3)&&addAdsCubit.kitchen == 0) {
+                        } else if ((addAdsCubit.type < 3) &&
+                            addAdsCubit.kitchen == 0) {
                           snackBar(
                               translateText(
                                   AppStrings.selectKitchenText, context),
                               context,
                               color: AppColors.primary);
-                        } else if ((addAdsCubit.type<3)&&addAdsCubit.bathroom == 0) {
+                        } else if ((addAdsCubit.type < 3) &&
+                            addAdsCubit.bathroom == 0) {
                           snackBar(
                               translateText(
                                   AppStrings.selectBathRoomText, context),
                               context,
                               color: AppColors.primary);
-                        } else if ((addAdsCubit.type<3)&&addAdsCubit.livingRoom == 0) {
+                        } else if ((addAdsCubit.type < 3) &&
+                            addAdsCubit.livingRoom == 0) {
                           snackBar(
                               translateText(
                                   AppStrings.selectLivingRoomText, context),
                               context,
                               color: AppColors.primary);
-                        } else if ((addAdsCubit.type<3)&&addAdsCubit.diningRoom == 0) {
+                        } else if ((addAdsCubit.type < 3) &&
+                            addAdsCubit.diningRoom == 0) {
                           snackBar(
                               translateText(
                                   AppStrings.selectDiningRoomText, context),
@@ -284,19 +289,19 @@ class _AddScreenState extends State<AddScreen> {
                           );
                         } else {
                           // if (!widget.isUpdate) {
-                            if (addAdsCubit.longitude == 0.0 ||
-                                addAdsCubit.latitude == 0.0) {
-                              snackBar(
-                                translateText(
-                                    AppStrings.selectLocationText, context),
-                                context,
-                                color: AppColors.primary,
-                              );
-                            } else {
-                              context.read<AddAdsCubit>().btnText == 'update'
-                                  ? context.read<AddAdsCubit>().updateAdsPost()
-                                  : context.read<AddAdsCubit>().addAdsPost();
-                            }
+                          if (addAdsCubit.longitude == 0.0 ||
+                              addAdsCubit.latitude == 0.0) {
+                            snackBar(
+                              translateText(
+                                  AppStrings.selectLocationText, context),
+                              context,
+                              color: AppColors.primary,
+                            );
+                          } else {
+                            context.read<AddAdsCubit>().btnText == 'update'
+                                ? context.read<AddAdsCubit>().updateAdsPost()
+                                : context.read<AddAdsCubit>().addAdsPost();
+                          }
                           // }
                         }
                       }
