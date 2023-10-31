@@ -92,7 +92,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       Navigator.pushNamedAndRemoveUntil(
         context,
         Routes.initialRoute,
-            (route) => false,
+        (route) => false,
       );
       Future.delayed(Duration(seconds: 1), () {
         emit(ProfileInitial());
@@ -169,7 +169,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         whatsapp: whatsappController.text,
         phone: phoneController.text,
         about: aboutController.text,
-        phoneCode: "+20",
+        phoneCode: "+964",
         facebook: facebookController.text,
         instagram: instaController.text,
         twitter: twitterController.text,
@@ -242,7 +242,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         whatsapp: whatsappController.text,
         phone: phoneController.text,
         about: aboutController.text,
-        phoneCode: "+20",
+        phoneCode: "+964",
         facebook: facebookController.text,
         instagram: instaController.text,
         twitter: twitterController.text,

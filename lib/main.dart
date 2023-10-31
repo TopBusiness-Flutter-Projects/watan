@@ -30,7 +30,6 @@ Future<void> main() async {
 }
 
 PushNotificationService pushNotificationService = PushNotificationService();
-
 FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 final BehaviorSubject<String> behaviorSubject = BehaviorSubject();

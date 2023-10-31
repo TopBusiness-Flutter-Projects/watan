@@ -14,7 +14,7 @@ class AppStrings {
   static const String arabicCode = 'ar';
   static const String kurdishCode = 'fa';
   static const String locale = 'locale';
-  static const String phoneCode = '+20';
+  static const String phoneCode = '+964';
 
   //Strings Language
 
@@ -74,12 +74,14 @@ class AppStrings {
   static const String whatsappHint = 'whatsapp_hint';
   static const String emailValidatorMessage = 'email_validator_message';
   static const String passwordValidatorMessage = 'password_validator_message';
-  static const String confirmPasswordValidatorMessage = 'confirm_password_validator_message';
+  static const String confirmPasswordValidatorMessage =
+      'confirm_password_validator_message';
   static const String nameValidatorMessage = 'name_validator_message';
   static const String phoneValidatorMessage = 'phone_validator_message';
   static const String whatsappValidatorMessage = 'whatsapp_validator_message';
   static const String passwordValidationMessage = 'password_validation_message';
-  static const String passwordLengthValidationMessage = 'password_length_validation_message';
+  static const String passwordLengthValidationMessage =
+      'password_length_validation_message';
   static const String forgetPasswordText = 'forget_password_text';
   static const String registerText = 'register_text';
   static const String welcomeText = 'welcome_text';
@@ -101,7 +103,8 @@ class AppStrings {
   static const String resetPasswordText = 'reset_password_text';
   static const String resetPasswordTitle = 'reset_password_title';
   static const String resetPasswordDesc = 'reset_password_desc';
-  static const String resetPasswordValidatorMessage = 'reset_password_validator_message';
+  static const String resetPasswordValidatorMessage =
+      'reset_password_validator_message';
   static const String doneBtn = 'done_btn';
   static const String newPasswordText = 'new_password_text';
   static const String newPasswordTitle = 'new_password_title';
@@ -160,7 +163,8 @@ class AppStrings {
   static const String selectImageValidator = 'select_image_validator';
   static const String selectLocationValidator = 'select_location_validator';
   static const String cancelBtn = 'cancel_btn';
-  static const String waringDeleteAccountMessage = 'waring_delete_account_message';
+  static const String waringDeleteAccountMessage =
+      'waring_delete_account_message';
   static const String updateProfileTitle = 'update_profile_title';
   static const String timeLeftText = 'time_left_text';
   static const String payBtn = 'pay_btn';
@@ -219,7 +223,8 @@ class AppStrings {
   static const String percentHint = 'percent_hint';
   static const String planTitleValidator = 'plan_title_validator';
   static const String percentValidator = 'percent_validator';
-  static const String unitDetailsFloorPlanTitle = 'unit_details_floor_plan_title';
+  static const String unitDetailsFloorPlanTitle =
+      'unit_details_floor_plan_title';
   static const String bedroomValidator = 'bedroom_validator';
   static const String bathroomValidator = 'bathroom_validator';
   static const String publishBtn = 'publish_btn';
@@ -231,7 +236,4 @@ class AppStrings {
   static const String invalidCodeMessage = 'invalid_code';
   static const String selectAllText = 'select_all_text';
   static const String unselectAllText = 'unselect_all_text';
-
-
-
 }

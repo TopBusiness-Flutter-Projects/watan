@@ -81,14 +81,14 @@ class RegisterCubit extends Cubit<RegisterState> {
     nameController.text = userModel.data!.user!.name ?? "";
     phoneController.text = userModel.data!.user!.phone!.contains('+964')
         ? userModel.data!.user!.phone!.substring(4)
-        : userModel.data!.user!.phone!.contains('+20')
+        : userModel.data!.user!.phone!.contains('+964')
             ? userModel.data!.user!.phone!.substring(3)
             : userModel.data!.user!.phone!;
     whatsappController.text = userModel.data!.user!.whatsapp!.contains('+964')
         ? userModel.data!.user!.whatsapp!.substring(4)
-        : userModel.data!.user!.whatsapp!.contains('+20')
-        ? userModel.data!.user!.whatsapp!.substring(3)
-        : userModel.data!.user!.whatsapp!;
+        : userModel.data!.user!.whatsapp!.contains('+964')
+            ? userModel.data!.user!.whatsapp!.substring(3)
+            : userModel.data!.user!.whatsapp!;
     facebookController.text = userModel.data!.user!.facebook ?? "";
     instaController.text = userModel.data!.user!.instagram ?? "";
     twitterController.text = userModel.data!.user!.twitter ?? "";
@@ -274,14 +274,13 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(CheckCodeSuccessfully());
       stopTimer();
     }).catchError((error) {
-      toastMessage(translateText(AppStrings.invalidCodeMessage, context), context);
+      toastMessage(
+          translateText(AppStrings.invalidCodeMessage, context), context);
       print('phone auth =>${error.toString()}');
     });
   }
 
   startTimer() {
-
-
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (seconds > 0) {
         seconds--;

@@ -65,11 +65,11 @@ class AddAdsDataSource extends BaseAddAdsDataSource {
   @override
   Future<StatusResponse> updateAds(AddAdsModel addAdsModel) async {
     final response = await apiConsumer.newPost(
-      addAdsModel.kindOfPost!='project'
+      addAdsModel.kindOfPost != 'project'
           ? EndPoints.updateAdsUrl + addAdsModel.id.toString()
           : EndPoints.updateProjectUrl + addAdsModel.id.toString(),
       formDataIsEnabled: true,
-      body: addAdsModel.kindOfPost!='project'
+      body: addAdsModel.kindOfPost != 'project'
           ? addAdsModel.videos!.isEmpty
               ? await addAdsModel.toJsonWithoutVideoUpdate()
               : await addAdsModel.toJsonWithVideoUpdate()
