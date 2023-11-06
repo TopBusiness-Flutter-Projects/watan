@@ -44,9 +44,7 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if(context.read<MyAdsCubit>().isActive){
-
-    }
+    if (context.read<MyAdsCubit>().isActive) {}
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,
@@ -63,14 +61,14 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
       ),
       body: BlocBuilder<MyAdsCubit, MyAdsState>(
         builder: (context, state) {
-          if(state is MyAdsSetStateWidget){
+          if (state is MyAdsSetStateWidget) {
             context.read<MyAdsCubit>().getStoreUser().then(
                   (value) => context.read<MyAdsCubit>().getMyProfileAds(
-                value.data!.accessToken!,
-                widget.kindOfClass,
-                value.data!.user!.userType.toString(),
-              ),
-            );
+                        value.data!.accessToken!,
+                        widget.kindOfClass,
+                        value.data!.user!.userType.toString(),
+                      ),
+                );
           }
           if (state is MyAdsDeletedSuccessfully) {
             Future.delayed(const Duration(seconds: 2), () {
@@ -131,25 +129,33 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                                     .toString(),
                               );
                         },
-                        child:    context.read<MyAdsCubit>().forSaleList.length>0?ListView(
-                          children: [
-                            ...List.generate(
-                              context.read<MyAdsCubit>().forSaleList.length,
-                              (index) => SecondMainItemWidget(
-                                mainItemModel: context
-                                    .read<MyAdsCubit>()
-                                    .forSaleList[index],
-                                isMyAdds: widget.kindOfClass == 'myAds'
-                                    ? true
-                                    : false,
+                        child: context.read<MyAdsCubit>().forSaleList.length > 0
+                            ? ListView(
+                                children: [
+                                  ...List.generate(
+                                    context
+                                        .read<MyAdsCubit>()
+                                        .forSaleList
+                                        .length,
+                                    (index) => SecondMainItemWidget(
+                                      mainItemModel: context
+                                          .read<MyAdsCubit>()
+                                          .forSaleList[index],
+                                      isMyAdds: widget.kindOfClass == 'myAds'
+                                          ? true
+                                          : false,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Center(
+                                child: Text(
+                                  translateText("no_data", context),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
-                            ),
-                          ],
-                        ):    Center(
-                          child: Text(translateText("no_data", context),
-                            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
-                          ),
-                        ),
                       ),
                       RefreshIndicator(
                         onRefresh: () async {
@@ -160,25 +166,33 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                                     .toString(),
                               );
                         },
-                        child:     context.read<MyAdsCubit>().forRentList.length>0?ListView(
-                          children: [
-                            ...List.generate(
-                              context.read<MyAdsCubit>().forRentList.length,
-                              (index) => SecondMainItemWidget(
-                                mainItemModel: context
-                                    .read<MyAdsCubit>()
-                                    .forRentList[index],
-                                isMyAdds: widget.kindOfClass == 'myAds'
-                                    ? true
-                                    : false,
+                        child: context.read<MyAdsCubit>().forRentList.length > 0
+                            ? ListView(
+                                children: [
+                                  ...List.generate(
+                                    context
+                                        .read<MyAdsCubit>()
+                                        .forRentList
+                                        .length,
+                                    (index) => SecondMainItemWidget(
+                                      mainItemModel: context
+                                          .read<MyAdsCubit>()
+                                          .forRentList[index],
+                                      isMyAdds: widget.kindOfClass == 'myAds'
+                                          ? true
+                                          : false,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Center(
+                                child: Text(
+                                  translateText("no_data", context),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
-                            ),
-                          ],
-                        ):    Center(
-                          child: Text(translateText("no_data", context),
-                            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
-                          ),
-                        ),
                       ),
                     ],
                   )
@@ -206,31 +220,37 @@ class _MyAdsScreenState extends State<MyAdsScreen> {
                                     .toString(),
                               );
                         },
-                        child:  context
-                            .read<MyAdsCubit>()
-              .forSaleProjectList
-              .length>0? ListView(
-                          children: [
-                            ...List.generate(
-                              context
-                                  .read<MyAdsCubit>()
-                                  .forSaleProjectList
-                                  .length,
-                              (index) => SecondMainProjectItemWidget(
-                                mainProjectItemModel: context
+                        child: context
                                     .read<MyAdsCubit>()
-                                    .forSaleProjectList[index],
-                                isMyAdds: widget.kindOfClass == 'myAds'
-                                    ? true
-                                    : false,
+                                    .forSaleProjectList
+                                    .length >
+                                0
+                            ? ListView(
+                                children: [
+                                  ...List.generate(
+                                    context
+                                        .read<MyAdsCubit>()
+                                        .forSaleProjectList
+                                        .length,
+                                    (index) => SecondMainProjectItemWidget(
+                                      mainProjectItemModel: context
+                                          .read<MyAdsCubit>()
+                                          .forSaleProjectList[index],
+                                      isMyAdds: widget.kindOfClass == 'myAds'
+                                          ? true
+                                          : false,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Center(
+                                child: Text(
+                                  translateText("no_data", context),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
-                            ),
-                          ],
-                        ):    Center(
-                          child: Text(translateText("no_data", context),
-                            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
-                          ),
-                        ),
                       ),
                     ],
                   );

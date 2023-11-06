@@ -106,19 +106,19 @@ class _ListNumbersWidgetState extends State<ListNumbersWidget> {
                   onTap: () {
                     setState(() {
                       if (widget.kind == 'null') {
-                        if(selected==index){
+                        if (selected == index) {
                           selected = -1;
-                        }else{
+                        } else {
                           selected = index;
                         }
-                      }else{
+                      } else {
                         selected = index;
                       }
                     });
                     if (widget.kind == 'null') {
-                      if(selected==index){
+                      if (selected == index) {
                         context.read<FilterCubit>().bathroom = 0;
-                      }else{
+                      } else {
                         context.read<FilterCubit>().bathroom = selected + 1;
                       }
                     } else {
@@ -133,7 +133,7 @@ class _ListNumbersWidgetState extends State<ListNumbersWidget> {
                       }
                     }
                   },
-                  child: (selected == index||isAllSelected)
+                  child: (selected == index || isAllSelected)
                       ? Padding(
                           padding: const EdgeInsets.only(right: 16),
                           child: Container(

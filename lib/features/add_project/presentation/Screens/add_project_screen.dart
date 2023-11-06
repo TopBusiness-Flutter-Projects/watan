@@ -114,15 +114,17 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                         color: AppColors.white,
                         child: TabBar(
                           indicatorColor: AppColors.primary,
-                          tabs:  [
+                          tabs: [
                             Tab(
                               text: translateText(AppStrings.newText, context),
                             ),
                             Tab(
-                              text: translateText(AppStrings.ongoingText, context),
+                              text: translateText(
+                                  AppStrings.ongoingText, context),
                             ),
                             Tab(
-                              text: translateText(AppStrings.finishedText, context),
+                              text: translateText(
+                                  AppStrings.finishedText, context),
                             ),
                           ],
                           labelColor: AppColors.white,
@@ -187,7 +189,9 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                   const GrayLine(),
                   const ContactWidget(kind: 'addProject'),
                   CustomButton(
-                    text: widget.isUpdate ? translateText(AppStrings.updateBtnText, context) : translateText(AppStrings.addBtn, context),
+                    text: widget.isUpdate
+                        ? translateText(AppStrings.updateBtnText, context)
+                        : translateText(AppStrings.addBtn, context),
                     color: AppColors.primary,
                     paddingHorizontal: 60,
                     onClick: () {

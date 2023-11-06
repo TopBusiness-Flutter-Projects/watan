@@ -1,15 +1,12 @@
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:elwatn/core/models/response_message.dart';
-import 'package:elwatn/features/language/presentation/cubit/locale_cubit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../../../core/utils/map_failure_message.dart';
@@ -20,11 +17,11 @@ import '../../../filter/domain/use_cases/get_amenities_use_case.dart';
 import '../../../filter/domain/use_cases/get_cities_location_use_case.dart';
 import '../../../filter/domain/use_cases/get_cities_use_case.dart';
 import '../../../home_page/domain/entities/main_item_domain_model.dart';
+import '../../../home_page/presentation/cubit/home_page_cubit.dart';
 import '../../../login/data/models/login_data_model.dart';
 import '../../domain/entities/add_ads_model.dart';
 import '../../domain/use_cases/add_ads_use_case.dart';
 import '../../domain/use_cases/update_ads_use_case.dart';
-
 part 'add_ads_state.dart';
 
 class AddAdsCubit extends Cubit<AddAdsState> {
@@ -239,7 +236,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     );
   }
 
-  addAdsPost() async {
+  addAdsPost(BuildContext context) async {
     emit(AddAdsPostLoading());
     final response = await addAdsUseCase(
       AddAdsModel(
@@ -298,6 +295,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
               changeStates();
             },
           );
+          context.read<HomePageCubit>().getAllDataOfHomePage();
         } else {
           emit(AddAdsPostErrorResponse(status));
           Future.delayed(
@@ -397,6 +395,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     whatsappController.clear();
     video = null;
     furnished = 1;
+    images = [];
     cityId = 0;
     locationId = 0;
     type = -1;
@@ -409,7 +408,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     size = '';
     propertySelected = -1;
     status = 'sale';
-    currency = '';
+    currency = 'IQD';
     latitude = 0;
     longitude = 0;
     print('#############################################3');
@@ -440,16 +439,15 @@ class AddAdsCubit extends Cubit<AddAdsState> {
     type = 0;
     propertySelected = -1;
     status = 'sale';
-    currency = 'USD';
+    currency = 'IQD';
     videoLink = '';
     latitude = 0;
     longitude = 0;
   }
 
   void updateLocation(double latitude, double longitude) {
-    this.latitude=latitude;
-    this.longitude=longitude;
+    this.latitude = latitude;
+    this.longitude = longitude;
     emit(ChangeLocationState());
-
   }
 }

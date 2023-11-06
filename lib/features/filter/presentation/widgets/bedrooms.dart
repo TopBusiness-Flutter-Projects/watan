@@ -54,24 +54,24 @@ class _BedRoomsWidgetState extends State<BedRoomsWidget> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Spacer(),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  isAllSelected = !isAllSelected;
-                });
-              },
-              child: Text(
-                translateText(
-                    isAllSelected
-                        ? AppStrings.unselectAllText
-                        : AppStrings.selectAllText,
-                    context),
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: isAllSelected ? AppColors.primary : AppColors.gray),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     setState(() {
+            //       isAllSelected = !isAllSelected;
+            //     });
+            //   },
+            //   child: Text(
+            //     translateText(
+            //         isAllSelected
+            //             ? AppStrings.unselectAllText
+            //             : AppStrings.selectAllText,
+            //         context),
+            //     style: TextStyle(
+            //         fontSize: 13,
+            //         fontWeight: FontWeight.bold,
+            //         color: isAllSelected ? AppColors.primary : AppColors.gray),
+            //   ),
+            // ),
           ],
         ),
         const SizedBox(

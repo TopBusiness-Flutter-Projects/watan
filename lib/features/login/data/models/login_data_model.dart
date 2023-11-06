@@ -1,9 +1,7 @@
-import '../../../home_page/data/models/main_item_data_model.dart';
 import '../../domain/entities/login_domain_model.dart';
 
 class LoginDataModel extends LoginModel {
-  const LoginDataModel(
-      { super.data,  super.message,  super.code});
+  const LoginDataModel({super.data, super.message, super.code});
 
   factory LoginDataModel.fromJson(Map<String, dynamic> json) => LoginDataModel(
         data: json["data"] != null
@@ -38,23 +36,23 @@ class UserDataModel extends UserData {
 
 class UserModel extends User {
   const UserModel(
-      { super.id,
-       super.name,
-       super.phone,
-       super.email,
-       super.password,
-       super.whatsapp,
-       super.status,
-       super.image,
-       super.fileImage,
-       super.userType,
-       super.facebook,
-       super.instagram,
-       super.twitter,
-       super.snapchat,
-       super.latitude,
-       super.packagesBalance,
-       super.longitude});
+      {super.id,
+      super.name,
+      super.phone,
+      super.email,
+      super.password,
+      super.whatsapp,
+      super.status,
+      super.image,
+      super.fileImage,
+      super.userType,
+      super.facebook,
+      super.instagram,
+      super.twitter,
+      super.snapchat,
+      super.latitude,
+      super.packagesBalance,
+      super.longitude});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["id"],
@@ -70,7 +68,7 @@ class UserModel extends User {
         facebook: json["facebook"],
         instagram: json["instagram"],
         twitter: json["twitter"],
-    packagesBalance: json["packages_balance"]??0,
+        packagesBalance: json["packages_balance"] ?? 0,
         snapchat: json["snapchat"],
         latitude: json["latitude"],
         longitude: json["longitude"],
@@ -93,6 +91,6 @@ class UserModel extends User {
         "snapchat": snapchat,
         "latitude": latitude,
         "longitude": longitude,
-    "packages_balance": packagesBalance,
-  };
+        "packages_balance": packagesBalance,
+      };
 }

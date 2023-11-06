@@ -140,16 +140,15 @@ class BodyProfileWidget extends StatelessWidget {
                         ),
                       ),
                       DialogButton(
-                        onPressed: () =>
+                          onPressed: () {
                             context.read<ProfileCubit>().deleteUserAccount(
-                                  loginDataModel.data!.accessToken!,
-                                ),
-                        color: AppColors.error,
-                        child: Text(
-                          translateText(AppStrings.confirmBtn, context),
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                      )
+                                loginDataModel.data!.accessToken!, context);
+                          },
+                          color: AppColors.error,
+                          child: Text(
+                              translateText(AppStrings.confirmBtn, context),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20)))
                     ],
                   ).show();
                 },

@@ -43,8 +43,10 @@ class EndPoints {
   static const String addProjectUrl = '${baseUrl}ads/add-project';
   static const String updateProjectUrl = '${baseUrl}ads/update_project/';
   static const String favouritesUrl = '${baseUrl}ads/favourites-lists';
-  static const String changePostFavouriteStatusUrl = '${baseUrl}ads/add-or-remove-post-to-favourite';
-  static const String changeProjectFavouriteStatusUrl = '${baseUrl}company/add-or-remove-project-to-favourite';
+  static const String changePostFavouriteStatusUrl =
+      '${baseUrl}ads/add-or-remove-post-to-favourite';
+  static const String changeProjectFavouriteStatusUrl =
+      '${baseUrl}company/add-or-remove-project-to-favourite';
   static const String getAllLocationsUrl = '${baseUrl}home/get-all-locations';
   static const String notificationsUrl = '${baseUrl}notifications';
   static const String insertDeviceTokenUrl = '${baseUrl}auth/insert-token';
