@@ -22,6 +22,8 @@ class AddAdsDataSource extends BaseAddAdsDataSource {
 
   @override
   Future<StatusResponse> addAds(AddAdsModel addAdsModel) async {
+    print(addAdsModel.token);
+    print('......................................');
     final response = await apiConsumer.newPost(
       EndPoints.addAdsUrl,
       formDataIsEnabled: true,

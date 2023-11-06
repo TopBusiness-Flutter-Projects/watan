@@ -180,7 +180,7 @@ Future<void> setup() async {
   serviceLocator.registerFactory(
     () => LoginCubit(
       postLoginUseCase: serviceLocator(),
-      sendDeviceTokenUseCase:  serviceLocator(),
+      sendDeviceTokenUseCase: serviceLocator(),
       updateStoreProfileUseCase: serviceLocator(),
     ),
   );

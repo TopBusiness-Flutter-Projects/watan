@@ -185,6 +185,8 @@ class _AddScreenState extends State<AddScreen> {
                     kind: 'dining',
                   ),
                   const GrayLine(),
+
+                  ///location
                   const SelectYourLocation(kindOfSelected: 'addAds'),
                   const GrayLine(),
                   PickImagesContainerWidget(
@@ -300,7 +302,9 @@ class _AddScreenState extends State<AddScreen> {
                           } else {
                             context.read<AddAdsCubit>().btnText == 'update'
                                 ? context.read<AddAdsCubit>().updateAdsPost()
-                                : context.read<AddAdsCubit>().addAdsPost();
+                                : context
+                                    .read<AddAdsCubit>()
+                                    .addAdsPost(context);
                           }
                           // }
                         }

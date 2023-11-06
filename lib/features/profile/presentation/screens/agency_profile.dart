@@ -8,7 +8,6 @@ import 'package:elwatn/core/widgets/social_media_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/is_language_methods.dart';
 import '../../../details/presentation/widgets/communcation.dart';
@@ -169,7 +168,11 @@ class AgencyProfileScreen extends StatelessWidget {
                           ? Alignment.bottomLeft
                           : Alignment.bottomRight,
                       child: Text(
-                          translateText(AppStrings.socialMediaTitle, context,),),
+                        translateText(
+                          AppStrings.socialMediaTitle,
+                          context,
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 12),
                     SocialMediaWidget(

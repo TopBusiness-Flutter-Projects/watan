@@ -22,6 +22,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        leading: Container(),
         backgroundColor: AppColors.white,
         title: Text(
           translateText(AppStrings.loginText, context),
