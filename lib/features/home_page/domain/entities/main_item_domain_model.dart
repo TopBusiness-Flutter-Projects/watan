@@ -147,8 +147,8 @@ class MainItem extends Equatable {
         images,
         agent,
         company,
-    userModel,
-    isFavourite,
+        userModel,
+        isFavourite,
       ];
 }
 
@@ -411,16 +411,15 @@ class MainItemUser extends Equatable {
   DateTime? createdAt;
   DateTime? updatedAt;
 
-
   @override
   List<Object?> get props => [
-   id,
-   name,
-   email,
-   whatsapp,
-   phone,
-   image,
-   status,
-   userType,
-  ];
+        id,
+        name,
+        email,
+        whatsapp,
+        phone,
+        image,
+        status,
+        userType,
+      ];
 }

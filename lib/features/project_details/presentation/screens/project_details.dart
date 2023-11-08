@@ -34,7 +34,6 @@ class _ProjectDetailsState extends State<ProjectDetails> {
   bool isFavourite = false;
   bool isLoading = false;
 
-
   _getStoreUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('user') != null) {
@@ -71,8 +70,7 @@ class _ProjectDetailsState extends State<ProjectDetails> {
               ),
               const SizedBox(height: 12),
               ProjectSimpleDetailsWidget(
-                mainProjectItemModel: widget.mainProjectItemModel,
-              ),
+                  mainProjectItemModel: widget.mainProjectItemModel),
               const Divider(thickness: 1),
               ProjectLocationWidget(
                 mainProjectItemModel: widget.mainProjectItemModel,
@@ -112,8 +110,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
               ),
               const Divider(thickness: 1),
               CommunicationWidget(
-                phone: widget.mainProjectItemModel.phone??"0",
-                whatsapp: widget.mainProjectItemModel.whatsapp??'0',
+                phone: widget.mainProjectItemModel.phone ?? "0",
+                whatsapp: widget.mainProjectItemModel.whatsapp ?? '0',
                 type: 'project',
                 userId: widget.mainProjectItemModel.userId!,
                 postId: widget.mainProjectItemModel.id!,

@@ -192,11 +192,15 @@ class HomeItemWidget extends StatelessWidget {
                         ),
                         ViewsWidget(views: mainItem.views.toString()),
                         //ToDo User Icon
-                        Image.asset(
-                          ImageAssets.companyLogo,
-                          width: 36,
-                          height: 28,
-                        ),
+                        mainItem.userModel!.image == null
+                            ? CircleAvatar(
+                                backgroundImage:
+                                    AssetImage(ImageAssets.companyLogo),
+                              )
+                            : CircleAvatar(
+                                backgroundImage:
+                                    NetworkImage(mainItem.userModel!.image!),
+                              )
                       ],
                     )
                   ],

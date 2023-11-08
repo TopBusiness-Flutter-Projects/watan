@@ -5,11 +5,12 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/models/login_data_model.dart';
 
-LoginModel loginFromJson(String str) => LoginDataModel.fromJson(json.decode(str));
+LoginModel loginFromJson(String str) =>
+    LoginDataModel.fromJson(json.decode(str));
 
 String loginToJson(LoginDataModel data) => json.encode(data.toJson());
 
-class LoginModel extends Equatable{
+class LoginModel extends Equatable {
   const LoginModel({
     required this.data,
     required this.message,
@@ -21,10 +22,10 @@ class LoginModel extends Equatable{
   final int? code;
 
   @override
-  List<Object?> get props => [data,message,code];
+  List<Object?> get props => [data, message, code];
 }
 
-class UserData extends Equatable{
+class UserData extends Equatable {
   const UserData({
     required this.user,
     required this.accessToken,
@@ -36,11 +37,11 @@ class UserData extends Equatable{
   final String? tokenType;
 
   @override
-  List<Object?> get props => [user,accessToken,tokenType];
+  List<Object?> get props => [user, accessToken, tokenType];
 }
 
-class User extends Equatable{
-  const User({
+class User extends Equatable {
+  User({
     this.id,
     this.name,
     this.phone,
@@ -74,31 +75,28 @@ class User extends Equatable{
   final String? instagram;
   final String? twitter;
   final String? snapchat;
-  final double? latitude;
-  final double? longitude;
+  dynamic latitude;
+  dynamic longitude;
   final int? packagesBalance;
-
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    phone,
-    email,
-    password,
-    whatsapp,
-    status,
-    image,
-    fileImage,
-    userType,
-    facebook,
-    instagram,
-    twitter,
-    snapchat,
-    latitude,
-    longitude,
-    packagesBalance,
-  ];
-
-
+        id,
+        name,
+        phone,
+        email,
+        password,
+        whatsapp,
+        status,
+        image,
+        fileImage,
+        userType,
+        facebook,
+        instagram,
+        twitter,
+        snapchat,
+        latitude,
+        longitude,
+        packagesBalance,
+      ];
 }

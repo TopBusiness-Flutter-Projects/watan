@@ -76,9 +76,8 @@ class _SecondMainProjectItemWidgetState
     } else if (widget.mainProjectItemModel!.type == '6') {
       type = translateText(AppStrings.officeText, context);
     } else {
-      type = widget.mainProjectItemModel!.type??"";
+      type = widget.mainProjectItemModel!.type ?? "";
     }
-
 
     return InkWell(
       onTap: () {
@@ -381,7 +380,8 @@ class _SecondMainProjectItemWidgetState
                                           fontSize: 16, color: AppColors.black),
                                     ),
                                     TextSpan(
-                                      text: " ${AppLocalizations.of(context)!.isEnLocale ? widget.mainProjectItemModel!.currency : widget.mainProjectItemModel!.currency == "USD" ? "دولار" : "دينار"}",
+                                      text:
+                                          " ${AppLocalizations.of(context)!.isEnLocale ? widget.mainProjectItemModel!.currency : widget.mainProjectItemModel!.currency == "USD" ? "دولار" : "دينار"}",
                                       // "  ${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel!.id! : "دولار"}",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -410,19 +410,27 @@ class _SecondMainProjectItemWidgetState
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) => Scaffold(
-                                                  body: SafeArea(
-                                                    child: AddProjectScreen(
-                                                      isUpdate: true,
-                                                      mainProjectItem: widget
-                                                          .mainProjectItemModel,
-                                                    ),
+                                                  appBar: AppBar(
+                                                    leading: IconButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        icon: Icon(
+                                                            Icons.arrow_back)),
+                                                  ),
+                                                  body: AddProjectScreen(
+                                                    isUpdate: true,
+                                                    mainProjectItem: widget
+                                                        .mainProjectItemModel,
                                                   ),
                                                 ),
                                               ),
                                             );
                                           },
                                           child: Text(
-                                            translateText(AppStrings.editBtn, context),
+                                            translateText(
+                                                AppStrings.editBtn, context),
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: AppColors.black,

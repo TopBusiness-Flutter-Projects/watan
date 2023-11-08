@@ -19,34 +19,29 @@ class SimpleDetails extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Row(
         children: [
-          Expanded(
+          Flexible(
+            fit: FlexFit.tight,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text:
-                                '${AppLocalizations.of(context)!.isEnLocale ? mainItemModel!.price ?? "0" : replaceToArabicNumber(mainItemModel!.price.toString())}',
-                            style:
-                                TextStyle(fontSize: 16, color: AppColors.black),
-                          ),
-                          TextSpan(
-                            text:
-                                "  ${AppLocalizations.of(context)!.isEnLocale ? mainItemModel!.currency! : "دولار"}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: AppColors.black),
-                          ),
-                        ],
+                RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text:
+                            '${AppLocalizations.of(context)!.isEnLocale ? mainItemModel!.price ?? "0" : replaceToArabicNumber(mainItemModel!.price.toString())}',
+                        style: TextStyle(fontSize: 16, color: AppColors.black),
                       ),
-                    ),
-                  ],
+                      TextSpan(
+                        text:
+                            "  ${AppLocalizations.of(context)!.isEnLocale ? mainItemModel!.currency! : "دولار"}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: AppColors.black),
+                      ),
+                    ],
+                  ),
                 ),
                 ThreeIconsDetailsWidget(
                   area: mainItemModel!.size.toString(),
@@ -56,7 +51,6 @@ class SimpleDetails extends StatelessWidget {
               ],
             ),
           ),
-          const Spacer(),
           Text(
             mainItemModel!.status == "null"
                 ? "nooo"

@@ -112,9 +112,9 @@ class AppRoutes {
           builder: (context) => const NewAndEditAgencyScreen(),
         );
       case Routes.loadingScreenWidgetRoute:
-      return MaterialPageRoute(
-        builder: (context) =>   const LoadingScreenWidget(),
-      );
+        return MaterialPageRoute(
+          builder: (context) => const LoadingScreenWidget(),
+        );
       case Routes.mapScreenRoute:
         return MaterialPageRoute(
           builder: (context) => const MapScreen(),

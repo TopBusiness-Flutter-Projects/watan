@@ -109,7 +109,6 @@ class LoginScreen extends StatelessWidget {
                   color: AppColors.error,
                 );
               });
-
               return LoginBodyWidget();
             }
           } else if (state is LoginLoadedError) {

@@ -59,7 +59,7 @@ class ProfileDataSource implements BaseProfileDataSource {
   Future<StatusResponse> editAgent(AgentModel agentModel) async {
     Response response = await apiConsumer.newPost(
       "${EndPoints.agentProfileListUrl}/${agentModel.id}",
-      body: agentModel.image!=null
+      body: agentModel.image != null
           ? await agentModel.postToJson()
           : await agentModel.editToJson(),
       formDataIsEnabled: true,

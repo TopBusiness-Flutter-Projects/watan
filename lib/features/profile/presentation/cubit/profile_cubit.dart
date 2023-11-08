@@ -293,21 +293,22 @@ class ProfileCubit extends Cubit<ProfileState> {
       (failure) => emit(ProfileUserDeletedError()),
       (statusResponse) async {
         if (statusResponse.code == 200) {
-          Navigator.pop(context);
+          // Navigator.pop(context);
           SharedPreferences prefs = await SharedPreferences.getInstance();
           bool result = await prefs.remove('user');
           if (result) {
             Routes.isLogout = true;
-            Navigator.pushAndRemoveUntil(
-                context,
-                PageTransition(
-                  type: PageTransitionType.fade,
-                  alignment: Alignment.center,
-                  duration: const Duration(milliseconds: 500),
-                  child: SplashScreen(),
-                ),
-                ModalRoute.withName(Routes.loginScreenRoute));
             context.read<LocaleCubit>().loginDataModel = null;
+            // Navigator.pop(context);
+            Navigator.pushReplacement(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                alignment: Alignment.center,
+                duration: const Duration(milliseconds: 1),
+                child: SplashScreen(),
+              ),
+            );
           }
           emit(ProfileUserDeletedSuccessfully());
         } else {

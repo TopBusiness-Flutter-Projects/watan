@@ -73,105 +73,100 @@ class _ProjectHeaderWidgetState extends State<ProjectHeaderWidget> {
                         color: AppColors.opacityWhite),
                     child: isLoading
                         ? SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        color: AppColors.primary,
-                      ),
-                    )
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(
+                              color: AppColors.primary,
+                            ),
+                          )
                         : GestureDetector(
-                      onTap: () {
-
-                        if (context
-                            .read<LocaleCubit>()
-                            .loginDataModel ==
-                            null) {
-                          Alert(
-                            context: context,
-                            type: AlertType.warning,
-                            title:
-                            "\n You Should Login First ",
-                            buttons: [
-                              DialogButton(
-                                onPressed: () =>
-                                    Navigator.pop(context),
-                                color: AppColors
-                                    .buttonBackground,
-                                child: const Text(
-                                  "Cancel",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20),
-                                ),
-                              ),
-                              DialogButton(
-                                onPressed: () =>
-                                    Navigator.of(context)
-                                        .push(
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return const LoginScreen();
-                                        },
+                            onTap: () {
+                              if (context.read<LocaleCubit>().loginDataModel ==
+                                  null) {
+                                Alert(
+                                  context: context,
+                                  type: AlertType.warning,
+                                  title: "\n You Should Login First ",
+                                  buttons: [
+                                    DialogButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      color: AppColors.buttonBackground,
+                                      child: const Text(
+                                        "Cancel",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
                                       ),
                                     ),
-                                color: AppColors.error,
-                                child: const Text(
-                                  "Login",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20),
-                                ),
-                              )
-                            ],
-                          ).show();
-                        }else{
-                          context
-                              .read<FavouritesCubit>()
-                              .cubitKind = 'null';
-                          context
-                              .read<FavouritesCubit>()
-                              .getFavourite = 'change';
-                          setState(() {
-                            isLoading = true;
-                          });
-                          context
-                              .read<FavouritesCubit>()
-                              .changeFavouritesStatus(
-                            widget.mainProjectItemModel.id
-                                .toString(),
-                            'project',
-                          )
-                              .whenComplete(
-                                () => Future.delayed(
-                              Duration(
-                                milliseconds: 500,
-                              ),
-                                  () {
+                                    DialogButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return const LoginScreen();
+                                          },
+                                        ),
+                                      ),
+                                      color: AppColors.error,
+                                      child: const Text(
+                                        "Login",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    )
+                                  ],
+                                ).show();
+                              } else {
+                                context.read<FavouritesCubit>().cubitKind =
+                                    'null';
+                                context.read<FavouritesCubit>().getFavourite =
+                                    'change';
                                 setState(() {
-                                  isLoading = false;
-                                  if (context.read<FavouritesCubit>().message != 'There are some Errors') {
-                                    isFavourite = context
-                                        .read<
-                                        FavouritesCubit>()
-                                        .favourite;
-                                  }
+                                  isLoading = true;
                                 });
-                                toastMessage(context.read<FavouritesCubit>().message, context, color: AppColors.primary,);
-                              },
+                                context
+                                    .read<FavouritesCubit>()
+                                    .changeFavouritesStatus(
+                                      widget.mainProjectItemModel.id.toString(),
+                                      'project',
+                                    )
+                                    .whenComplete(
+                                      () => Future.delayed(
+                                        Duration(
+                                          milliseconds: 500,
+                                        ),
+                                        () {
+                                          setState(() {
+                                            isLoading = false;
+                                            if (context
+                                                    .read<FavouritesCubit>()
+                                                    .message !=
+                                                'There are some Errors') {
+                                              isFavourite = context
+                                                  .read<FavouritesCubit>()
+                                                  .favourite;
+                                            }
+                                          });
+                                          toastMessage(
+                                            context
+                                                .read<FavouritesCubit>()
+                                                .message,
+                                            context,
+                                            color: AppColors.primary,
+                                          );
+                                        },
+                                      ),
+                                    );
+                              }
+                            },
+                            child: Icon(
+                              isFavourite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: isFavourite
+                                  ? AppColors.primary
+                                  : AppColors.black,
                             ),
-                          );
-                        }
-
-                      },
-                      child: Icon(
-                        isFavourite
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: isFavourite
-                            ? AppColors.primary
-                            : AppColors.black,
-                      ),
-                    ),
+                          ),
                   ),
                 ),
               ),
@@ -190,9 +185,11 @@ class _ProjectHeaderWidgetState extends State<ProjectHeaderWidget> {
               widget.mainProjectItemModel.images!.isNotEmpty
                   ? IconShapeWidget(
                       text: IsLanguage.isEnLanguage(context)
-                          ? widget.mainProjectItemModel.images!.length.toString()
-                          : replaceToArabicNumber(
-                              widget.mainProjectItemModel.images!.length.toString()),
+                          ? widget.mainProjectItemModel.images!.length
+                              .toString()
+                          : replaceToArabicNumber(widget
+                              .mainProjectItemModel.images!.length
+                              .toString()),
                       icon: Icons.image,
                       onClick: () {
                         Navigator.of(context).push(
@@ -200,7 +197,8 @@ class _ProjectHeaderWidgetState extends State<ProjectHeaderWidget> {
                             builder: (context) {
                               return DetailsPhotoProjectScreen(
                                 initialPage: 0,
-                                mainProjectItemModel: widget.mainProjectItemModel,
+                                mainProjectItemModel:
+                                    widget.mainProjectItemModel,
                               );
                             },
                           ),
@@ -215,8 +213,9 @@ class _ProjectHeaderWidgetState extends State<ProjectHeaderWidget> {
                   ? IconShapeWidget(
                       text: IsLanguage.isEnLanguage(context)
                           ? widget.mainProjectItemModel.videos.length.toString()
-                          : replaceToArabicNumber(
-                              widget.mainProjectItemModel.videos.length.toString()),
+                          : replaceToArabicNumber(widget
+                              .mainProjectItemModel.videos.length
+                              .toString()),
                       icon: Icons.video_camera_back,
                       onClick: () {
                         Navigator.of(context).push(
@@ -224,7 +223,8 @@ class _ProjectHeaderWidgetState extends State<ProjectHeaderWidget> {
                             builder: (context) {
                               return DetailsPhotoProjectScreen(
                                 initialPage: 1,
-                                mainProjectItemModel: widget.mainProjectItemModel,
+                                mainProjectItemModel:
+                                    widget.mainProjectItemModel,
                               );
                             },
                           ),
@@ -238,9 +238,10 @@ class _ProjectHeaderWidgetState extends State<ProjectHeaderWidget> {
               widget.mainProjectItemModel.floorPlans!.isNotEmpty
                   ? IconShapeWidget(
                       text: IsLanguage.isEnLanguage(context)
-                          ? widget.mainProjectItemModel.floorPlans!.length.toString()
-                          : replaceToArabicNumber(widget.mainProjectItemModel
-                              .floorPlans!.length
+                          ? widget.mainProjectItemModel.floorPlans!.length
+                              .toString()
+                          : replaceToArabicNumber(widget
+                              .mainProjectItemModel.floorPlans!.length
                               .toString()),
                       icon: Icons.schema_outlined,
                       onClick: () {
@@ -249,7 +250,8 @@ class _ProjectHeaderWidgetState extends State<ProjectHeaderWidget> {
                             builder: (context) {
                               return DetailsPhotoProjectScreen(
                                 initialPage: 2,
-                                mainProjectItemModel: widget.mainProjectItemModel,
+                                mainProjectItemModel:
+                                    widget.mainProjectItemModel,
                               );
                             },
                           ),

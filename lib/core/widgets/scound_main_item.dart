@@ -352,10 +352,12 @@ class _SecondMainItemWidgetState extends State<SecondMainItemWidget> {
                             ViewsWidget(
                                 views: widget.mainItemModel!.views.toString()),
                             ManageNetworkImage(
-                              imageUrl: widget.mainItemModel!.userModel!.image??'http://clipart-library.com/images/pT5ra4Xgc.jpg',
+                              imageUrl: widget
+                                      .mainItemModel!.userModel!.image ??
+                                  'http://clipart-library.com/images/pT5ra4Xgc.jpg',
                               width: 28,
                               height: 28,
-                              borderRadius:36 ,
+                              borderRadius: 36,
                             ),
                           ],
                         ),
@@ -375,7 +377,8 @@ class _SecondMainItemWidgetState extends State<SecondMainItemWidget> {
                                           );
                                     },
                                     child: Text(
-                                      translateText(AppStrings.AddToMySolidBtn, context),
+                                      translateText(
+                                          AppStrings.AddToMySolidBtn, context),
                                       style: TextStyle(
                                           fontSize: 12,
                                           color: AppColors.primary),
@@ -403,7 +406,8 @@ class _SecondMainItemWidgetState extends State<SecondMainItemWidget> {
                                       );
                                     },
                                     child: Text(
-                                      translateText(AppStrings.editBtn, context),
+                                      translateText(
+                                          AppStrings.editBtn, context),
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: AppColors.black,

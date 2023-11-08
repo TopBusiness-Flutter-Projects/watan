@@ -26,10 +26,11 @@ class HomeModelWidget extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 20,right: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Align(
-              alignment:AppLocalizations.of(context)!
-                  .isEnLocale? Alignment.centerLeft:Alignment.centerRight,
+              alignment: AppLocalizations.of(context)!.isEnLocale
+                  ? Alignment.centerLeft
+                  : Alignment.centerRight,
               child: Text(
                 kind,
                 style: TextStyle(fontSize: 18, color: AppColors.primary),
@@ -54,12 +55,14 @@ class HomeModelWidget extends StatelessWidget {
         },
         ElevatedButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return ShowMoreScreen(
-                kind: kind,
-                sliderList: slider,
-              );
-            },));
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return ShowMoreScreen(
+                  kind: kind,
+                  sliderList: slider,
+                );
+              },
+            ));
           },
           style: ElevatedButton.styleFrom(
               maximumSize: Size.infinite,

@@ -98,6 +98,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
   TextEditingController whatsappController = TextEditingController();
 
   getStoreUser() async {
+    emit(AddGetAddDataLoading());
     SharedPreferences prefs = await SharedPreferences.getInstance();
     LoginDataModel loginDataModel;
     if (prefs.getString('user') != null) {
@@ -109,6 +110,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
       getAllFilterCities();
       getAllFilterAmenities();
     }
+    emit(AddGetAddDataLoaded());
   }
 
   putDataToUpdate(MainItem mainItem) async {
@@ -279,12 +281,7 @@ class AddAdsCubit extends Cubit<AddAdsState> {
             MapFailureMessage.mapFailureToMessage(failure),
           ),
         );
-        Future.delayed(
-          const Duration(seconds: 2),
-          () {
-            changeStates();
-          },
-        );
+        SnackBar(content: Text(failure.toString()));
       },
       (status) {
         if (status.code == 200) {
