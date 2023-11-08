@@ -56,295 +56,320 @@ class _AddScreenState extends State<AddScreen> {
   bool isLoading = true;
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddAdsCubit, AddAdsState>(
-      listener: (context, state) {
-        if (state is AddCitiesLoading) {
-          isLoading = true;
-        } else if (state is AddCitiesLoaded) {
-          isLoading = false;
-        }
-      },
-      builder: (context, state) {
-        AddAdsCubit addAdsCubit = context.read<AddAdsCubit>();
-        if (state is AddAdsPostLoaded) {
-          Future.delayed(const Duration(milliseconds: 500), () {
-            snackBar(
-                translateText(AppStrings.successFullyAddedMessage, context),
-                context,
-                color: AppColors.success);
-          });
-        }
-        if (state is AddAdsPostError ||
-            state is AddAdsPostErrorResponse ||
-            state is AddAdsPostError) {
-          Future.delayed(
-            const Duration(milliseconds: 500),
-            () {
-              snackBar(
-                  translateText(AppStrings.someErrorMessage, context), context,
-                  color: AppColors.error);
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
             },
-          );
-        }
-        if (state is AddAdsPostLoading || state is UpdateAdsPostLoading) {
-          return const ShowLoadingIndicator();
-        }
-        if (state is UpdateAdsPostLoaded) {
-          Future.delayed(Duration(milliseconds: 400), () {
-            context.read<MyAdsCubit>().setStateWidgets();
-            Navigator.pop(context);
-          });
-          return const ShowLoadingIndicator();
-        }
-        return isLoading
-            ? Center(
-                child: CircularProgressIndicator(color: AppColors.primary),
-              )
-            : SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 18),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: DefaultTabController(
-                            length: 2,
-                            initialIndex: widget.isUpdate
-                                ? widget.mainItemModel!.status != 'rent'
-                                    ? 0
-                                    : 1
-                                : 0,
-                            child: Material(
-                              color: AppColors.white,
-                              child: TabBar(
-                                indicatorColor: AppColors.primary,
-                                tabs: [
-                                  Tab(
-                                    text: translateText(
-                                        AppStrings.statusSaleText, context),
+            icon: Icon(Icons.arrow_back, color: Colors.black)),
+      ),
+      body: BlocConsumer<AddAdsCubit, AddAdsState>(
+        listener: (context, state) {
+          if (state is AddCitiesLoading) {
+            isLoading = true;
+          } else if (state is AddCitiesLoaded) {
+            isLoading = false;
+          }
+        },
+        builder: (context, state) {
+          AddAdsCubit addAdsCubit = context.read<AddAdsCubit>();
+          if (state is AddAdsPostLoaded) {
+            Future.delayed(const Duration(milliseconds: 500), () {
+              snackBar(
+                  translateText(AppStrings.successFullyAddedMessage, context),
+                  context,
+                  color: AppColors.success);
+            });
+          }
+          if (state is AddAdsPostError ||
+              state is AddAdsPostErrorResponse ||
+              state is AddAdsPostError) {
+            Future.delayed(
+              const Duration(milliseconds: 500),
+              () {
+                snackBar(translateText(AppStrings.someErrorMessage, context),
+                    context,
+                    color: AppColors.error);
+              },
+            );
+          }
+          if (state is AddAdsPostLoading || state is UpdateAdsPostLoading) {
+            return const ShowLoadingIndicator();
+          }
+          if (state is UpdateAdsPostLoaded) {
+            Future.delayed(Duration(milliseconds: 400), () {
+              context.read<MyAdsCubit>().setStateWidgets();
+              Navigator.pop(context);
+            });
+            return const ShowLoadingIndicator();
+          }
+          return isLoading
+              ? Center(
+                  child: CircularProgressIndicator(color: AppColors.primary),
+                )
+              : SingleChildScrollView(
+                  child: Form(
+                    key: formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 18),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: DefaultTabController(
+                              length: 2,
+                              initialIndex: widget.isUpdate
+                                  ? widget.mainItemModel!.status != 'rent'
+                                      ? 0
+                                      : 1
+                                  : 0,
+                              child: Material(
+                                color: AppColors.white,
+                                child: TabBar(
+                                  indicatorColor: AppColors.primary,
+                                  tabs: [
+                                    Tab(
+                                      text: translateText(
+                                          AppStrings.statusSaleText, context),
+                                    ),
+                                    Tab(
+                                      text: translateText(
+                                          AppStrings.statusRentText, context),
+                                    ),
+                                  ],
+                                  labelColor: AppColors.white,
+                                  unselectedLabelColor: AppColors.black,
+                                  onTap: (index) {
+                                    if (index == 0) {
+                                      context.read<AddAdsCubit>().status =
+                                          'sale';
+                                    } else {
+                                      context.read<AddAdsCubit>().status =
+                                          'rent';
+                                    }
+                                  },
+                                  indicator: RectangularIndicator(
+                                    color: AppColors.primary,
+                                    bottomLeftRadius: 100,
+                                    bottomRightRadius: 100,
+                                    topLeftRadius: 100,
+                                    topRightRadius: 100,
                                   ),
-                                  Tab(
-                                    text: translateText(
-                                        AppStrings.statusRentText, context),
-                                  ),
-                                ],
-                                labelColor: AppColors.white,
-                                unselectedLabelColor: AppColors.black,
-                                onTap: (index) {
-                                  if (index == 0) {
-                                    context.read<AddAdsCubit>().status = 'sale';
-                                  } else {
-                                    context.read<AddAdsCubit>().status = 'rent';
-                                  }
-                                },
-                                indicator: RectangularIndicator(
-                                  color: AppColors.primary,
-                                  bottomLeftRadius: 100,
-                                  bottomRightRadius: 100,
-                                  topLeftRadius: 100,
-                                  topRightRadius: 100,
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 18),
-                        const SelectCityWidget(kind: "addAds"),
-                        const SizedBox(height: 12),
-                        const SelectCityLocation(kind: 'addAds'),
-                        const GrayLine(),
-                        const PropertyTypeWidget(kind: "addAds"),
-                        const GrayLine(),
-                        const PropertyDetailsWidget(),
-                        const GrayLine(),
-                        const FurnishedWidget(),
-                        const GrayLine(),
-                        PriceAddWidget(
+                          const SizedBox(height: 18),
+                          const SelectCityWidget(kind: "addAds"),
+                          const SizedBox(height: 12),
+                          const SelectCityLocation(kind: 'addAds'),
+                          const GrayLine(),
+                          const PropertyTypeWidget(kind: "addAds"),
+                          const GrayLine(),
+                          const PropertyDetailsWidget(),
+                          const GrayLine(),
+                          const FurnishedWidget(),
+                          const GrayLine(),
+                          PriceAddWidget(
+                              title:
+                                  translateText(AppStrings.priceText, context)),
+                          const GrayLine(),
+                          PriceAddWidget(
+                              title:
+                                  translateText(AppStrings.areaText, context)),
+                          const GrayLine(),
+                          const AmenitiesAddWidget(
+                              isSelected: true, kind: 'addAds'),
+                          const GrayLine(),
+                          const BedRoomsWidget(typeClass: 'add'),
+                          const GrayLine(),
+                          ListNumbersWidget(
+                            image: ImageAssets.bathGoldIcon,
                             title:
-                                translateText(AppStrings.priceText, context)),
-                        const GrayLine(),
-                        PriceAddWidget(
-                            title: translateText(AppStrings.areaText, context)),
-                        const GrayLine(),
-                        const AmenitiesAddWidget(
-                            isSelected: true, kind: 'addAds'),
-                        const GrayLine(),
-                        const BedRoomsWidget(typeClass: 'add'),
-                        const GrayLine(),
-                        ListNumbersWidget(
-                          image: ImageAssets.bathGoldIcon,
-                          title:
-                              translateText(AppStrings.bathroomText, context),
-                          kind: 'bathroom',
-                        ),
-                        const GrayLine(),
-                        ListNumbersWidget(
-                          image: ImageAssets.kitchenIcon,
-                          title: translateText(AppStrings.kitchenText, context),
-                          kind: 'kitchen',
-                        ),
-                        const GrayLine(),
-                        ListNumbersWidget(
-                          image: ImageAssets.livingRoomIcon,
-                          title: translateText(AppStrings.livingText, context),
-                          kind: 'living',
-                        ),
-                        const GrayLine(),
-                        ListNumbersWidget(
-                          image: ImageAssets.livingRoomIcon,
-                          title: translateText(AppStrings.diningText, context),
-                          kind: 'dining',
-                        ),
-                        const GrayLine(),
+                                translateText(AppStrings.bathroomText, context),
+                            kind: 'bathroom',
+                          ),
+                          const GrayLine(),
+                          ListNumbersWidget(
+                            image: ImageAssets.kitchenIcon,
+                            title:
+                                translateText(AppStrings.kitchenText, context),
+                            kind: 'kitchen',
+                          ),
+                          const GrayLine(),
+                          ListNumbersWidget(
+                            image: ImageAssets.livingRoomIcon,
+                            title:
+                                translateText(AppStrings.livingText, context),
+                            kind: 'living',
+                          ),
+                          const GrayLine(),
+                          ListNumbersWidget(
+                            image: ImageAssets.livingRoomIcon,
+                            title:
+                                translateText(AppStrings.diningText, context),
+                            kind: 'dining',
+                          ),
+                          const GrayLine(),
 
-                        ///location
-                        const SelectYourLocation(kindOfSelected: 'addAds'),
-                        const GrayLine(),
-                        PickImagesContainerWidget(
-                            title:
-                                translateText(AppStrings.imagesText, context),
-                            isUpdate: widget.isUpdate),
-                        const GrayLine(),
-                        PickVideosContainerWidget(
-                          title: translateText(AppStrings.videoText, context),
-                          kind: 'addAds',
-                        ),
-                        const GrayLine(),
-                        const ContactWidget(),
-                        CustomButton(
-                          text: context.read<AddAdsCubit>().btnText == 'update'
-                              ? translateText(AppStrings.updateBtnText, context)
-                              : translateText(AppStrings.publishBtn, context),
-                          color: AppColors.primary,
-                          paddingHorizontal: 60,
-                          onClick: () {
-                            if (formKey.currentState!.validate()) {
-                              if (addAdsCubit.cityId == 0) {
-                                snackBar(
-                                    translateText(
-                                        AppStrings.selectCityText, context),
-                                    context,
-                                    color: AppColors.primary);
-                              } else if (addAdsCubit.locationId == 0) {
-                                snackBar(
-                                    translateText(
-                                        AppStrings.selectLocationText, context),
-                                    context,
-                                    color: AppColors.primary);
-                              } else if (addAdsCubit.type == -1) {
-                                snackBar(
-                                    translateText(
-                                        AppStrings.selectPropertyTypeText,
-                                        context),
-                                    context,
-                                    color: AppColors.primary);
-                              } else if (addAdsCubit.currency == '') {
-                                snackBar(
-                                    translateText(
-                                        AppStrings.selectCurrencyText, context),
-                                    context,
-                                    color: AppColors.primary);
-                              } else if ((addAdsCubit.type < 3) &&
-                                  addAdsCubit.bedroom == -1) {
-                                snackBar(
-                                    translateText(
-                                        AppStrings.selectBedRoomText, context),
-                                    context,
-                                    color: AppColors.primary);
-                              } else if ((addAdsCubit.type < 3) &&
-                                  addAdsCubit.kitchen == 0) {
-                                snackBar(
-                                    translateText(
-                                        AppStrings.selectKitchenText, context),
-                                    context,
-                                    color: AppColors.primary);
-                              } else if ((addAdsCubit.type < 3) &&
-                                  addAdsCubit.bathroom == 0) {
-                                snackBar(
-                                    translateText(
-                                        AppStrings.selectBathRoomText, context),
-                                    context,
-                                    color: AppColors.primary);
-                              } else if ((addAdsCubit.type < 3) &&
-                                  addAdsCubit.livingRoom == 0) {
-                                snackBar(
-                                    translateText(
-                                        AppStrings.selectLivingRoomText,
-                                        context),
-                                    context,
-                                    color: AppColors.primary);
-                              } else if ((addAdsCubit.type < 3) &&
-                                  addAdsCubit.diningRoom == 0) {
-                                snackBar(
-                                    translateText(
-                                        AppStrings.selectDiningRoomText,
-                                        context),
-                                    context,
-                                    color: AppColors.primary);
-                              } else if (addAdsCubit.image.isEmpty) {
-                                snackBar(
-                                  translateText(
-                                      AppStrings.selectImageValidator, context),
-                                  context,
-                                  color: AppColors.primary,
-                                );
-                              } else if (addAdsCubit
-                                          .phoneController.text.length <
-                                      10 ||
-                                  addAdsCubit.phoneController.text.length >
-                                      11) {
-                                snackBar(
-                                  translateText(
-                                      AppStrings.correctPhoneText, context),
-                                  context,
-                                  color: AppColors.error,
-                                );
-                              } else if (addAdsCubit
-                                          .whatsappController.text.length <
-                                      10 ||
-                                  addAdsCubit.whatsappController.text.length >
-                                      11) {
-                                snackBar(
-                                  translateText(
-                                      AppStrings.correctWhatsappText, context),
-                                  context,
-                                  color: AppColors.error,
-                                );
-                              } else {
-                                // if (!widget.isUpdate) {
-                                if (addAdsCubit.longitude == 0.0 ||
-                                    addAdsCubit.latitude == 0.0) {
+                          ///location
+                          const SelectYourLocation(kindOfSelected: 'addAds'),
+                          const GrayLine(),
+                          PickImagesContainerWidget(
+                              title:
+                                  translateText(AppStrings.imagesText, context),
+                              isUpdate: widget.isUpdate),
+                          const GrayLine(),
+                          PickVideosContainerWidget(
+                            title: translateText(AppStrings.videoText, context),
+                            kind: 'addAds',
+                          ),
+                          const GrayLine(),
+                          const ContactWidget(),
+                          CustomButton(
+                            text: context.read<AddAdsCubit>().btnText ==
+                                    'update'
+                                ? translateText(
+                                    AppStrings.updateBtnText, context)
+                                : translateText(AppStrings.publishBtn, context),
+                            color: AppColors.primary,
+                            paddingHorizontal: 60,
+                            onClick: () {
+                              if (formKey.currentState!.validate()) {
+                                if (addAdsCubit.cityId == 0) {
+                                  snackBar(
+                                      translateText(
+                                          AppStrings.selectCityText, context),
+                                      context,
+                                      color: AppColors.primary);
+                                } else if (addAdsCubit.locationId == 0) {
+                                  snackBar(
+                                      translateText(
+                                          AppStrings.selectLocationText,
+                                          context),
+                                      context,
+                                      color: AppColors.primary);
+                                } else if (addAdsCubit.type == -1) {
+                                  snackBar(
+                                      translateText(
+                                          AppStrings.selectPropertyTypeText,
+                                          context),
+                                      context,
+                                      color: AppColors.primary);
+                                } else if (addAdsCubit.currency == '') {
+                                  snackBar(
+                                      translateText(
+                                          AppStrings.selectCurrencyText,
+                                          context),
+                                      context,
+                                      color: AppColors.primary);
+                                } else if ((addAdsCubit.type < 3) &&
+                                    addAdsCubit.bedroom == -1) {
+                                  snackBar(
+                                      translateText(
+                                          AppStrings.selectBedRoomText,
+                                          context),
+                                      context,
+                                      color: AppColors.primary);
+                                } else if ((addAdsCubit.type < 3) &&
+                                    addAdsCubit.kitchen == 0) {
+                                  snackBar(
+                                      translateText(
+                                          AppStrings.selectKitchenText,
+                                          context),
+                                      context,
+                                      color: AppColors.primary);
+                                } else if ((addAdsCubit.type < 3) &&
+                                    addAdsCubit.bathroom == 0) {
+                                  snackBar(
+                                      translateText(
+                                          AppStrings.selectBathRoomText,
+                                          context),
+                                      context,
+                                      color: AppColors.primary);
+                                } else if ((addAdsCubit.type < 3) &&
+                                    addAdsCubit.livingRoom == 0) {
+                                  snackBar(
+                                      translateText(
+                                          AppStrings.selectLivingRoomText,
+                                          context),
+                                      context,
+                                      color: AppColors.primary);
+                                } else if ((addAdsCubit.type < 3) &&
+                                    addAdsCubit.diningRoom == 0) {
+                                  snackBar(
+                                      translateText(
+                                          AppStrings.selectDiningRoomText,
+                                          context),
+                                      context,
+                                      color: AppColors.primary);
+                                } else if (addAdsCubit.image.isEmpty) {
                                   snackBar(
                                     translateText(
-                                        AppStrings.selectLocationText, context),
+                                        AppStrings.selectImageValidator,
+                                        context),
                                     context,
                                     color: AppColors.primary,
                                   );
+                                } else if (addAdsCubit
+                                            .phoneController.text.length <
+                                        10 ||
+                                    addAdsCubit.phoneController.text.length >
+                                        11) {
+                                  snackBar(
+                                    translateText(
+                                        AppStrings.correctPhoneText, context),
+                                    context,
+                                    color: AppColors.error,
+                                  );
+                                } else if (addAdsCubit
+                                            .whatsappController.text.length <
+                                        10 ||
+                                    addAdsCubit.whatsappController.text.length >
+                                        11) {
+                                  snackBar(
+                                    translateText(
+                                        AppStrings.correctWhatsappText,
+                                        context),
+                                    context,
+                                    color: AppColors.error,
+                                  );
                                 } else {
-                                  context.read<AddAdsCubit>().btnText ==
-                                          'update'
-                                      ? context
-                                          .read<AddAdsCubit>()
-                                          .updateAdsPost()
-                                      : context
-                                          .read<AddAdsCubit>()
-                                          .addAdsPost(context);
+                                  // if (!widget.isUpdate) {
+                                  if (addAdsCubit.longitude == 0.0 ||
+                                      addAdsCubit.latitude == 0.0) {
+                                    snackBar(
+                                      translateText(
+                                          AppStrings.selectLocationText,
+                                          context),
+                                      context,
+                                      color: AppColors.primary,
+                                    );
+                                  } else {
+                                    context.read<AddAdsCubit>().btnText ==
+                                            'update'
+                                        ? context
+                                            .read<AddAdsCubit>()
+                                            .updateAdsPost()
+                                        : context
+                                            .read<AddAdsCubit>()
+                                            .addAdsPost(context);
+                                  }
+                                  // }
                                 }
-                                // }
                               }
-                            }
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-      },
+                );
+        },
+      ),
     );
   }
 }

@@ -393,14 +393,9 @@ class _SecondMainItemWidgetState extends State<SecondMainItemWidget> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Scaffold(
-                                            body: SafeArea(
-                                              child: AddScreen(
-                                                isUpdate: true,
-                                                mainItemModel:
-                                                    widget.mainItemModel,
-                                              ),
-                                            ),
+                                          builder: (context) => AddScreen(
+                                            isUpdate: true,
+                                            mainItemModel: widget.mainItemModel,
                                           ),
                                         ),
                                       );
