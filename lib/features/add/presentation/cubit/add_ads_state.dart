@@ -9,6 +9,10 @@ class AddAdsInitial extends AddAdsState {}
 
 class AddCitiesLoading extends AddAdsState {}
 
+class AddGetAddDataLoading extends AddAdsState {}
+
+class AddGetAddDataLoaded extends AddAdsState {}
+
 class AddCitiesLocationLoading extends AddAdsState {}
 
 class AddAmenitiesLoading extends AddAdsState {}
@@ -130,4 +134,5 @@ class AmenitiesSelected extends AddAdsState {}
 class NewImagePicked extends AddAdsState {}
 
 class ChangeState extends AddAdsState {}
+
 class ChangeLocationState extends AddAdsState {}

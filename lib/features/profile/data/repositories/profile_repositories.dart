@@ -35,7 +35,8 @@ class ProfileRepositories implements BaseProfileRepositories {
   }
 
   @override
-  Future<Either<Failure, StatusResponse>> deleteAgent(AgentModel agentModel) async {
+  Future<Either<Failure, StatusResponse>> deleteAgent(
+      AgentModel agentModel) async {
     try {
       final agent = await baseProfileDataSource.deleteAgent(agentModel);
       return Right(agent);
@@ -45,7 +46,8 @@ class ProfileRepositories implements BaseProfileRepositories {
   }
 
   @override
-  Future<Either<Failure, StatusResponse>> editAgent(AgentModel agentModel) async {
+  Future<Either<Failure, StatusResponse>> editAgent(
+      AgentModel agentModel) async {
     try {
       final agent = await baseProfileDataSource.editAgent(agentModel);
       return Right(agent);
@@ -55,9 +57,11 @@ class ProfileRepositories implements BaseProfileRepositories {
   }
 
   @override
-  Future<Either<Failure, StatusResponse>> deleteUserAccount(String token) async {
+  Future<Either<Failure, StatusResponse>> deleteUserAccount(
+      String token) async {
     try {
-      final deleteAccount = await baseProfileDataSource.deleteUserAccount(token);
+      final deleteAccount =
+          await baseProfileDataSource.deleteUserAccount(token);
       return Right(deleteAccount);
     } on ServerException {
       return Left(ServerFailure());

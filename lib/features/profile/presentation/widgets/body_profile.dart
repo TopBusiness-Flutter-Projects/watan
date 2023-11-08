@@ -141,6 +141,7 @@ class BodyProfileWidget extends StatelessWidget {
                       ),
                       DialogButton(
                           onPressed: () {
+                            // Navigator.pop(context);
                             context.read<ProfileCubit>().deleteUserAccount(
                                 loginDataModel.data!.accessToken!, context);
                           },

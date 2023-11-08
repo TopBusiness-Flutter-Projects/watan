@@ -1,7 +1,6 @@
 import 'package:elwatn/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../cubit/profile_cubit.dart';
 
 class LoadingScreenWidget extends StatelessWidget {
@@ -12,7 +11,6 @@ class LoadingScreenWidget extends StatelessWidget {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         if (state is ProfileUserDeletedSuccessfully) {
-
           context.read<ProfileCubit>().removeUserFromLocal(context);
         }
         return Scaffold(

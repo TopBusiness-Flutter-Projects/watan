@@ -26,7 +26,6 @@ class _AllUserPostsScreenState extends State<AllUserPostsScreen> {
         .allUserPosts(widget.mainItemModel.userModel!.id.toString());
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

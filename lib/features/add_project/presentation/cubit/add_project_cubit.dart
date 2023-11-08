@@ -36,7 +36,6 @@ class AddProjectCubit extends Cubit<AddProjectState> {
     this.updateAdsUseCase,
   ) : super(AddProjectInitial()) {
     getStoreUser();
-
   }
 
   final GetCitiesUseCase getCitiesUseCase;
@@ -90,8 +89,8 @@ class AddProjectCubit extends Cubit<AddProjectState> {
   double longitude = 0;
   double latitude = 0;
 
-  int paymentPlanCount=0;
-  int unitPlanCount=0;
+  int paymentPlanCount = 0;
+  int unitPlanCount = 0;
 
   String btnText = '';
   int selectedCityIndex = 0;
@@ -118,7 +117,7 @@ class AddProjectCubit extends Cubit<AddProjectState> {
       loginDataModel = LoginDataModel.fromJson(userMap);
       this.loginDataModel = loginDataModel;
     }
-    if(btnText!='update'){
+    if (btnText != 'update') {
       getAllFilterCities();
       getAllFilterAmenities();
     }
@@ -135,7 +134,7 @@ class AddProjectCubit extends Cubit<AddProjectState> {
   }
 
   putDataToUpdate(MainProjectItem mainItem) async {
-    btnText='update';
+    btnText = 'update';
     image.clear();
     floorPlan.clear();
     citiesEn.clear();
@@ -149,8 +148,8 @@ class AddProjectCubit extends Cubit<AddProjectState> {
     unitPlanPrice.clear();
     unitPlanBathroom.clear();
     unitPlanBedroom.clear();
-    paymentPlanCount=mainItem.paymentPlans.length;
-    unitPlanCount=mainItem.unitDetails.length;
+    paymentPlanCount = mainItem.paymentPlans.length;
+    unitPlanCount = mainItem.unitDetails.length;
     type = int.parse(mainItem.type!);
     propertySelected = int.parse(mainItem.type!);
     statusProject = mainItem.projectStatus!;
@@ -437,7 +436,6 @@ class AddProjectCubit extends Cubit<AddProjectState> {
         descriptionAr: descController.text,
         descriptionEn: descController.text,
         descriptionKu: descController.text,
-
         areaRange: unitPlanArea.isEmpty
             ? '0'
             : "${unitPlanArea.reduce((value, element) => min(value, element))} - ${unitPlanArea.reduce((value, element) => max(value, element))}",
@@ -510,10 +508,10 @@ class AddProjectCubit extends Cubit<AddProjectState> {
       },
     );
   }
-  void updateLocation(double latitude, double longitude) {
-    this.latitude=latitude;
-    this.longitude=longitude;
-    emit(ChangeLocationState());
 
+  void updateLocation(double latitude, double longitude) {
+    this.latitude = latitude;
+    this.longitude = longitude;
+    emit(ChangeLocationState());
   }
 }

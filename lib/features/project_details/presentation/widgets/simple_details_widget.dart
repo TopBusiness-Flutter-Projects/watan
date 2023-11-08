@@ -28,7 +28,8 @@ class ProjectSimpleDetailsWidget extends StatelessWidget {
                   text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                        text: "${translateText(AppStrings.startingFromText, context)} : ",
+                        text:
+                            "${translateText(AppStrings.startingFromText, context)} : ",
                         style: TextStyle(fontSize: 16, color: AppColors.black),
                       ),
                       TextSpan(
@@ -74,9 +75,9 @@ class ProjectSimpleDetailsWidget extends StatelessWidget {
                     children: <TextSpan>[
                       TextSpan(
                         text:
-                            '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.minPriceOfMeter??0 : replaceToArabicNumber(mainProjectItemModel.minPriceOfMeter.toString())} ${translateText(AppStrings.mText, context)}²'
+                            '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.minPriceOfMeter ?? 0 : replaceToArabicNumber(mainProjectItemModel.minPriceOfMeter.toString())} ${translateText(AppStrings.mText, context)}²'
                             ' - '
-                            '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.maxPriceOfMeter??0  : replaceToArabicNumber(mainProjectItemModel.maxPriceOfMeter.toString())} ${translateText(AppStrings.mText, context)}²',
+                            '${AppLocalizations.of(context)!.isEnLocale ? mainProjectItemModel.maxPriceOfMeter ?? 0 : replaceToArabicNumber(mainProjectItemModel.maxPriceOfMeter.toString())} ${translateText(AppStrings.mText, context)}²',
                         style: TextStyle(fontSize: 16, color: AppColors.black),
                       ),
                     ],

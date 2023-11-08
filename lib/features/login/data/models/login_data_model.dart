@@ -35,7 +35,7 @@ class UserDataModel extends UserData {
 }
 
 class UserModel extends User {
-  const UserModel(
+  UserModel(
       {super.id,
       super.name,
       super.phone,

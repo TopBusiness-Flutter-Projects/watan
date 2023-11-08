@@ -27,11 +27,14 @@ class ImageAssets {
   static const String projectRegisterImage = '$imagePath/project.png';
   static const String companyRegisterImage = '$imagePath/company_register.png';
   static const String profileImage = '$imagePath/profile_image.png';
-  static const String backgroundProfileShapeImage = '$imagePath/background_profile_shape.png';
+  static const String backgroundProfileShapeImage =
+      '$imagePath/background_profile_shape.png';
   static const String personImage = '$imagePath/person.png';
   static const String contactUsImage = '$imagePath/contact_us.png';
-  static const String forgetPasswordImage = '$imagePath/forget_password_image.png';
-  static const String resetPasswordImage = '$imagePath/reset_password_image.png';
+  static const String forgetPasswordImage =
+      '$imagePath/forget_password_image.png';
+  static const String resetPasswordImage =
+      '$imagePath/reset_password_image.png';
   static const String newPasswordImage = '$imagePath/new_password.png';
   static const String agencyImage = '$imagePath/agency.png';
   static const String markerImage = '$imagePath/map_marker.png';
@@ -118,9 +121,6 @@ class ImageAssets {
   static const String reloadIcon = '$iconsPath/reload.svg';
   static const String homeAddIcon = '$iconsPath/home_add.svg';
 
-
-
- //Lottie
+  //Lottie
   static const String noLogin = '$lottiePath/login.json';
-
 }
