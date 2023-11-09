@@ -191,17 +191,8 @@ class NewEditAgentBodyWidget extends StatelessWidget {
               color: AppColors.primary,
               onClick: () {
                 if (_formKey.currentState!.validate()) {
-                  if (context.read<ProfileCubit>().image == null &&
-                      context.read<ProfileCubit>().agentBtnText == '') {
-                    print("noupdate");
-                    snackBar(
-                      translateText(AppStrings.choosePhotoMessage, context),
-                      context,
-                      color: AppColors.error,
-                    );
-                  } else if (context.read<ProfileCubit>().imageLink == '' &&
+                  if (context.read<ProfileCubit>().imageLink == '' &&
                       context.read<ProfileCubit>().agentBtnText == 'update') {
-                    print("update");
                     snackBar(
                       translateText(AppStrings.choosePhotoMessage, context),
                       context,

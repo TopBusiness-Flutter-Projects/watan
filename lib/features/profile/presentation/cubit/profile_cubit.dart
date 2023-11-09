@@ -178,7 +178,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         twitter: twitterController.text,
         snapchat: snapController.text,
         languages: languages,
-        image: image!.path,
+        image: image?.path,
         token: loginDataModel.data!.accessToken,
       ),
     );

@@ -1,19 +1,15 @@
 import 'dart:convert';
-
 import 'package:elwatn/features/chat/presentation/screens/chat_page.dart';
 import 'package:elwatn/features/chat/presentation/screens/conversation_screen/widget/accounting_chat_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../../config/routes/app_routes.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_strings.dart';
 import '../../../../../core/utils/assets_manager.dart';
 import '../../../../../core/utils/translate_text_method.dart';
-import '../../../../../core/widgets/custom_button.dart';
 import '../../../../login/data/models/login_data_model.dart';
 import '../../../data/models/MyRooms.dart';
 import 'cubit/conversation_page_cubit.dart';
@@ -91,7 +87,7 @@ class _ConversationPageState extends State<ConversationPage> {
               .data!
               .isNotEmpty) {
             return ListView.builder(
-              physics: AlwaysScrollableScrollPhysics(),
+                physics: AlwaysScrollableScrollPhysics(),
                 itemCount: context
                     .read<ConversationPageCubit>()
                     .allMyRooms!
@@ -124,8 +120,7 @@ class _ConversationPageState extends State<ConversationPage> {
                     child: Center(
                         child: Text(
                       translateText(AppStrings.noConversationsText, context),
-                      style:
-                          TextStyle(color: AppColors.black, fontSize: 15.0),
+                      style: TextStyle(color: AppColors.black, fontSize: 15.0),
                     )),
                   ),
                 ],

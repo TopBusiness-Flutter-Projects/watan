@@ -58,7 +58,6 @@ class RegisterButtons extends StatelessWidget {
                             context,
                             color: AppColors.error,
                           );
-
                         } else if (registerCubit.passwordController.text !=
                             registerCubit.confirmPasswordController.text) {
                           snackBar(

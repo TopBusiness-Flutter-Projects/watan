@@ -104,7 +104,7 @@ class AgencyProfileScreen extends StatelessWidget {
               const SizedBox(height: 20),
               ListTileAllDetailsWidget(
                 image: ImageAssets.propertyIcon,
-                text: agentModel.name!,
+                text: agentModel.name ?? '',
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),

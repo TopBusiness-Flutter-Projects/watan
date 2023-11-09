@@ -10,8 +10,8 @@ class ListTileAllDetailsWidget extends StatelessWidget {
       this.iconColor = Colors.black,
       this.isAddScreen = false})
       : super(key: key);
-  final String image;
-  final String text;
+  final String? image;
+  final String? text;
   final bool? isAddScreen;
   Color iconColor;
 
@@ -23,7 +23,7 @@ class ListTileAllDetailsWidget extends StatelessWidget {
         children: [
           Expanded(
             child: SvgPicture.asset(
-              image,
+              image!,
               width: 20,
               height: 20,
               color: iconColor,
@@ -35,7 +35,11 @@ class ListTileAllDetailsWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    isAddScreen! ? text : text.split(':')[0],
+                    isAddScreen!
+                        ? text!
+                        : text!.contains(':')
+                            ? text!.split(':')[0]
+                            : text!,
                     textAlign: TextAlign.justify,
                     style: TextStyle(fontSize: 14, color: AppColors.color3),
                   ),
@@ -43,7 +47,11 @@ class ListTileAllDetailsWidget extends StatelessWidget {
                 !isAddScreen!
                     ? Expanded(
                         child: Text(
-                          isAddScreen! ? text : text.split(':')[1],
+                          isAddScreen!
+                              ? text!
+                              : text!.contains(':')
+                                  ? text!.split(':')[1]
+                                  : '',
                           textAlign: TextAlign.justify,
                           style:
                               TextStyle(fontSize: 13, color: AppColors.color3),
