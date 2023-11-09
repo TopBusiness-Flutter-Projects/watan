@@ -20,7 +20,6 @@ class BannerWidget extends StatefulWidget {
 
 class _BannerWidgetState extends State<BannerWidget> {
   int page = 0;
-
   @override
   Widget build(BuildContext context) {
     if (widget.sliderData.isEmpty) {

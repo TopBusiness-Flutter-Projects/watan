@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:elwatn/core/error/failures.dart';
 import 'package:elwatn/core/usecases/usecase.dart';
-
-import '../../data/models/MyRooms.dart';
 import '../../data/models/get_one_message_model.dart';
 import '../../data/models/send_message_model.dart';
 import '../repositories/base_chat_repositories.dart';

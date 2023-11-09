@@ -26,7 +26,7 @@ class CustomAppBar extends StatelessWidget {
         ),
         const Spacer(),
         GestureDetector(
-          onTap: (){
+          onTap: () {
             Navigator.pushNamed(context, Routes.mapScreenRoute);
           },
           child: Container(
@@ -37,9 +37,9 @@ class CustomAppBar extends StatelessWidget {
             ),
             child: Row(
               children: [
-                 Text(
+                Text(
                   translateText(AppStrings.mapText, context),
-                  style: TextStyle(fontSize: 14,color:AppColors.primary),
+                  style: TextStyle(fontSize: 14, color: AppColors.primary),
                 ),
                 const SizedBox(width: 8),
                 Icon(

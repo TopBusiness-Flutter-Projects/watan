@@ -1,6 +1,6 @@
 part of 'filter_cubit.dart';
 
-abstract class FilterState extends Equatable{
+abstract class FilterState extends Equatable {
   @override
   List<Object?> get props => [];
 }
@@ -8,18 +8,23 @@ abstract class FilterState extends Equatable{
 class FilterInitial extends FilterState {}
 
 class FilterCitiesLoading extends FilterState {}
+
 class FilterCitiesLocationLoading extends FilterState {}
+
 class FilterAmenitiesLoading extends FilterState {}
+
 class FilterAgentsLoading extends FilterState {}
+
 class FilterResponseLoading extends FilterState {}
 
 class FilterCitiesLoaded extends FilterState {
-   final CitiesFilterModel citiesFilterModel;
+  final CitiesFilterModel citiesFilterModel;
 
   FilterCitiesLoaded(this.citiesFilterModel);
   @override
   List<Object?> get props => [citiesFilterModel];
 }
+
 class FilterCitiesLocationLoaded extends FilterState {
   final CitiesLocationsModel citiesLocationsModel;
 
@@ -27,6 +32,7 @@ class FilterCitiesLocationLoaded extends FilterState {
   @override
   List<Object?> get props => [citiesLocationsModel];
 }
+
 class FilterAmenitiesLoaded extends FilterState {
   final AmenitiesFilterModel amenitiesFilterModel;
 
@@ -34,6 +40,7 @@ class FilterAmenitiesLoaded extends FilterState {
   @override
   List<Object?> get props => [amenitiesFilterModel];
 }
+
 class FilterAgentsLoaded extends FilterState {
   final FilterAgentListModel filterAgentListModel;
 
@@ -41,6 +48,7 @@ class FilterAgentsLoaded extends FilterState {
   @override
   List<Object?> get props => [filterAgentListModel];
 }
+
 class FilterResponseLoaded extends FilterState {
   final FilterResponse filterResponse;
 
@@ -50,12 +58,13 @@ class FilterResponseLoaded extends FilterState {
 }
 
 class FilterCitiesError extends FilterState {
- final String message;
+  final String message;
 
   FilterCitiesError(this.message);
- @override
- List<Object?> get props => [message];
+  @override
+  List<Object?> get props => [message];
 }
+
 class FilterCitiesLocationError extends FilterState {
   final String message;
 
@@ -63,6 +72,7 @@ class FilterCitiesLocationError extends FilterState {
   @override
   List<Object?> get props => [message];
 }
+
 class FilterAmenitiesError extends FilterState {
   final String message;
 
@@ -70,6 +80,7 @@ class FilterAmenitiesError extends FilterState {
   @override
   List<Object?> get props => [message];
 }
+
 class FilterAgentsError extends FilterState {
   final String message;
 
@@ -77,6 +88,7 @@ class FilterAgentsError extends FilterState {
   @override
   List<Object?> get props => [message];
 }
+
 class FilterResponseError extends FilterState {
   final String message;
 
@@ -85,4 +97,8 @@ class FilterResponseError extends FilterState {
   List<Object?> get props => [message];
 }
 
-class PageChanged extends FilterState{}
+class PageChanged extends FilterState {}
+
+class FilterGetAddDataLoading extends FilterState {}
+
+class FilterGetAddDataLoaded extends FilterState {}

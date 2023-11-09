@@ -90,6 +90,7 @@ class FilterCubit extends Cubit<FilterState> {
   LoginDataModel? loginDataModel;
 
   Future<void> getStoreUser() async {
+    emit(FilterGetAddDataLoading());
     SharedPreferences prefs = await SharedPreferences.getInstance();
     LoginDataModel loginDataModel;
     if (prefs.getString('user') != null) {
@@ -97,6 +98,8 @@ class FilterCubit extends Cubit<FilterState> {
       loginDataModel = LoginDataModel.fromJson(userMap);
       this.loginDataModel = loginDataModel;
     }
+
+    emit(FilterGetAddDataLoaded());
   }
 
   getCities() {

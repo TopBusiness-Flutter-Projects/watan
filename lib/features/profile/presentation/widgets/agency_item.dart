@@ -24,9 +24,7 @@ class AgencyItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AgencyProfileScreen(
-              agentModel: agentModel,
-            ),
+            builder: (context) => AgencyProfileScreen(agentModel: agentModel),
           ),
         );
       },

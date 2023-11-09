@@ -18,7 +18,7 @@ class NewAndEditAgencyScreen extends StatefulWidget {
 
 class _NewAndEditAgencyScreenState extends State<NewAndEditAgencyScreen> {
   late ProfileCubit profileCubit;
-  final formKey =GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -56,25 +56,28 @@ class _NewAndEditAgencyScreenState extends State<NewAndEditAgencyScreen> {
         builder: (context, state) {
           if (state is ProfileAddedAgentLoaded) {
             Future.delayed(const Duration(milliseconds: 700), () {
-              snackBar("Agent Added Successfully",context,color: AppColors.success);
+              snackBar("Agent Added Successfully", context,
+                  color: AppColors.success);
               Navigator.pop(context);
             });
             return const ShowLoadingIndicator();
           }
           if (state is ProfileEditAgentLoaded) {
             Future.delayed(const Duration(milliseconds: 700), () {
-              snackBar("Agent Edited Successfully",context,color: AppColors.success);
+              snackBar("Agent Edited Successfully", context,
+                  color: AppColors.success);
               Navigator.pop(context);
               Navigator.pop(context);
             });
             return const ShowLoadingIndicator();
           }
-          if(state is ProfileAddedAgentLoading ||state is ProfileEditAgentLoading){
+          if (state is ProfileAddedAgentLoading ||
+              state is ProfileEditAgentLoading) {
             return const ShowLoadingIndicator();
-          }else if(state is ProfileAgentValidator ){
+          } else if (state is ProfileAgentValidator) {
             context.read<ProfileCubit>().changeStatus(0);
             return NewEditAgentBodyWidget(status: "error");
-          }else {
+          } else {
             return NewEditAgentBodyWidget(status: "new");
           }
         },

@@ -9,11 +9,13 @@ class OnDataSuccess extends ChatState {
   List<MyMessage> data;
   OnDataSuccess(this.data);
 }
+
 class UserPhotoPicked extends ChatState {
   String imagePath;
 
   UserPhotoPicked(this.imagePath);
 }
+
 class OnError extends ChatState {
   String error;
 

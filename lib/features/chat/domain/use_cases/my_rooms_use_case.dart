@@ -5,7 +5,7 @@ import 'package:elwatn/core/usecases/usecase.dart';
 import '../../data/models/MyRooms.dart';
 import '../repositories/base_chat_repositories.dart';
 
-class GetMyRoomsUseCase extends UseCase<ChatModel,String>{
+class GetMyRoomsUseCase extends UseCase<ChatModel, String> {
   final BaseChatRepositories baseChatRepositories;
 
   GetMyRoomsUseCase(this.baseChatRepositories);

@@ -33,21 +33,19 @@ class DropdownSearchWidget extends StatefulWidget {
 class _DropdownSearchWidgetState extends State<DropdownSearchWidget> {
   List<String> s = [];
   List<String> ids = [];
-@override
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     for (var element in widget.dropdownList) {
       s.add(element.split("/")[0]);
       ids.add(element.split("/")[1]);
-      print(";;lll");
+      // print(";;lll");
       print(s[0]);
     }
   }
+
   @override
   Widget build(BuildContext context) {
-
-
     return Theme(
       data: ThemeData(
           textTheme: const TextTheme(subtitle1: TextStyle(fontSize: 14))),
@@ -66,8 +64,10 @@ class _DropdownSearchWidgetState extends State<DropdownSearchWidget> {
                 : widget.kind == "addProject"
                     ? context.read<AddProjectCubit>().btnText == 'update'
                         ? context.read<AddProjectCubit>().citiesEn.isNotEmpty
-                            ? s[ids.indexOf(
-                                context.read<AddProjectCubit>().cityId.toString())]
+                            ? s[ids.indexOf(context
+                                .read<AddProjectCubit>()
+                                .cityId
+                                .toString())]
                             : null
                         : null
                     : null,
@@ -98,7 +98,8 @@ class _DropdownSearchWidgetState extends State<DropdownSearchWidget> {
         ),
         autoValidateMode: AutovalidateMode.always,
         onChanged: (text) {
-          if (widget.labelText == translateText(AppStrings.selectCityText, context)) {
+          if (widget.labelText ==
+              translateText(AppStrings.selectCityText, context)) {
             for (var element in widget.dropdownList) {
               if (element.contains(text!)) {
                 if (widget.kind == 'addAds') {
@@ -139,7 +140,8 @@ class _DropdownSearchWidgetState extends State<DropdownSearchWidget> {
                 if (widget.kind == "addPriceCurrency") {
                   context.read<AddAdsCubit>().currency = element.split("/")[1];
                 } else if (widget.kind == "addProject") {
-                  context.read<AddProjectCubit>().currency = element.split("/")[1];
+                  context.read<AddProjectCubit>().currency =
+                      element.split("/")[1];
                 } else {
                   context.read<FilterCubit>().currency = element.split("/")[1];
                 }
