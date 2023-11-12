@@ -11,6 +11,8 @@ import '../../../../config/routes/app_routes.dart';
 import '../../../../core/models/response_message.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/map_failure_message.dart';
+import '../../../../core/utils/snackbar_method.dart';
+import '../../../../core/widgets/show_loading_indicator.dart';
 import '../../../home_page/data/models/main_item_data_model.dart';
 import '../../../language/presentation/cubit/locale_cubit.dart';
 import '../../../login/data/models/login_data_model.dart';
@@ -287,32 +289,45 @@ class ProfileCubit extends Cubit<ProfileState> {
 
 //User Methods
   deleteUserAccount(String token, BuildContext context) async {
+    ShowLoadingIndicator();
     emit(ProfileUserDeletedLoading());
     final response = await deleteUserAccountUseCase(token);
     response.fold(
-      (failure) => emit(ProfileUserDeletedError()),
+      (failure) {
+        emit(ProfileUserDeletedError());
+        Future.delayed(const Duration(milliseconds: 500), () {
+          snackBar("Errrrrrror", context);
+        });
+      },
       (statusResponse) async {
         if (statusResponse.code == 200) {
-          // Navigator.pop(context);
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          bool result = await prefs.remove('user');
-          if (result) {
-            Routes.isLogout = true;
-            context.read<LocaleCubit>().loginDataModel = null;
-            // Navigator.pop(context);
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.fade,
-                alignment: Alignment.center,
-                duration: const Duration(milliseconds: 1),
-                child: SplashScreen(),
-              ),
-            );
-          }
+          context
+              .read<LocaleCubit>()
+              .logoutUser(context)
+              .whenComplete(() async {
+            if (context.read<LocaleCubit>().logout == 'SuccessFully') {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              bool result = await prefs.remove('user');
+              if (result) {
+                Routes.isLogout = true;
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      alignment: Alignment.center,
+                      duration: const Duration(milliseconds: 1300),
+                      child: SplashScreen(),
+                    ),
+                    ModalRoute.withName(Routes.loginScreenRoute));
+                context.read<LocaleCubit>().loginDataModel = null;
+              }
+            }
+          });
+
           emit(ProfileUserDeletedSuccessfully());
         } else {
           Navigator.pop(context);
+          print('xxxxxxxxxx');
         }
       },
     );

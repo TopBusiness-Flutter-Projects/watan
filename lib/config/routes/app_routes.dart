@@ -8,7 +8,6 @@ import 'package:elwatn/features/register/presentation/screens/reset_password.dar
 import 'package:elwatn/features/register/presentation/screens/welcome_register.dart';
 import 'package:elwatn/features/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../../core/utils/app_strings.dart';
 import '../../features/chat/data/models/MyRooms.dart';
 import '../../features/contact_us/presentation/screens/contact_us.dart';
@@ -23,7 +22,6 @@ import '../../features/profile/presentation/widgets/loading_screen.dart';
 class Routes {
   static MyRoomsDatum? chatModel;
   static bool isLogout = false;
-
   static const String initialRoute = '/';
   static const String notificationRoute = '/notification';
   static const String bloggsRoute = '/bloggs';
