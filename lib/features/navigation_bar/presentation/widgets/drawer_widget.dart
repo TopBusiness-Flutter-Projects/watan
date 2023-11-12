@@ -178,6 +178,7 @@ class DrawerWidget extends StatelessWidget {
                       image: ImageAssets.logOutIcon,
                       text: translateText(AppStrings.loginText, context),
                       onClick: () {
+                        ///
                         Navigator.of(context)
                             .pushNamed(Routes.loginScreenRoute);
                       },

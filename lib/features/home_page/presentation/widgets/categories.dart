@@ -1,10 +1,8 @@
 import 'package:elwatn/features/show_lists/presentation/screens/show_lists_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/is_language_methods.dart';
-import '../../../../core/utils/translate_text_method.dart';
 import '../../../../core/widgets/network_image.dart';
 import '../../domain/entities/categories_domain_model.dart';
 

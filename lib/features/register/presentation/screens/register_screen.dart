@@ -59,6 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     registerCubit.instaController.clear();
     registerCubit.twitterController.clear();
     registerCubit.snapController.clear();
+    registerCubit.confirmPasswordController.clear();
   }
 
   @override

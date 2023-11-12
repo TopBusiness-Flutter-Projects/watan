@@ -55,7 +55,6 @@ class LocaleCubit extends Cubit<LocaleState> {
   Future<void> logoutUser(context) async {
     Either<Failure, StatusResponse> response =
         await logoutUseCase([loginDataModel!.data!.accessToken!, token!]);
-
     response.fold(
       (l) => logout = translateText(AppStrings.errorMessage, context),
       (r) {

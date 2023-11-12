@@ -1,6 +1,6 @@
 part of 'profile_cubit.dart';
 
-abstract class ProfileState extends Equatable{
+abstract class ProfileState extends Equatable {
   @override
   List<Object> get props => [];
 }
@@ -8,12 +8,14 @@ abstract class ProfileState extends Equatable{
 class ProfileInitial extends ProfileState {}
 
 class ProfileUserDeletedLoading extends ProfileState {}
-class ProfileUserDeletedSuccessfully extends ProfileState {}
-class ProfileUserDeletedError extends ProfileState {}
 
+class ProfileUserDeletedSuccessfully extends ProfileState {}
+
+class ProfileUserDeletedError extends ProfileState {}
 
 //Agent States
 class ProfileAgentLoading extends ProfileState {}
+
 class ProfileAgentLoaded extends ProfileState {
   final AgentProfileList agentProfileList;
 
@@ -22,6 +24,7 @@ class ProfileAgentLoaded extends ProfileState {
   @override
   List<Object> get props => [agentProfileList];
 }
+
 class ProfileAgentError extends ProfileState {
   final String message;
 
@@ -32,6 +35,7 @@ class ProfileAgentError extends ProfileState {
 }
 
 class ProfileAddedAgentLoading extends ProfileState {}
+
 class ProfileAddedAgentLoaded extends ProfileState {
   final StatusResponse statusResponse;
 
@@ -40,6 +44,7 @@ class ProfileAddedAgentLoaded extends ProfileState {
   @override
   List<Object> get props => [statusResponse];
 }
+
 class ProfileAddedAgentError extends ProfileState {
   final String message;
 
@@ -54,6 +59,7 @@ class ProfileAgentDeletedSuccessfully extends ProfileState {}
 class ProfileAgentValidator extends ProfileState {}
 
 class ProfileEditAgentLoading extends ProfileState {}
+
 class ProfileEditAgentLoaded extends ProfileState {
   final StatusResponse statusResponse;
 
@@ -62,6 +68,7 @@ class ProfileEditAgentLoaded extends ProfileState {
   @override
   List<Object> get props => [statusResponse];
 }
+
 class ProfileEditAgentError extends ProfileState {
   final String message;
 
