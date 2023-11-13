@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '281106816985',
     projectId: 'watan-85dba',
     storageBucket: 'watan-85dba.appspot.com',
-    iosClientId: '281106816985-f5c0lrvssg2h2npi1v3ihq0gm6te18ql.apps.googleusercontent.com',
+    iosClientId:
+        '281106816985-f5c0lrvssg2h2npi1v3ihq0gm6te18ql.apps.googleusercontent.com',
     iosBundleId: 'com.example.elwatn',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '281106816985',
     projectId: 'watan-85dba',
     storageBucket: 'watan-85dba.appspot.com',
-    iosClientId: '281106816985-f5c0lrvssg2h2npi1v3ihq0gm6te18ql.apps.googleusercontent.com',
+    iosClientId:
+        '281106816985-f5c0lrvssg2h2npi1v3ihq0gm6te18ql.apps.googleusercontent.com',
     iosBundleId: 'com.example.elwatn',
   );
 }

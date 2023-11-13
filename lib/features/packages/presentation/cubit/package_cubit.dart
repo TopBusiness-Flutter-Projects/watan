@@ -1,13 +1,11 @@
 import 'package:elwatn/core/usecases/usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../data/models/package_data_model.dart';
 import '../../domain/entities/add_package_model.dart';
 import '../../domain/entities/package_domain_model.dart';
 import '../../domain/use_cases/add_package_use_case.dart';
 import '../../domain/use_cases/package_use_case.dart';
-
 part 'package_state.dart';
 
 class PackageCubit extends Cubit<PackageState> {
