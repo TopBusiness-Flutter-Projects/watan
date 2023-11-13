@@ -190,21 +190,21 @@ class _PackageScreenState extends State<PackageScreen> {
                 const SizedBox(
                   height: 22.0,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                    Future.delayed(Duration(seconds: 1), () {
-                      snackBar(
-                          translateText(AppStrings.notDoneYetText, context),
-                          context,
-                          color: AppColors.primary);
-                    });
-                  },
-                  child: Text(
-                    'Asia Howalla',
-                    style: TextStyle(fontSize: 18.0, color: AppColors.black),
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Future.delayed(Duration(seconds: 1), () {
+                //       snackBar(
+                //           translateText(AppStrings.notDoneYetText, context),
+                //           context,
+                //           color: AppColors.primary);
+                //     });
+                //   },
+                //   child: Text(
+                //     'Asia Howalla',
+                //     style: TextStyle(fontSize: 18.0, color: AppColors.black),
+                //   ),
+                // ),
                 const SizedBox(
                   height: 24.0,
                 ),

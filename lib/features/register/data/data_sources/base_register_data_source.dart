@@ -78,7 +78,7 @@ class RegistrationDataSource implements BaseRegistrationDataSource {
   Future<StatusResponse> checkCode(String code) async {
     final response = await apiConsumer.post(
       EndPoints.checkCodeUrl,
-      body: {"phone": code},
+      body: {"phone": '${code}'},
     );
     return StatusResponse.checkCodeFromJson(response);
   }

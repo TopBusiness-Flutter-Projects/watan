@@ -3,12 +3,15 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:elwatn/config/routes/app_routes.dart';
 import 'package:elwatn/core/utils/app_strings.dart';
+import 'package:elwatn/core/utils/snackbar_method.dart';
 import 'package:elwatn/core/utils/toast_message_method.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -246,7 +249,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         verifySmsCode(smsCode, context);
       },
       verificationFailed: (FirebaseAuthException e) {
-        emit(CheckCodeInvalidCode());
+        emit(CheckCodeFailure());
         print("Errrrorrrrr : ${e.message}");
       },
       codeSent: (String verificationId, int? resendToken) {
@@ -272,6 +275,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     await _mAuth.signInWithCredential(credential).then((value) {
       print('LoginSuccess');
       emit(CheckCodeSuccessfully());
+      // snackBar(value.additionalUserInfo!.username, context);
       stopTimer();
     }).catchError((error) {
       toastMessage(
@@ -328,12 +332,20 @@ class RegisterCubit extends Cubit<RegisterState> {
     response.fold((l) => emit(CheckCodeFailure()), (r) {
       if (r.code == 200) {
         phoneNumber = phone;
-        // checkCodeOfEmail = r.checkCode;
         emit(CheckCodeSuccessfully());
+        print('......................................');
+        print(r.checkCode);
+        print('......................................');
         sendSmsCode(context);
         Future.delayed(Duration(seconds: 2), () {
           emit(RegisterInitial());
         });
+        // snackBar(
+        //   'all done',
+        //   context,
+        // );
+        // ResetPassword
+        Navigator.pushNamed(context, Routes.resetPasswordRoute);
       } else if (r.code == 422) {
         emit(CheckCodeInvalidCode());
         Future.delayed(Duration(seconds: 2), () {

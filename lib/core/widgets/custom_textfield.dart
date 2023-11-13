@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../features/profile/presentation/cubit/profile_cubit.dart';
+import '../utils/app_strings.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -76,23 +77,19 @@ class CustomTextField extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: 8, horizontal: 12),
                         child: Text(
-                          IsLanguage.isEnLanguage(context)
-                              ? "+964"
-                              : "+ ${replaceToArabicNumber("964")}",
-                          style: const TextStyle(fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ),
-                      )
+                            IsLanguage.isEnLanguage(context)
+                                ? AppStrings.phoneCode
+                                : "${replaceToArabicNumber(AppStrings.phoneCode)}",
+                            style: const TextStyle(fontSize: 16),
+                            textAlign: TextAlign.center))
                     : null,
                 hintText: title,
                 border: image != "null"
                     ? OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide.none,
-                      )
+                        borderSide: BorderSide.none)
                     : OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
+                        borderRadius: BorderRadius.circular(10.0)),
                 fillColor: AppColors.scaffoldBackground,
                 filled: true,
               ),

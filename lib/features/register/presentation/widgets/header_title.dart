@@ -8,21 +8,24 @@ class HeaderTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            textAlign: TextAlign.center,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              textAlign: TextAlign.center,
+            ),
           ),
-        ),
-        Text(
-          des,
-          style: const TextStyle(color: Colors.black54, fontSize: 13),
-        ),
-      ],
+          Text(
+            des,
+            style: const TextStyle(color: Colors.black54, fontSize: 13),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -35,23 +35,24 @@ class ForgetPasswordScreen extends StatelessWidget {
       body: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
           if (state is CheckCodeInvalidCode) {
-            Future.delayed(const Duration(milliseconds: 500), () {
-              snackBar(
-                translateText(AppStrings.invalidPhoneMessage, context),
-                context,
-                color: AppColors.error,
-              );
-            });
+            snackBar(
+              translateText(AppStrings.invalidPhoneMessage, context),
+              context,
+              color: AppColors.error,
+            );
           }
-          if (state is SendCodeLoading||state is CheckCodeLoading) {
+          if (state is CheckCodeSuccessfully) {
+            snackBar("message", context);
+          }
+          if (state is SendCodeLoading || state is CheckCodeLoading) {
             return const ShowLoadingIndicator();
           }
           if (state is OnSmsCodeSent) {
             Future.delayed(const Duration(seconds: 1), () {
-              Navigator.pushReplacementNamed(
-                context,
-                Routes.resetPasswordRoute,
-              );
+              // Navigator.pushReplacementNamed(
+              //   context,
+              //   Routes.resetPasswordRoute,
+              // );
             });
             return const ShowLoadingIndicator();
           }
@@ -72,7 +73,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                       const SizedBox(height: 30),
                       CustomTextField(
                         imageColor: AppColors.primary,
-                        controller: context.read<RegisterCubit>().phoneController,
+                        controller:
+                            context.read<RegisterCubit>().phoneController,
                         image: ImageAssets.mobileGoldIcon,
                         title: translateText(AppStrings.phoneHint, context),
                         validatorMessage: translateText(
@@ -89,9 +91,23 @@ class ForgetPasswordScreen extends StatelessWidget {
                         paddingHorizontal: 60,
                         onClick: () {
                           if (_formKey.currentState!.validate()) {
-                            if (context.read<RegisterCubit>().phoneController.text.length < 10 ||
-                                context.read<RegisterCubit>().phoneController.text.length > 11) {
-                              print(context.read<RegisterCubit>().phoneController.text.length);
+                            if (context
+                                        .read<RegisterCubit>()
+                                        .phoneController
+                                        .text
+                                        .length <
+                                    10 ||
+                                context
+                                        .read<RegisterCubit>()
+                                        .phoneController
+                                        .text
+                                        .length >
+                                    11) {
+                              print(context
+                                  .read<RegisterCubit>()
+                                  .phoneController
+                                  .text
+                                  .length);
                               snackBar(
                                 translateText(
                                     AppStrings.correctPhoneText, context),
@@ -100,14 +116,41 @@ class ForgetPasswordScreen extends StatelessWidget {
                               );
                             } else {
                               context.read<RegisterCubit>().phoneNumber =
-                              context.read<RegisterCubit>().phoneController.text.length == 11
-                                      ? AppStrings.phoneCode + context.read<RegisterCubit>().phoneController.text.substring(1)
-                                      : AppStrings.phoneCode + context.read<RegisterCubit>().phoneController.text;
+                                  context
+                                              .read<RegisterCubit>()
+                                              .phoneController
+                                              .text
+                                              .length ==
+                                          11
+                                      ? AppStrings.phoneCode +
+                                          context
+                                              .read<RegisterCubit>()
+                                              .phoneController
+                                              .text
+                                              .substring(1)
+                                      : AppStrings.phoneCode +
+                                          context
+                                              .read<RegisterCubit>()
+                                              .phoneController
+                                              .text;
                               context.read<RegisterCubit>().checkCode(
-                                context.read<RegisterCubit>().phoneController.text.length == 11
+                                    context
+                                                .read<RegisterCubit>()
+                                                .phoneController
+                                                .text
+                                                .length ==
+                                            11
                                         ? AppStrings.phoneCode +
-                                    context.read<RegisterCubit>().phoneController.text.substring(1)
-                                        : AppStrings.phoneCode + context.read<RegisterCubit>().phoneController.text,
+                                            context
+                                                .read<RegisterCubit>()
+                                                .phoneController
+                                                .text
+                                                .substring(1)
+                                        : AppStrings.phoneCode +
+                                            context
+                                                .read<RegisterCubit>()
+                                                .phoneController
+                                                .text,
                                     context,
                                   );
                             }

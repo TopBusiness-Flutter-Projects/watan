@@ -28,16 +28,18 @@ class RegisterFailure extends RegisterState {
 }
 
 class RegisterUserChanged extends RegisterState {}
+
 class RegisterUserChangedDone extends RegisterState {}
+
 class RegisterValidator extends RegisterState {
-  final  int code;
+  final int code;
 
   RegisterValidator(this.code);
 }
 
 // ignore: must_be_immutable
 class UserPhotoPicked extends RegisterState {
- final File image;
+  final File image;
 
   UserPhotoPicked(this.image);
   @override
@@ -64,32 +66,42 @@ class UpdateProfileFailure extends RegisterState {
   List<Object> get props => [message];
 }
 
-class UpdateStoreDataSuccessfully extends RegisterState{}
-class UpdateStoreDataFailure extends RegisterState{}
+class UpdateStoreDataSuccessfully extends RegisterState {}
 
-class SendCodeLoading extends RegisterState{}
-class SendCodeFailure extends RegisterState{}
-class SendCodeSuccessfully extends RegisterState{}
-class SendCodeInvalidEmail extends RegisterState{}
+class UpdateStoreDataFailure extends RegisterState {}
 
-class CheckCodeLoading extends RegisterState{}
-class CheckCodeFailure extends RegisterState{}
-class CheckCodeSuccessfully extends RegisterState{}
-class CheckCodeInvalidCode extends RegisterState{}
+class SendCodeLoading extends RegisterState {}
 
-class ResetPasswordLoading extends RegisterState{}
-class ResetPasswordFailure extends RegisterState{}
-class ResetPasswordSuccessfully extends RegisterState{}
-class ResetPasswordInvalidCode extends RegisterState{}
+class SendCodeFailure extends RegisterState {}
 
+class SendCodeSuccessfully extends RegisterState {}
 
+class SendCodeInvalidEmail extends RegisterState {}
+
+class CheckCodeLoading extends RegisterState {}
+
+class CheckCodeFailure extends RegisterState {}
+
+class CheckCodeSuccessfully extends RegisterState {}
+
+class CheckCodeInvalidCode extends RegisterState {}
+
+class ResetPasswordLoading extends RegisterState {}
+
+class ResetPasswordFailure extends RegisterState {}
+
+class ResetPasswordSuccessfully extends RegisterState {}
+
+class ResetPasswordInvalidCode extends RegisterState {}
 
 class OnTimerChanged extends RegisterState {
-  String time ;
+  String time;
 
   OnTimerChanged(this.time);
 }
+
 class OnTimerChangedAgain extends RegisterState {}
+
 class OnSmsCodeSent extends RegisterState {
   String smsCode;
 
