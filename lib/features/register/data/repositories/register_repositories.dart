@@ -4,7 +4,6 @@ import 'package:elwatn/core/error/failures.dart';
 import 'package:elwatn/core/models/response_message.dart';
 import 'package:elwatn/features/login/domain/entities/login_domain_model.dart';
 
-
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/network/network_info.dart';
 import '../../domain/repositories/base_registration_repositories.dart';
@@ -18,9 +17,11 @@ class RegisterRepositories implements BaseRegistrationRepositories {
   RegisterRepositories(this.networkInfo, this.baseRegistrationDataSource);
 
   @override
-  Future<Either<Failure, RegistrationDataModel>> postRegister(RegistrationUserModel user) async {
+  Future<Either<Failure, RegistrationDataModel>> postRegister(
+      RegistrationUserModel user) async {
     try {
-      final registerData = await baseRegistrationDataSource.postRegisterData(user);
+      final registerData =
+          await baseRegistrationDataSource.postRegisterData(user);
       return Right(registerData);
     } on ServerException {
       return Left(ServerFailure());
@@ -28,9 +29,11 @@ class RegisterRepositories implements BaseRegistrationRepositories {
   }
 
   @override
-  Future<Either<Failure, LoginModel>> updateProfile(RegistrationUserModel user) async {
+  Future<Either<Failure, LoginModel>> updateProfile(
+      RegistrationUserModel user) async {
     try {
-      final updateData = await baseRegistrationDataSource.updateProfileData(user);
+      final updateData =
+          await baseRegistrationDataSource.updateProfileData(user);
       return Right(updateData);
     } on ServerException {
       return Left(ServerFailure());
@@ -40,7 +43,8 @@ class RegisterRepositories implements BaseRegistrationRepositories {
   @override
   Future<Either<Failure, LoginModel>> updateStoreProfile(String token) async {
     try {
-      final loginModel = await baseRegistrationDataSource.updateStoreProfileData(token);
+      final loginModel =
+          await baseRegistrationDataSource.updateStoreProfileData(token);
       return Right(loginModel);
     } on ServerException {
       return Left(ServerFailure());
@@ -68,14 +72,14 @@ class RegisterRepositories implements BaseRegistrationRepositories {
   }
 
   @override
-  Future<Either<Failure, StatusResponse>> resetPassword(List<String> passwords) async {
+  Future<Either<Failure, StatusResponse>> resetPassword(
+      List<String> passwords) async {
     try {
-      final response = await baseRegistrationDataSource.resetPassword(passwords);
+      final response =
+          await baseRegistrationDataSource.resetPassword(passwords);
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());
     }
   }
-
-
 }

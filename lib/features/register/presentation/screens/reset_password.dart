@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:elwatn/core/utils/snackbar_method.dart';
 import 'package:elwatn/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,29 +55,18 @@ class _ResetPasswordState extends State<ResetPassword> {
           translateText(AppStrings.resetPasswordText, context),
           style: TextStyle(color: AppColors.black),
         ),
-        iconTheme: IconThemeData(
-          color: AppColors.black,
-        ),
+        iconTheme: IconThemeData(color: AppColors.black),
       ),
       body: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
-          // String time = context.read<RegisterCubit>().time;
-          // if (state is CheckCodeInvalidCode) {
-          //   Future.delayed(const Duration(seconds: 1), () {
-          //     snackBar('Invalid Code Please Enter Correct Code', context,
-          //         color: AppColors.error);
-          //   });
-          // }
           if (state is CheckCodeLoading) {
             return const ShowLoadingIndicator();
           }
           if (state is CheckCodeSuccessfully) {
-            Future.delayed(const Duration(seconds: 1), () {
-              Navigator.pushReplacementNamed(
-                context,
-                Routes.newPasswordRoute,
-              );
-            });
+            Navigator.pushReplacementNamed(
+              context,
+              Routes.newPasswordRoute,
+            );
             return const ShowLoadingIndicator();
           }
           return Column(
@@ -88,7 +78,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                     HeaderTitleWidget(
                       title:
                           translateText(AppStrings.resetPasswordTitle, context),
-                      des: translateText(AppStrings.resetPasswordDesc, context),
+                      des: translateText(
+                              AppStrings.resetPasswordDesc, context) +
+                          '${context.read<RegisterCubit>().phoneController.text}',
                     ),
                     const SizedBox(height: 30),
                     Form(
@@ -167,6 +159,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               context
                                   .read<RegisterCubit>()
                                   .verifySmsCode(currentText, context);
+                              snackBar(currentText, context);
                             },
                           );
                         }
@@ -177,18 +170,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                       builder: (context, state) {
                         String time =
                             context.read<RegisterCubit>().seconds.toString();
-                        if(time=='60'){
-                          time='';
+                        if (time == '60') {
+                          time = '';
                         }
                         return InkWell(
-                          onTap:
-                               () {
+                          onTap: () {
                             context.read<RegisterCubit>().startTimer();
-                            context
-                                      .read<RegisterCubit>()
-                                      .sendSmsCode(context);
-                                }
-                          ,
+                            context.read<RegisterCubit>().sendSmsCode(context);
+                          },
                           child: Text(
                             time.isNotEmpty
                                 ? time

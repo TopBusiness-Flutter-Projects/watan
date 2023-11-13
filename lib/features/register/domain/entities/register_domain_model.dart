@@ -54,7 +54,7 @@ class RegistrationDomainData extends Equatable {
 }
 
 class RegistrationUser extends Equatable {
-   RegistrationUser({
+  RegistrationUser({
     this.id,
     this.name,
     this.phone,

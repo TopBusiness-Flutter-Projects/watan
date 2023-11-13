@@ -97,14 +97,17 @@ class _PackageScreenState extends State<PackageScreen> {
                     ),
                   ),
                   Expanded(
-                    child: state.package.data!.length>0?
-                    BodyPackageWidget(
-                      package: state.package,
-                    )  :  Center(
-                      child: Text(translateText("no_data", context),
-                        style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                    child: state.package.data!.length > 0
+                        ? BodyPackageWidget(
+                            package: state.package,
+                          )
+                        : Center(
+                            child: Text(
+                              translateText("no_data", context),
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                          ),
                   ),
                   CustomButton(
                     text: translateText(AppStrings.payBtn, context),
@@ -112,7 +115,8 @@ class _PackageScreenState extends State<PackageScreen> {
                     onClick: () {
                       if (context.read<PackageCubit>().onePackage == null) {
                         snackBar(
-                          translateText(AppStrings.waringSelectPackage, context),
+                          translateText(
+                              AppStrings.waringSelectPackage, context),
                           context,
                           color: AppColors.error,
                         );
@@ -165,16 +169,18 @@ class _PackageScreenState extends State<PackageScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    // packageCubit.addPackage(
-                    //   widget.loginDataModel.data!.user!.id!,
-                    //   widget.loginDataModel.data!.accessToken!,
-                    //   "zain_cash",
-                    // );
+                    packageCubit.addPackage(
+                      widget.loginDataModel.data!.user!.id!,
+                      widget.loginDataModel.data!.accessToken!,
+                      "zain_cash",
+                    );
                     Navigator.pop(context);
-                    Future.delayed(Duration(seconds: 1), () {
-                      snackBar(translateText(AppStrings.notDoneYetText, context), context,
-                          color: AppColors.primary);
-                    });
+                    // Future.delayed(Duration(seconds: 1), () {
+                    //   snackBar(
+                    //       translateText(AppStrings.notDoneYetText, context),
+                    //       context,
+                    //       color: AppColors.primary);
+                    // });
                   },
                   child: Text(
                     'Zain Cash',
@@ -184,19 +190,21 @@ class _PackageScreenState extends State<PackageScreen> {
                 const SizedBox(
                   height: 22.0,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                    Future.delayed(Duration(seconds: 1), () {
-                      snackBar(translateText(AppStrings.notDoneYetText, context), context,
-                          color: AppColors.primary);
-                    });
-                  },
-                  child: Text(
-                    'Asia Howalla',
-                    style: TextStyle(fontSize: 18.0, color: AppColors.black),
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Future.delayed(Duration(seconds: 1), () {
+                //       snackBar(
+                //           translateText(AppStrings.notDoneYetText, context),
+                //           context,
+                //           color: AppColors.primary);
+                //     });
+                //   },
+                //   child: Text(
+                //     'Asia Howalla',
+                //     style: TextStyle(fontSize: 18.0, color: AppColors.black),
+                //   ),
+                // ),
                 const SizedBox(
                   height: 24.0,
                 ),

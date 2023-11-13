@@ -14,10 +14,10 @@ class StatusResponse {
   }
   StatusResponse.checkCodeFromJson(Map<String, dynamic> json) {
     code = json['code'] as int;
-    checkCode = json['validation_code']??"";
+    checkCode = json['validation_code'] ?? "";
     message = json['code'] == 200 ? json['message'].toString() : "";
     messages =
-    json['code'] != 200 ? Message.fromJson(json["message"]) : Message();
+        json['code'] != 200 ? Message.fromJson(json["message"]) : Message();
   }
 }
 
@@ -31,8 +31,12 @@ class Message {
   List<String>? email;
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
-        phone:json["phone"]!=null? List<String>.from(json["phone"].map((x) => x)):[],
-        email:json["email"]!=null? List<String>.from(json["email"].map((x) => x)):[],
+        phone: json["phone"] != null
+            ? List<String>.from(json["phone"].map((x) => x))
+            : [],
+        email: json["email"] != null
+            ? List<String>.from(json["email"].map((x) => x))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {

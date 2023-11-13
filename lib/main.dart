@@ -43,7 +43,6 @@ void showNotification(RemoteMessage message, {String? payload}) {
     'High Importance Notifications', // title
     importance: Importance.high,
   );
-
   if (flutterLocalNotificationsPlugin == null) {
     // initState();
     print('nullllllllllll');
@@ -80,7 +79,6 @@ void showNotification(RemoteMessage message, {String? payload}) {
       ),
     );
   }
-
   ////cccccccc
 }
 
@@ -142,7 +140,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     initializationSettings,
     onDidReceiveNotificationResponse: await notificationTapBackground,
   );
-
   await flutterLocalNotificationsPlugin!
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
