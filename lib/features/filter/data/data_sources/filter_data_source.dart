@@ -32,7 +32,8 @@ class FilterDataSource implements BaseFilterDataSource {
 
   @override
   Future<CitiesLocationsModel> getCitiesLocationData(String id) async {
-    final response = await apiConsumer.get("${EndPoints.citiesLocationUrl}/$id");
+    final response =
+        await apiConsumer.get("${EndPoints.citiesLocationUrl}/$id");
     return CitiesLocationsModel.fromJson(response);
   }
 
@@ -50,7 +51,8 @@ class FilterDataSource implements BaseFilterDataSource {
 
   @override
   Future<FilterResponse> getFilterData(FilterModel filterModel) async {
-    final response = await apiConsumer.post(EndPoints.filterUrl,body: filterModel.toJson());
+    final response =
+        await apiConsumer.post(EndPoints.filterUrl, body: filterModel.toJson());
     return FilterResponse.fromJson(response);
   }
 }
