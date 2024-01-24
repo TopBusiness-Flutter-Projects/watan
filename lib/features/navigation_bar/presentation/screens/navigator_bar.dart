@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:elwatn/core/utils/app_colors.dart';
 import 'package:elwatn/features/home_page/presentation/screens/home_page.dart';
 import 'package:elwatn/features/profile/presentation/screens/user_profile.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/no_login_page.dart';
@@ -22,6 +23,14 @@ class NavigatorBar extends StatefulWidget {
 }
 
 class _NavigatorBarState extends State<NavigatorBar> {
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  @override
+  void initState() {
+    analytics.setAnalyticsCollectionEnabled(true);
+    // TODO: implement initState
+    super.initState();
+  }
+
   int _page = 2;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
@@ -61,7 +70,22 @@ class _NavigatorBarState extends State<NavigatorBar> {
         backgroundColor: AppColors.scaffoldBackground,
         animationCurve: Curves.linear,
         animationDuration: const Duration(milliseconds: 100),
-        onTap: (index) {
+        onTap: (index) async {
+          await analytics.logEvent(
+            name: "main_screens",
+            parameters: {
+              "page_name": _page == 0
+                  ? 'favorite screen'
+                  : _page == 1
+                      ? 'profile screen'
+                      : _page == 2
+                          ? 'home screen'
+                          : _page == 3
+                              ? 'chat screen'
+                              : 'add ads screen',
+              "page_index": index,
+            },
+          );
           setState(() {
             _page = index;
           });

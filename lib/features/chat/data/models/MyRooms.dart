@@ -64,11 +64,10 @@ class ChatModel {
         code: json["code"],
       );
   Map<String, dynamic> chatModelOpenRoomToJson() => {
-    "data": createRoom,
-    "message": message,
-    "code": code,
-  };
-
+        "data": createRoom,
+        "message": message,
+        "code": code,
+      };
 }
 
 class MyRoomsDatum {
@@ -139,8 +138,10 @@ class MyRoomsDatum {
         toUser: ChatUser.fromJson(json["to_user"]),
         date: DateTime.parse(json["date"]),
         time: json["time"],
-        allMessages:json["messages"]!=null? List<MyMessage>.from(
-            json["messages"].map((x) => MyMessage.fromJson(x))):[],
+        allMessages: json["messages"] != null
+            ? List<MyMessage>.from(
+                json["messages"].map((x) => MyMessage.fromJson(x)))
+            : [],
       );
 
   Map<String, dynamic> oneRoomToJson() => {
@@ -248,18 +249,16 @@ class MyMessage {
 
   static Map<String, dynamic> toJsonMyMessage(MyMessage messages) {
     return {
-    "type": messages.type,
-    "message": messages.message,
-    "file": messages.file,
-    "from_user_id": messages.fromUserId,
-    "to_user_id": messages.toUserId,
-    "from_user": messages.fromUser!.toJson(),
-    "to_user": messages.toUser!.toJson(),
-    "date":
-    "${messages.date!.year.toString().padLeft(4, '0')}-${messages.date!.month.toString().padLeft(2, '0')}-${messages.date!.day.toString().padLeft(2, '0')}",
-    "time": messages.time,
-  };
-
+      "type": messages.type,
+      "message": messages.message,
+      "file": messages.file,
+      "from_user_id": messages.fromUserId,
+      "to_user_id": messages.toUserId,
+      "from_user": messages.fromUser!.toJson(),
+      "to_user": messages.toUser!.toJson(),
+      "date":
+          "${messages.date!.year.toString().padLeft(4, '0')}-${messages.date!.month.toString().padLeft(2, '0')}-${messages.date!.day.toString().padLeft(2, '0')}",
+      "time": messages.time,
+    };
   }
-
 }

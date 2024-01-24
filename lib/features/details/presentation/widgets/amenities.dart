@@ -31,7 +31,8 @@ class AmenitiesWidget extends StatelessWidget {
                 children: [
                   ...List.generate(
                     mainItemModel!.services!.length,
-                    (index) => mainItemModel!.services![index].service!.id != null
+                    (index) => mainItemModel!.services![index].service!.id !=
+                            null
                         ? Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 12),
                             child: Column(
@@ -63,8 +64,8 @@ class AmenitiesWidget extends StatelessWidget {
                                       : (IsLanguage.isArLanguage(context)
                                           ? mainItemModel!
                                               .services![index].service!.nameAr!
-                                          : mainItemModel!
-                                              .services![index].service!.nameKo!),
+                                          : mainItemModel!.services![index]
+                                              .service!.nameKo!),
                                   style: const TextStyle(fontSize: 18),
                                 )
                               ],

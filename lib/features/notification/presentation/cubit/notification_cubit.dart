@@ -13,7 +13,7 @@ part 'notification_state.dart';
 class NotificationCubit extends Cubit<NotificationState> {
   NotificationCubit(this.getAllNotificationUseCase)
       : super(NotificationInitial()) {
-    _getStoreUser().whenComplete(()  => getAllNotification());
+    _getStoreUser().whenComplete(() => getAllNotification());
   }
 
   final GetAllNotificationUseCase getAllNotificationUseCase;

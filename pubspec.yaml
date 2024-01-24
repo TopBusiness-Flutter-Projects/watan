@@ -60,6 +60,7 @@ dependencies:
   fluttertoast: ^8.1.2
   permission_handler: ^10.2.0
   flutter_widget_from_html: ^0.9.1
+  firebase_analytics: ^10.2.0
   flutter_localizations:
       sdk: flutter
 

@@ -13,23 +13,16 @@ import '../../../chat/data/models/MyRooms.dart';
 import 'notificationlisten.dart';
 import 'package:rxdart/rxdart.dart';
 
-
-
-
-
-
-
-
 class PushNotificationService {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin= FlutterLocalNotificationsPlugin();
- static final BehaviorSubject<String> behaviorSubject = BehaviorSubject();
+  FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  static final BehaviorSubject<String> behaviorSubject = BehaviorSubject();
   final BehaviorSubject<MyRoomsDatum> behaviorchat = BehaviorSubject();
   late AndroidNotificationChannel channel;
   late MyRoomsDatum chatModel;
   late MyMessage messageDataModel;
-
 
   Future initialise({bool? isBackground, RemoteMessage? messages}) async {
     await Firebase.initializeApp(
@@ -42,13 +35,14 @@ class PushNotificationService {
     );
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
     final DarwinInitializationSettings initializationSettingsDarwin =
-    DarwinInitializationSettings(
-        onDidReceiveLocalNotification: ondidnotification);
+        DarwinInitializationSettings(
+            onDidReceiveLocalNotification: ondidnotification);
     final LinuxInitializationSettings initializationSettingsLinux =
-    LinuxInitializationSettings(defaultActionName: 'Open notification');
-    final InitializationSettings initializationSettings = InitializationSettings(
+        LinuxInitializationSettings(defaultActionName: 'Open notification');
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsDarwin,
       linux: initializationSettingsLinux,
@@ -60,7 +54,7 @@ class PushNotificationService {
 
     await flutterLocalNotificationsPlugin!
         .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()
+            AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
     // initState()
     final FirebaseMessaging _fcm = FirebaseMessaging.instance;
@@ -152,12 +146,14 @@ class PushNotificationService {
       );
     }
   }
+
   void checkData(RemoteMessage message) {
     if (message.data['note_type'].toString().contains("chat")) {
-      chatModel = MyRoomsDatum.oneRoomFromJson(jsonDecode(message.data['room']));
+      chatModel =
+          MyRoomsDatum.oneRoomFromJson(jsonDecode(message.data['room']));
       messageDataModel = MyMessage.fromJson(jsonDecode(message.data['data']));
-      final notification =
-      LocalNotification("data", MyMessage.toJsonMyMessage(messageDataModel));
+      final notification = LocalNotification(
+          "data", MyMessage.toJsonMyMessage(messageDataModel));
       behaviorchat.add(chatModel);
       if (AppRoutes.route == 'chat') {
         print('======================');
@@ -181,7 +177,9 @@ class PushNotificationService {
       behaviorSubject.add(details.payload!);
     }
   }
-  ondidnotification(int id, String? title, String? body, String? payload) async {
+
+  ondidnotification(
+      int id, String? title, String? body, String? payload) async {
     behaviorSubject.add(payload!);
   }
 }

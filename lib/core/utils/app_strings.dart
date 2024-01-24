@@ -1,5 +1,5 @@
 class AppStrings {
-  static const String appName = 'app_name';
+  static const String appName = 'watan';
   // static const String googleApiKey = 'AIzaSyApFlumN0TgcOOrDIicTNpSKgOYHOFd0Ko';
   static const String fontFamily = '';
   static const String noRouteFound = 'No Route Found';

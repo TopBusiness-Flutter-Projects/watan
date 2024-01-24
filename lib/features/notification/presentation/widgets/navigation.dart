@@ -19,11 +19,11 @@ class NavigationService {
     return navigationKey.currentState!.push(
       MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => ChatCubit(),
-            child: ChatPage(
-              myRoomDatum: chatModel,
-            ),
-          )),
+                create: (context) => ChatCubit(),
+                child: ChatPage(
+                  myRoomDatum: chatModel,
+                ),
+              )),
     );
   }
 
