@@ -58,6 +58,8 @@ android {
 }
     dependencies {
         implementation 'com.google.firebase:firebase-analytics'
+        implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+
     }
 flutter {
     source '../..'
