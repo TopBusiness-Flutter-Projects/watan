@@ -1,17 +1,12 @@
 import 'dart:async';
-
-import 'package:elwatn/core/utils/snackbar_method.dart';
 import 'package:elwatn/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
-import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/translate_text_method.dart';
-import '../../../../core/widgets/show_loading_indicator.dart';
 import '../cubit/register_cubit.dart';
 import '../widgets/header_title.dart';
 
@@ -59,16 +54,6 @@ class _ResetPasswordState extends State<ResetPassword> {
       ),
       body: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
-          if (state is CheckCodeLoading) {
-            return const ShowLoadingIndicator();
-          }
-          if (state is CheckCodeSuccessfully) {
-            Navigator.pushReplacementNamed(
-              context,
-              Routes.newPasswordRoute,
-            );
-            return const ShowLoadingIndicator();
-          }
           return Column(
             children: [
               Expanded(
@@ -150,18 +135,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                         if (currentText.length != 6) {
                           errorController!.add(
                             ErrorAnimationType.shake,
-                          ); // Triggering error shake animation
+                          );
                           setState(() => hasError = true);
                         } else {
-                          setState(
-                            () {
-                              hasError = false;
-                              context
-                                  .read<RegisterCubit>()
-                                  .verifySmsCode(currentText, context);
-                              snackBar(currentText, context);
-                            },
-                          );
+                          hasError = false;
+                          context
+                              .read<RegisterCubit>()
+                              .verifyWhatsAppCode(currentText, context);
+                          // snackBar(currentText, context);
                         }
                       },
                     ),
@@ -176,7 +157,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                         return InkWell(
                           onTap: () {
                             context.read<RegisterCubit>().startTimer();
-                            context.read<RegisterCubit>().sendSmsCode(context);
+                            context.read<RegisterCubit>().sendCodeWhatsApp(
+                                '${context.read<RegisterCubit>().phoneController.text}',
+                                context);
                           },
                           child: Text(
                             time.isNotEmpty
@@ -200,7 +183,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 child: Image.asset(
                   ImageAssets.resetPasswordImage,
                   height: 180,
-                  width: 210,
+                  width: 200,
                   fit: BoxFit.fill,
                 ),
               )

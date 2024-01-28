@@ -84,6 +84,12 @@ class CheckCodeFailure extends RegisterState {}
 
 class CheckCodeSuccessfully extends RegisterState {}
 
+class CheckCodeError extends RegisterState {}
+
+class CheckCodeLoaded extends RegisterState {}
+
+class CheckCodeLoading2 extends RegisterState {}
+
 class CheckCodeInvalidCode extends RegisterState {}
 
 class ResetPasswordLoading extends RegisterState {}
@@ -107,3 +113,9 @@ class OnSmsCodeSent extends RegisterState {
 
   OnSmsCodeSent(this.smsCode);
 }
+
+class Reset2PasswordLoading extends RegisterState {}
+
+class Reset2PasswordFailure extends RegisterState {}
+
+class Reset2PasswordSuccessfully extends RegisterState {}

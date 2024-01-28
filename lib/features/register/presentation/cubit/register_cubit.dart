@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:elwatn/config/routes/app_routes.dart';
 import 'package:elwatn/core/utils/app_strings.dart';
-import 'package:elwatn/core/utils/snackbar_method.dart';
-import 'package:elwatn/core/utils/toast_message_method.dart';
+import 'package:elwatn/features/register/domain/use_cases/verifywhatsapp.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../core/error/failures.dart';
 import '../../../../core/utils/map_failure_message.dart';
 import '../../../../core/utils/translate_text_method.dart';
@@ -27,18 +24,21 @@ import '../../domain/use_cases/reset_password_use_case.dart';
 import '../../domain/use_cases/send_code_use_case.dart';
 import '../../domain/use_cases/update_profile_use_case.dart';
 import '../../domain/use_cases/update_store_profile_use_case.dart';
+import '../../domain/use_cases/verifywhatsappcode.dart';
 
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit(
-    this.postRegisterUserUseCase,
-    this.updateProfileUseCase,
-    this.updateStoreProfileUseCase,
-    this.sendCodeUseCase,
-    this.checkCodeUseCase,
-    this.resetPasswordUseCase,
-  ) : super(RegisterInitial());
+      this.postRegisterUserUseCase,
+      this.updateProfileUseCase,
+      this.updateStoreProfileUseCase,
+      this.sendCodeUseCase,
+      this.checkCodeUseCase,
+      this.resetPasswordUseCase,
+      this.verifyWhatsAppUseCase,
+      this.verifyWhatsAppcodeUseCase)
+      : super(RegisterInitial());
 
   bool choose1 = false;
   bool choose2 = false;
@@ -66,6 +66,9 @@ class RegisterCubit extends Cubit<RegisterState> {
   final UpdateProfileUseCase updateProfileUseCase;
   final UpdateStoreProfileUseCase updateStoreProfileUseCase;
   final SendCodeUseCase sendCodeUseCase;
+  final VerifyWhatsAppUseCase verifyWhatsAppUseCase;
+  final VerifyWhatsAppCodeUseCase verifyWhatsAppcodeUseCase;
+
   final CheckCodeUseCase checkCodeUseCase;
   final ResetPasswordUseCase resetPasswordUseCase;
 
@@ -104,9 +107,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   updateLoginStoreData(String token) async {
     final response = await updateStoreProfileUseCase(token);
     response.fold(
-      (l) => emit(
-        UpdateStoreDataFailure(),
-      ),
+      (l) => emit(UpdateStoreDataFailure()),
       (loginModel) async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('user', jsonEncode(loginModel)).then(
@@ -234,54 +235,82 @@ class RegisterCubit extends Cubit<RegisterState> {
   String? verificationId;
   int? resendToken;
 
-  sendSmsCode(BuildContext context) async {
-    emit(SendCodeLoading());
-    _mAuth.setSettings(forceRecaptchaFlow: true);
-    _mAuth.verifyPhoneNumber(
-      forceResendingToken: this.resendToken,
-      phoneNumber: phoneNumber,
-      // timeout: Duration(seconds: 1),
-      verificationCompleted: (PhoneAuthCredential credential) {
-        smsCode = credential.smsCode!;
-        this.verificationId = credential.verificationId;
-        print("verificationId=>${verificationId}");
-        emit(OnSmsCodeSent(smsCode));
-        verifySmsCode(smsCode, context);
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        emit(CheckCodeFailure());
-        print("Errrrorrrrr : ${e.message}");
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        this.resendToken = resendToken;
-        this.verificationId = verificationId;
-        print("verificationId=>${verificationId}");
-        emit(OnSmsCodeSent(''));
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        print('kokokokokokok');
-        this.verificationId = verificationId;
-      },
-    );
+  // sendSmsCode(BuildContext context) async {
+  //   emit(SendCodeLoading());
+  //   _mAuth.setSettings(forceRecaptchaFlow: true);
+  //   _mAuth.verifyPhoneNumber(
+  //     forceResendingToken: this.resendToken,
+  //     phoneNumber: phoneNumber,
+  //     // timeout: Duration(seconds: 1),
+  //     verificationCompleted: (PhoneAuthCredential credential) {
+  //       smsCode = credential.smsCode!;
+  //       this.verificationId = credential.verificationId;
+  //       print("verificationId=>${verificationId}");
+  //       emit(OnSmsCodeSent(smsCode));
+  //       verifySmsCode(smsCode, context);
+  //     },
+  //     verificationFailed: (FirebaseAuthException e) {
+  //       emit(CheckCodeFailure());
+  //       print("Errrrorrrrr : ${e.message}");
+  //     },
+  //     codeSent: (String verificationId, int? resendToken) {
+  //       this.resendToken = resendToken;
+  //       this.verificationId = verificationId;
+  //       print("verificationId=>${verificationId}");
+  //       emit(OnSmsCodeSent(''));
+  //     },
+  //     codeAutoRetrievalTimeout: (String verificationId) {
+  //       print('kokokokokokok');
+  //       this.verificationId = verificationId;
+  //     },
+  //   );
+  // }
+
+  // verifySmsCode(String smsCode, BuildContext context) async {
+  //   print(smsCode);
+  //   print(verificationId);
+  //   PhoneAuthCredential credential = PhoneAuthProvider.credential(
+  //     verificationId: verificationId ?? '',
+  //     smsCode: smsCode,
+  //   );
+  //   await _mAuth.signInWithCredential(credential).then((value) {
+  //     print('LoginSuccess');
+  //     emit(CheckCodeSuccessfully());
+  //     // snackBar(value.additionalUserInfo!.username, context);
+  //     stopTimer();
+  //   }).catchError((error) {
+  //     toastMessage(
+  //         translateText(AppStrings.invalidCodeMessage, context), context);
+  //     print('phone auth =>${error.toString()}');
+  //   });
+  // }
+  sendCodeWhatsApp(String phoneNumber, BuildContext context) async {
+    emit(CheckCodeLoading2());
+    final response = await verifyWhatsAppUseCase(phoneNumber);
+    response.fold((l) => emit(CheckCodeError()), (r) {
+      if (r.code == 200) {
+        emit(CheckCodeLoaded());
+        Navigator.pushNamed(context, Routes.resetPasswordRoute);
+      } else {
+        Fluttertoast.showToast(msg: r.message ?? '');
+      }
+    });
+
+    ///CheckCodeSuccessfully
   }
 
-  verifySmsCode(String smsCode, BuildContext context) async {
-    print(smsCode);
-    print(verificationId);
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(
-      verificationId: verificationId!,
-      smsCode: smsCode,
-    );
-    await _mAuth.signInWithCredential(credential).then((value) {
-      print('LoginSuccess');
-      emit(CheckCodeSuccessfully());
-      // snackBar(value.additionalUserInfo!.username, context);
-      stopTimer();
-    }).catchError((error) {
-      toastMessage(
-          translateText(AppStrings.invalidCodeMessage, context), context);
-      print('phone auth =>${error.toString()}');
+  verifyWhatsAppCode(String smsCode, BuildContext context) async {
+    emit(Reset2PasswordLoading());
+    final response = await verifyWhatsAppcodeUseCase(smsCode);
+    response.fold((l) => emit(Reset2PasswordFailure()), (r) {
+      if (r.code == 200) {
+        emit(Reset2PasswordSuccessfully());
+        Navigator.pushNamed(context, Routes.newPasswordRoute);
+      } else {
+        r.message != null ? Fluttertoast.showToast(msg: r.message ?? '') : null;
+      }
     });
+    //
   }
 
   startTimer() {
@@ -326,31 +355,52 @@ class RegisterCubit extends Cubit<RegisterState> {
     });
   }
 
-  checkCode(String phone, context) async {
+  checkCode(context) async {
     emit(CheckCodeLoading());
-    final response = await checkCodeUseCase(phone);
-    response.fold((l) => emit(CheckCodeFailure()), (r) {
+    final response = await checkCodeUseCase(phoneController.text.length == 11
+        ? AppStrings.phoneCode + phoneController.text.substring(1)
+        : AppStrings.phoneCode + phoneController.text);
+    response.fold((l) {
+      emit(CheckCodeFailure());
+    }, (r) {
+      print('......................................');
+      print(r.checkCode);
+      print(r.code);
+      print(AppStrings.phoneCode + phoneController.text);
+      print('......................................');
       if (r.code == 200) {
-        phoneNumber = phone;
+        phoneNumber = phoneController.text.length == 11
+            ? AppStrings.phoneCode + phoneController.text.substring(1)
+            : AppStrings.phoneCode + phoneController.text;
         emit(CheckCodeSuccessfully());
         print('......................................');
         print(r.checkCode);
         print('......................................');
-        sendSmsCode(context);
+        ////
+        // sendSmsCode(context);
+        sendCodeWhatsApp(
+            phoneController.text.length == 11
+                ? phoneController.text.substring(1)
+                : phoneController.text,
+            context);
+
+        ///send whatsApp otp
+        ////
         Future.delayed(Duration(seconds: 2), () {
           emit(RegisterInitial());
         });
-        // snackBar(
-        //   'all done',
-        //   context,
-        // );
+
         // ResetPassword
         Navigator.pushNamed(context, Routes.resetPasswordRoute);
       } else if (r.code == 422) {
         emit(CheckCodeInvalidCode());
+        Fluttertoast.showToast(
+            msg: translateText(AppStrings.correctPhoneText, context));
         Future.delayed(Duration(seconds: 2), () {
           emit(RegisterInitial());
         });
+      } else {
+        emit(CheckCodeInvalidCode());
       }
     });
   }

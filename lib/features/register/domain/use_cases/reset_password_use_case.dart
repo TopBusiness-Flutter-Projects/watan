@@ -14,5 +14,4 @@ class ResetPasswordUseCase implements UseCase<StatusResponse, List<String>> {
   @override
   Future<Either<Failure, StatusResponse>> call(List<String> params) =>
       baseRegistrationRepositories.resetPassword(params);
-
 }
