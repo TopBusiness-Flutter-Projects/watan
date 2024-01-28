@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:elwatn/config/routes/app_routes.dart';
 import 'package:elwatn/core/utils/app_strings.dart';
-import 'package:elwatn/core/utils/snackbar_method.dart';
-import 'package:elwatn/core/utils/toast_message_method.dart';
 import 'package:elwatn/features/register/domain/use_cases/verifywhatsapp.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,11 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../core/error/failures.dart';
 import '../../../../core/utils/map_failure_message.dart';
 import '../../../../core/utils/translate_text_method.dart';
-import '../../../../core/widgets/show_loading_indicator.dart';
 import '../../../login/data/models/login_data_model.dart';
 import '../../../login/domain/entities/login_domain_model.dart';
 import '../../data/models/register_data_model.dart';

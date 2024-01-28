@@ -1,17 +1,12 @@
 import 'dart:async';
-
-import 'package:elwatn/core/utils/snackbar_method.dart';
 import 'package:elwatn/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
-import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/translate_text_method.dart';
-import '../../../../core/widgets/show_loading_indicator.dart';
 import '../cubit/register_cubit.dart';
 import '../widgets/header_title.dart';
 
