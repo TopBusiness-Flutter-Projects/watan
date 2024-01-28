@@ -8,7 +8,7 @@ class ShowLoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: MediaQuery.of(context).size.height/2-50),
+        SizedBox(height: MediaQuery.of(context).size.height / 2 - 50),
         Center(
           child: CircularProgressIndicator(
             color: AppColors.primary,

@@ -59,16 +59,6 @@ class _ResetPasswordState extends State<ResetPassword> {
       ),
       body: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
-          if (state is CheckCodeLoading) {
-            return const ShowLoadingIndicator();
-          }
-          if (state is CheckCodeSuccessfully) {
-            Navigator.pushReplacementNamed(
-              context,
-              Routes.newPasswordRoute,
-            );
-            return const ShowLoadingIndicator();
-          }
           return Column(
             children: [
               Expanded(
@@ -150,18 +140,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                         if (currentText.length != 6) {
                           errorController!.add(
                             ErrorAnimationType.shake,
-                          ); // Triggering error shake animation
+                          );
                           setState(() => hasError = true);
                         } else {
-                          setState(
-                            () {
-                              hasError = false;
-                              context
-                                  .read<RegisterCubit>()
-                                  .verifySmsCode(currentText, context);
-                              snackBar(currentText, context);
-                            },
-                          );
+                          hasError = false;
+                          context
+                              .read<RegisterCubit>()
+                              .verifyWhatsAppCode(currentText, context);
+                          // snackBar(currentText, context);
                         }
                       },
                     ),
@@ -176,7 +162,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                         return InkWell(
                           onTap: () {
                             context.read<RegisterCubit>().startTimer();
-                            context.read<RegisterCubit>().sendSmsCode(context);
+                            context.read<RegisterCubit>().sendCodeWhatsApp(
+                                '${context.read<RegisterCubit>().phoneController.text}',
+                                context);
                           },
                           child: Text(
                             time.isNotEmpty
@@ -200,7 +188,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 child: Image.asset(
                   ImageAssets.resetPasswordImage,
                   height: 180,
-                  width: 210,
+                  width: 200,
                   fit: BoxFit.fill,
                 ),
               )

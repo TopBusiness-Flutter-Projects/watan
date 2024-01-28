@@ -3,8 +3,6 @@ import 'package:elwatn/core/utils/snackbar_method.dart';
 import 'package:elwatn/core/utils/translate_text_method.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/widgets/custom_button.dart';
@@ -35,14 +33,14 @@ class ForgetPasswordScreen extends StatelessWidget {
       body: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
           if (state is CheckCodeInvalidCode) {
-            snackBar(
-              translateText(AppStrings.invalidPhoneMessage, context),
-              context,
-              color: AppColors.error,
-            );
+            // snackBar(
+            //   translateText(AppStrings.invalidPhoneMessage, context),
+            //   context,
+            //   color: AppColors.error,
+            // );
           }
           if (state is CheckCodeSuccessfully) {
-            snackBar("message", context);
+            snackBar(translateText("message", context), context);
           }
           if (state is SendCodeLoading || state is CheckCodeLoading) {
             return const ShowLoadingIndicator();
@@ -133,26 +131,12 @@ class ForgetPasswordScreen extends StatelessWidget {
                                               .read<RegisterCubit>()
                                               .phoneController
                                               .text;
-                              context.read<RegisterCubit>().checkCode(
-                                    context
-                                                .read<RegisterCubit>()
-                                                .phoneController
-                                                .text
-                                                .length ==
-                                            11
-                                        ? AppStrings.phoneCode +
-                                            context
-                                                .read<RegisterCubit>()
-                                                .phoneController
-                                                .text
-                                                .substring(1)
-                                        : AppStrings.phoneCode +
-                                            context
-                                                .read<RegisterCubit>()
-                                                .phoneController
-                                                .text,
-                                    context,
-                                  );
+                              context.read<RegisterCubit>().sendCodeWhatsApp(
+                                  context
+                                      .read<RegisterCubit>()
+                                      .phoneController
+                                      .text,
+                                  context);
                             }
                           }
                         },

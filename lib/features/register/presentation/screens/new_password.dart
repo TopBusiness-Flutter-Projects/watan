@@ -44,7 +44,6 @@ class NewPassword extends StatelessWidget {
             return const ShowLoadingIndicator();
           }
           if (state is ResetPasswordSuccessfully) {
-            print("succccccccccccc");
             Future.delayed(const Duration(seconds: 1), () {
               Navigator.pushReplacementNamed(
                 context,
@@ -111,9 +110,7 @@ class NewPassword extends StatelessWidget {
                               color: AppColors.error);
                         } else {
                           print('========00000=======');
-                          print(
-                            context.read<RegisterCubit>().phoneNumber,
-                          );
+                          print(context.read<RegisterCubit>().phoneNumber);
                           context
                               .read<RegisterCubit>()
                               .resetPassword(passwordController.text);

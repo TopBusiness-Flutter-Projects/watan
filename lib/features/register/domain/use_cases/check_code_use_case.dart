@@ -1,7 +1,5 @@
 import 'package:dartz/dartz.dart';
-
 import 'package:elwatn/core/error/failures.dart';
-
 import '../../../../core/models/response_message.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../repositories/base_registration_repositories.dart';
@@ -13,5 +11,5 @@ class CheckCodeUseCase implements UseCase<StatusResponse, String> {
 
   @override
   Future<Either<Failure, StatusResponse>> call(String params) =>
-      baseRegistrationRepositories.checkCode(params);
+      baseRegistrationRepositories.checkCode(code: params);
 }

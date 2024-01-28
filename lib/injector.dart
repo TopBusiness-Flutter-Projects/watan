@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:elwatn/features/home_page/domain/use_cases/get_add_and_popular_items_use_case.dart';
+import 'package:elwatn/features/register/domain/use_cases/verifywhatsapp.dart';
 import 'package:elwatn/features/show_more_posts/data/data_sources/show_more_data_source.dart';
 import 'package:elwatn/features/show_more_posts/data/repositories/show_more_data_repositories.dart';
 import 'package:elwatn/features/show_more_posts/domain/repositories/base_show_more_repositories.dart';
@@ -131,6 +132,7 @@ import 'features/register/domain/use_cases/reset_password_use_case.dart';
 import 'features/register/domain/use_cases/send_code_use_case.dart';
 import 'features/register/domain/use_cases/update_profile_use_case.dart';
 import 'features/register/domain/use_cases/update_store_profile_use_case.dart';
+import 'features/register/domain/use_cases/verifywhatsappcode.dart';
 import 'features/register/presentation/cubit/register_cubit.dart';
 import 'features/report_post/data/data_sources/report_data_source.dart';
 import 'features/report_post/data/repositories/report_repositories.dart';
@@ -186,6 +188,8 @@ Future<void> setup() async {
   );
   serviceLocator.registerFactory(
     () => RegisterCubit(
+      serviceLocator(),
+      serviceLocator(),
       serviceLocator(),
       serviceLocator(),
       serviceLocator(),
@@ -299,6 +303,10 @@ Future<void> setup() async {
       () => GetPaginationUseCase(baseShowMoreRepositories: serviceLocator()));
   serviceLocator.registerLazySingleton(
       () => PostLoginUseCase(baseLoginRepositories: serviceLocator()));
+  serviceLocator
+      .registerLazySingleton(() => VerifyWhatsAppUseCase(serviceLocator()));
+  serviceLocator
+      .registerLazySingleton(() => VerifyWhatsAppCodeUseCase(serviceLocator()));
   serviceLocator
       .registerLazySingleton(() => PostRegisterUserUseCase(serviceLocator()));
   serviceLocator.registerLazySingleton(

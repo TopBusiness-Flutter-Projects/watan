@@ -21,7 +21,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   pushNotificationService.initialise();
   await injector.setup();

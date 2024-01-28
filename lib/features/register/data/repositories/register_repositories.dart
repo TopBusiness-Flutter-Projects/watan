@@ -9,6 +9,8 @@ import '../../../../core/network/network_info.dart';
 import '../../domain/repositories/base_registration_repositories.dart';
 import '../data_sources/base_register_data_source.dart';
 import '../models/register_data_model.dart';
+import '../models/verifywhats.dart';
+import '../models/whatsmodel.dart';
 
 class RegisterRepositories implements BaseRegistrationRepositories {
   final BaseNetworkInfo networkInfo;
@@ -62,9 +64,10 @@ class RegisterRepositories implements BaseRegistrationRepositories {
   }
 
   @override
-  Future<Either<Failure, StatusResponse>> checkCode(String code) async {
+  Future<Either<Failure, StatusResponse>> checkCode(
+      {required String code}) async {
     try {
-      final response = await baseRegistrationDataSource.checkCode(code);
+      final response = await baseRegistrationDataSource.checkCode(code: code);
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());
@@ -77,6 +80,30 @@ class RegisterRepositories implements BaseRegistrationRepositories {
     try {
       final response =
           await baseRegistrationDataSource.resetPassword(passwords);
+      return Right(response);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, WhatsAppResponseModel>> whatsAppVerify(
+      {required String phoneNumber}) async {
+    try {
+      final response = await baseRegistrationDataSource.whatsAppVerify(
+          phoneNumber: phoneNumber);
+      return Right(response);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, WhatsAppResponseCodeModel>> verifyWhatsApp(
+      {required String code}) async {
+    try {
+      final response =
+          await baseRegistrationDataSource.verifyWhatsApp(code: code);
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());

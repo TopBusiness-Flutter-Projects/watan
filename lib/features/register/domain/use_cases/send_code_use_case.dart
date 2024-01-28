@@ -14,5 +14,4 @@ class SendCodeUseCase implements UseCase<StatusResponse, String> {
   @override
   Future<Either<Failure, StatusResponse>> call(String params) =>
       baseRegistrationRepositories.sendCodeToEmail(params);
-
 }

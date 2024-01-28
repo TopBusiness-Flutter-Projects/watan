@@ -1,14 +1,13 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
-
 import '../../../../core/api/base_api_consumer.dart';
 import '../../../../core/api/end_points.dart';
-
 import '../../../../core/models/response_message.dart';
 import '../../../login/data/models/login_data_model.dart';
 import '../../../login/domain/entities/login_domain_model.dart';
 import '../models/register_data_model.dart';
+import '../models/verifywhats.dart';
+import '../models/whatsmodel.dart';
 
 abstract class BaseRegistrationDataSource {
   Future<RegistrationDataModel> postRegisterData(RegistrationUserModel user);
@@ -19,9 +18,11 @@ abstract class BaseRegistrationDataSource {
 
   Future<StatusResponse> sendCodeToEmail(String email);
 
-  Future<StatusResponse> checkCode(String code);
+  Future<StatusResponse> checkCode({required String code});
+  Future<WhatsAppResponseModel> whatsAppVerify({required String phoneNumber});
 
   Future<StatusResponse> resetPassword(List<String> passwords);
+  Future<WhatsAppResponseCodeModel> verifyWhatsApp({required String code});
 }
 
 class RegistrationDataSource implements BaseRegistrationDataSource {
@@ -75,10 +76,10 @@ class RegistrationDataSource implements BaseRegistrationDataSource {
   }
 
   @override
-  Future<StatusResponse> checkCode(String code) async {
+  Future<StatusResponse> checkCode({required String code}) async {
     final response = await apiConsumer.post(
       EndPoints.checkCodeUrl,
-      body: {"phone": '${code}'},
+      body: {"phone": code},
     );
     return StatusResponse.checkCodeFromJson(response);
   }
@@ -98,5 +99,21 @@ class RegistrationDataSource implements BaseRegistrationDataSource {
       },
     );
     return StatusResponse.fromJson(response);
+  }
+
+  @override
+  Future<WhatsAppResponseModel> whatsAppVerify(
+      {required String phoneNumber}) async {
+    final response =
+        await apiConsumer.get("send-whatsapp-otp?phone=" + phoneNumber);
+    return WhatsAppResponseModel.fromJson(response);
+  }
+
+  @override
+  Future<WhatsAppResponseCodeModel> verifyWhatsApp(
+      {required String code}) async {
+    final response = await apiConsumer.get("verified-otp?otp=" + code);
+    print("verified-otp?otp=" + code);
+    return WhatsAppResponseCodeModel.fromJson(response);
   }
 }

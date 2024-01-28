@@ -14,7 +14,4 @@ class UpdateStoreProfileUseCase implements UseCase<LoginModel, String> {
   @override
   Future<Either<Failure, LoginModel>> call(String params) =>
       baseRegistrationRepositories.updateStoreProfile(params);
-
-
-
 }
